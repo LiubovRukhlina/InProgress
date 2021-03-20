@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class Asteroid extends PlaceBase{
 
+    /** Asteroid needs a name**/
+
+
     private int rockCover;
 
     private ArrayList<Settler> settlersOnAsteroid = new ArrayList<Settler>();
