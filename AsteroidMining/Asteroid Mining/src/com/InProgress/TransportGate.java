@@ -1,10 +1,18 @@
 package com.InProgress;
 
-public class TransportGate {
+public class TransportGate extends PlaceBase{
 
     public Boolean isActive;
 
     public Asteroid currentPosition;
+
+    public Asteroid getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(Asteroid currentPosition) {
+        this.currentPosition = currentPosition;
+    }
 
     public TransportGate()
     {
@@ -29,5 +37,10 @@ public class TransportGate {
     public void deactivateTransportGate()
     {
         isActive = Boolean.FALSE;
+    }
+
+    @Override
+    public void changeLocation(Asteroid dest, TravellerBase traveller) {
+
     }
 }

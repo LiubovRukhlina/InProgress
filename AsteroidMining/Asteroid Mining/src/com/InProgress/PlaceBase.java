@@ -4,19 +4,26 @@ import java.util.List;
 
 public abstract class PlaceBase {
 
-    public List<Asteroid> getNeighbors() {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+
+    public List<PlaceBase> getNeighbors() {
         return neighbors;
     }
 
-    private List<Asteroid> neighbors;
+    private List<PlaceBase> neighbors;
 
   /*  private List<Settler> whoIsOnMe() {
         return null;
     }*/
 
-    public abstract void changeLocation(Asteroid dest, TravellerBase traveller);
+    public abstract void changeLocation(PlaceBase dest, TravellerBase traveller);
 
-    private void setLocation() {
+    public void setLocation(TravellerBase traveller) {
 
     }
 

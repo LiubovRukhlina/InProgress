@@ -1,4 +1,4 @@
 package com.InProgress;
 
-public class Robot {
+public class Robot extends TravellerBase{
 }

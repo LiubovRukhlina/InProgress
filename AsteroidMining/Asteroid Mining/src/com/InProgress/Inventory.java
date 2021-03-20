@@ -1,11 +1,28 @@
 package com.InProgress;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
-    private ArrayList<ResourceBase> storedResources = new ArrayList<ResourceBase>();
+    private List<ResourceBase> storedResources;
 
-    private ArrayList<TransportGate> storedGates = new ArrayList<TransportGate>();
+    private List<TransportGate> storedGates;
+
+    public List<ResourceBase> getStoredResources() {
+        return storedResources;
+    }
+
+    public void setStoredResources(List<ResourceBase> storedResources) {
+        this.storedResources = storedResources;
+    }
+
+    public List<TransportGate> getStoredGates() {
+        return storedGates;
+    }
+
+    public void setStoredGates(List<TransportGate> storedGates) {
+        this.storedGates = storedGates;
+    }
 
     /**
      *Adds the Resource to the Settler's Inventory

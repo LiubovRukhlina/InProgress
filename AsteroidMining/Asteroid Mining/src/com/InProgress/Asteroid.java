@@ -10,11 +10,6 @@ public class Asteroid extends PlaceBase{
      * Asteroid needs a name in constructor
      * from Liuba**/
 
-    private String name;
-
-    public String getName() {
-        return name;
-    }
 
     private int rockCover;
 

@@ -39,12 +39,12 @@ public class Settler extends TravellerBase {
     }
 
     public void mine(Asteroid A){
-        if (A.isHollow == False){
+        if (!A.getHollow()){
             System.out.println("Only hollow Asteroid can be mined");
             return;
         }
 
-        if (this.ItsInventory.storedResources >= 10){
+        if (this.itsInventory.getStoredResources().size() >= 10){
             System.out.println("Inventory is full. storeResource before mining");
             return;
         }
@@ -78,10 +78,10 @@ public class Settler extends TravellerBase {
         String in = scan.next();
         scan.close();
         if (in.equals("yes")){
-            myRobot = new Robot();
+            Robot myRobot = new Robot();
             this.currentPosition.setLocation(myRobot);
-            this.itsInventory.removeResource(new ResourceBase()); //Implemented later?!
-            Asteroid A2 = myRobot.getCurrentPosition().getNeighbors()[0];
+            this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
+            Asteroid A2 = myRobot.getCurrentPosition().getNeighbors().get(0);
             myRobot.travel(A2);
             myRobot.mine(A2);
 
