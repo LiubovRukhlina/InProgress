@@ -8,6 +8,11 @@ public class Asteroid extends PlaceBase{
 
     /** Asteroid needs a name**/
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
 
     private int rockCover;
 

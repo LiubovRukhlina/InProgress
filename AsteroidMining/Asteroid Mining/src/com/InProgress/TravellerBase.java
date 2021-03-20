@@ -1,5 +1,7 @@
 package com.InProgress;
 
+import java.util.Scanner;
+
 public class TravellerBase {
 
     protected boolean isHidden = False;

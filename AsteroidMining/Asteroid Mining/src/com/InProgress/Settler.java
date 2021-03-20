@@ -42,7 +42,7 @@ public class Settler extends TravellerBase {
         }
 
         if (this.ItsInventory.storedResources >= 10){
-            System.out.println("Inventory is full. storeResource before mining);
+            System.out.println("Inventory is full. storeResource before mining");
             return;
         }
 
