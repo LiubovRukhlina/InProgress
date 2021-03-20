@@ -81,10 +81,11 @@ public class Settler extends TravellerBase {
             Robot myRobot = new Robot();
             this.currentPosition.setLocation(myRobot);
             this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
-            Asteroid A2 = myRobot.getCurrentPosition().getNeighbors().get(0);
-            myRobot.travel(A2);
-            myRobot.mine(A2);
-
+            PlaceBase A2 = myRobot.getCurrentPosition().getNeighbors().get(0);
+            if (A2 instanceof Asteroid) {
+                myRobot.travel((Asteroid) A2);
+                myRobot.drill((Asteroid)A2);
+            }
         }
     }
 
@@ -95,7 +96,7 @@ public class Settler extends TravellerBase {
         scan.close();
         if (in.equals("yes")){
 
-            this.itsInventory.removeResource(new ResourceBase());
+            this.itsInventory.removeResources(new ResourceBase("Carbon"));
             System.out.println("Space station is built. The game ends, Settlers won");
             Game.endGame();
 
@@ -108,7 +109,7 @@ public class Settler extends TravellerBase {
         String in = scan.next();
         scan.close();
         if (in.equals("yes")){
-            this.itsInventory.removeResource(new ResourceBase()); //Implemented later?!
+            this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
            this.itsInventory.addGates(new TransportGate(), new TransportGate());
 
             System.out.println("Two Gates were built and added.");
@@ -116,16 +117,16 @@ public class Settler extends TravellerBase {
     }
 
     public void deployTransportGate(Asteroid A){
-        TransportGate tg = this.itsInventory.storedGate[0];
-        tg.setLocation(A);
+        TransportGate tg = this.itsInventory.getStoredGates().get(0);
+        tg.setCurrentPosition(A);
         this.itsInventory.removeGate(tg);
         System.out.println("Is this the second gate?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
         scan.close();
         if (in.equals("yes")){
-            tg.activateTransportGates();
-            //how to activate my pair?
+            tg.activateTransportGate();
+            //@Sahej how to activate my pair?
             System.out.println("The Gates are activated");
         }
 
@@ -136,25 +137,31 @@ public class Settler extends TravellerBase {
         System.out.println("Are there enough resources?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        if (in.)
         scan.close();
+        if (in.equals("yes")){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public void storeResources(Asteroid A){
-        Resourcebase rb =  this.itsInventory.storedResources[0];
-        this.itsInventory.removeResource(rb);
+        ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
+        this.itsInventory.removeResources(rb);
         //asteroid needs a method for adding a reslurce to it - > setter
-        System.out.println("The Resource was stored on Asteroid %s", A.name);
+        System.out.println("The Resource was stored on Asteroid" + A.getName());
 
     }
 
-    public void pickUpResources(asteroid A){
+    public void pickUpResources(Asteroid A){
         System.out.println("Which resource is stored on the Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
         scan.close();
         //missing A.decreaseStoredResource(); -> getter
-        this.itsInventory.addResource(A.getStoredResourceOfAsteroid()[0]);
+        this.itsInventory.addResource(A.getStoredResourceOfAsteroid().get(0));
         System.out.println("The resource was picked up");
     }
 }

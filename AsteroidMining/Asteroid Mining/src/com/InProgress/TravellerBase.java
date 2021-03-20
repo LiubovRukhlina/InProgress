@@ -77,7 +77,7 @@ public class TravellerBase {
         }
         PlaceBase TG2 = TG.getNeighbors().get(0);
         if (TG2 instanceof TransportGate){
-
+            this.setCurrentPosition(((TransportGate) TG2).getCurrentPosition());
             this.currentPosition.changeLocation(TG2, this);
             String s1 = String.format("Settler %s travelled to Asteroid %s", this.name, TG.getCurrentPosition());
             System.out.println(s1);
@@ -102,6 +102,13 @@ public class TravellerBase {
         else{
             System.out.println("The remaining RockCover = " + depth);
 
+        }
+
+        if (depth == 0 && A.getRadioactive() && A.getAtPerihelion()){
+            ResourceBase rb = A.getResourceOfAsteroid().get(0);
+            if(rb instanceof Uranium){
+                ((Uranium) rb).explode(A);
+            }
         }
 
     }

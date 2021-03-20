@@ -97,6 +97,14 @@ public class Asteroid extends PlaceBase{
         return isHollow;
     }
 
+    public ArrayList<ResourceBase> getResourceOfAsteroid() {
+        return resourceOfAsteroid;
+    }
+
+    public void setResourceOfAsteroid(ArrayList<ResourceBase> resourceOfAsteroid) {
+        this.resourceOfAsteroid = resourceOfAsteroid;
+    }
+
     public void setHollow(Boolean hollow) {
         isHollow = hollow;
     }
@@ -135,6 +143,11 @@ public class Asteroid extends PlaceBase{
 
     public List<ResourceBase> getStoredResourceOfAsteroid() {
         return storedResourceOfAsteroid;
+    }
+
+    @Override
+    public void changeLocation(PlaceBase dest, TravellerBase traveller) {
+        settlersInAsteroid.remove(traveller);
     }
     /** @Yves
      * getter for both types of resources with 1 parameter (single resource)**/

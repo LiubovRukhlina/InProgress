@@ -39,8 +39,9 @@ public class TransportGate extends PlaceBase{
         isActive = Boolean.FALSE;
     }
 
-    @Override
-    public void changeLocation(Asteroid dest, TravellerBase traveller) {
 
+    @Override
+    public void changeLocation(PlaceBase dest, TravellerBase traveller) {
+        dest.changeLocation(this, traveller);
     }
 }
