@@ -151,7 +151,7 @@ public class Settler extends TravellerBase {
     public void storeResources(Asteroid A){
         ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
         this.itsInventory.removeResources(rb);
-        //asteroid needs a method for adding a reslurce to it - > setter
+        //asteroid needs a method for adding a resource to it - > setter
         System.out.println("The Resource was stored on Asteroid" + A.getName());
 
     }
@@ -161,7 +161,8 @@ public class Settler extends TravellerBase {
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
         scan.close();
-        //missing A.decreaseStoredResource(); -> getter
+        //missing A.decreaseStoredResource(); -> getter of the list similar to the way you do it with when you add it in the next line.
+        // but you should first add the resource to the inventory and then remove it from the asteroid.
         this.itsInventory.addResource(A.getStoredResourceOfAsteroid().get(0));
         System.out.println("The resource was picked up");
     }
