@@ -143,7 +143,7 @@ public class Settler extends TravellerBase {
     public void storeResources(Asteroid A){
         Resourcebase rb =  this.itsInventory.storedResources[0];
         this.itsInventory.removeResource(rb);
-        //asteroid needs a method for adding a reslurce to it - > setter
+        //asteroid needs a method for adding a resource to it - > setter
         System.out.println("The Resource was stored on Asteroid %s", A.name);
 
     }
@@ -154,7 +154,7 @@ public class Settler extends TravellerBase {
         String in = scan.next();
         scan.close();
         //missing A.decreaseStoredResource(); -> getter
-        this.itsInventory.addResource(A.getStoredResourceOfAsteroid()[0]);
+        this.itsInventory.addResource(A.getStoredResourceOfAsteroid().get(0));
         System.out.println("The resource was picked up");
     }
 }
