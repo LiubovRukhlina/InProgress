@@ -46,7 +46,7 @@ public class Settler extends TravellerBase {
             return;
         }
 
-//What is getResource??
+//What is getResource?? later
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
@@ -92,8 +92,9 @@ public class Settler extends TravellerBase {
         scan.close();
         if (in.equals("yes")){
             //  this.itsInventory.removeResource(); //Implemented later?!
-            //how to end the game
             System.out.println("Space station is built. The game ends, Settlers won");
+            Game.endGame();
+
         }
     }
 
@@ -127,14 +128,14 @@ public class Settler extends TravellerBase {
     }
 
     /** should there be 2 checks for the robot and space station? how?**/
-    public void checkResources(){
+    public boolean checkResources(){
 
     }
 
     public void storeResources(Asteroid A){
         Resourcebase rb =  this.itsInventory.storedResources[0];
         this.itsInventory.removeResource(rb);
-        //asteroid needs a method for adding a reslurce to it
+        //asteroid needs a method for adding a reslurce to it - > setter
         System.out.println("The Resource was stored on Asteroid %s", A.name);
 
     }
@@ -144,7 +145,7 @@ public class Settler extends TravellerBase {
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
         scan.close();
-        //missing A.decreaseStoredResource();
+        //missing A.decreaseStoredResource(); -> getter
         this.itsInventory.addResource(A.getStoredResourceOfAsteroid()[0]);
         System.out.println("The resource was picked up");
     }

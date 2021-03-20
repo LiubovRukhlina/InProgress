@@ -19,7 +19,7 @@ public class Game implements Serializable {
         gameState = GameState.PLAYING;
     }
 
-    void endGame() {
+    public static void endGame() {
 
     }
 

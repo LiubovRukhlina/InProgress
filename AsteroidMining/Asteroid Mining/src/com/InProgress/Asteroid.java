@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 public class Asteroid extends PlaceBase{
 
-    /** Asteroid needs a name**/
+    /** @Yves!
+     * Asteroid needs a name in constructor
+     * from Liuba**/
 
     private String name;
 
@@ -139,6 +141,8 @@ public class Asteroid extends PlaceBase{
     public List<ResourceBase> getStoredResourceOfAsteroid() {
         return storedResourceOfAsteroid;
     }
+    /** @Yves
+     * getter for both types of resources with 1 parameter (single resource)**/
 
 
 }

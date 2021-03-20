@@ -80,6 +80,10 @@ public class TravellerBase {
 
     public void die(){
         System.out.println("Settler %s is dead", this.name);
+        /** @Vlad
+         *  Game.active.
+         */
+
         //do we have to destroy the object or we will delete it from the list in Game only
     }
 
