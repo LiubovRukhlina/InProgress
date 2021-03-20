@@ -3,12 +3,11 @@ package com.InProgress;
 public class TransportGate extends PlaceBase{
 
     public Boolean isActive;
-
     public Asteroid currentPosition;
-
     public Asteroid getCurrentPosition() {
         return currentPosition;
     }
+
 
     public void setCurrentPosition(Asteroid currentPosition) {
         this.currentPosition = currentPosition;
@@ -20,6 +19,9 @@ public class TransportGate extends PlaceBase{
         //currentPosition = setLocation();
     }
 
+    public TransportGate(String name) {
+        this.setName(name);
+    }
 
     /**
      * Activates the Gate after both the gates have been
@@ -39,8 +41,9 @@ public class TransportGate extends PlaceBase{
         isActive = Boolean.FALSE;
     }
 
-    @Override
-    public void changeLocation(Asteroid dest, TravellerBase traveller) {
 
+    @Override
+    public void changeLocation(PlaceBase dest, TravellerBase traveller) {
+        dest.changeLocation(this, traveller);
     }
 }

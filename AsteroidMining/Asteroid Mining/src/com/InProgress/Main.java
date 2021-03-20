@@ -12,6 +12,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 	/*// write your code here
+
+	    // left it for tomorrow
+
         //String userInput = "1 travel A2";
         GameMain gameMain = new GameMain();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
