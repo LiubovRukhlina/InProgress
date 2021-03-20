@@ -73,6 +73,7 @@ public class Settler extends TravellerBase {
 
 
     public void buildRobot(){
+        System.out.println("buildRobot()");
         System.out.println("Are there enough resources available?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
