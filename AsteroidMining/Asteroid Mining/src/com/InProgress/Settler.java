@@ -1,12 +1,12 @@
 package com.InProgress;
 
 public class Settler extends TravellerBase {
-    private String name;
+    /*private String name;
 
     public Settler(String name) {
         this.name = name;
     }
-
+*/
     private int liveCounter = 1;
     private Inventory itsInventory = new Inventory();
 
@@ -14,13 +14,13 @@ public class Settler extends TravellerBase {
         return liveCounter;
     }
 
-    public String getName() {
+    /*public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     public void setLiveCounter(int liveCounter) {
         this.liveCounter = liveCounter;

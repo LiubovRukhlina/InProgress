@@ -4,22 +4,24 @@ import java.util.Scanner;
 
 public class TravellerBase {
 
+    private String name;
+
+
+
     protected boolean isHidden = False;
 
     protected Asteroid currentPosition;
 
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    private boolean alive = true;
-
     public boolean isHidden() {
         return isHidden;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setHidden(boolean hidden) {
@@ -93,7 +95,8 @@ public class TravellerBase {
         /** @Vlad
          *  Game.active.
          */
-        this.alive = false;
+
+        Game.active.remove(this);
         //do we have to destroy the object or we will delete it from the list in Game only
     }
 
