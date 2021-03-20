@@ -11,7 +11,7 @@ import java.util.Optional;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-	// write your code here
+	/*// write your code here
         //String userInput = "1 travel A2";
         GameMain gameMain = new GameMain();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -53,6 +53,6 @@ public class Main {
                 System.out.println("Settler" + gameMain.inputSettlerIndex + " is hidden in Asteroid " + gameMain.inputAsteroid);
             }
         }
+    }*/
     }
-
 }
