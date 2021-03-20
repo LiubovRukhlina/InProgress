@@ -250,12 +250,4 @@ public class Asteroid extends PlaceBase{
         return resourceOfAsteroid;
     }
 
-    /**
-     * Changes the current location of the TravellerBase object to the
-     * destination.
-     *
-     * @param dest Destination of the Traveller
-     * @param traveller TravellerBase object
-     */
-
 }
