@@ -8,6 +8,16 @@ public class TravellerBase {
 
     protected Asteroid currentPosition;
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    private boolean alive = true;
+
     public boolean isHidden() {
         return isHidden;
     }
@@ -83,7 +93,7 @@ public class TravellerBase {
         /** @Vlad
          *  Game.active.
          */
-
+        this.alive = false;
         //do we have to destroy the object or we will delete it from the list in Game only
     }
 

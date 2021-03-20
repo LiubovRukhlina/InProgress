@@ -7,7 +7,7 @@ public class Settler extends TravellerBase {
         this.name = name;
     }
 
-    private int liveCounter = 3;
+    private int liveCounter = 1;
     private Inventory itsInventory = new Inventory();
 
     public int getLiveCounter() {
@@ -77,7 +77,7 @@ public class Settler extends TravellerBase {
         if (in.equals("yes")){
             myRobot = new Robot();
             this.currentPosition.setLocation(myRobot);
-          //  this.itsInventory.removeResource(); //Implemented later?!
+            this.itsInventory.removeResource(new ResourceBase()); //Implemented later?!
             Asteroid A2 = myRobot.getCurrentPosition().getNeighbors()[0];
             myRobot.travel(A2);
             myRobot.mine(A2);
@@ -91,7 +91,8 @@ public class Settler extends TravellerBase {
         String in = scan.next();
         scan.close();
         if (in.equals("yes")){
-            //  this.itsInventory.removeResource(); //Implemented later?!
+
+            this.itsInventory.removeResource(new ResourceBase());
             System.out.println("Space station is built. The game ends, Settlers won");
             Game.endGame();
 
@@ -104,7 +105,7 @@ public class Settler extends TravellerBase {
         String in = scan.next();
         scan.close();
         if (in.equals("yes")){
-            //  this.itsInventory.removeResource(); //Implemented later?!
+            this.itsInventory.removeResource(new ResourceBase()); //Implemented later?!
            this.itsInventory.addGates(new TransportGate(), new TransportGate());
 
             System.out.println("Two Gates were built and added.");

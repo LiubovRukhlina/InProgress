@@ -6,8 +6,17 @@ import java.util.Locale;
 
 public class Game implements Serializable {
 
-    List<TravellerBase> active; //list of settlers and robots
-    List<Asteroid> asteroids; //list of all asteroids
+    public static List<TravellerBase> active; //list of settlers and robots
+
+    public static List<TravellerBase> getActive() {
+        return active;
+    }
+
+    public static List<Asteroid> getAsteroids() {
+        return asteroids;
+    }
+
+    public static List<Asteroid> asteroids; //list of all asteroids
     String inputAsteroid;
     String inputSettlerIndex;
     public static GameState gameState; // current game state
