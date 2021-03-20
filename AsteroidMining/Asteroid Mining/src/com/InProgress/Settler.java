@@ -1,5 +1,8 @@
 package com.InProgress;
 
+import javax.annotation.Resource;
+import java.util.Scanner;
+
 public class Settler extends TravellerBase {
     /*private String name;
 
@@ -58,8 +61,8 @@ public class Settler extends TravellerBase {
         }
         System.out.println("Which Resource is in the core?"); // Asks the user for his input.
 
-        String in = scan.next();
-        myResource = new ResourceBase(in);
+        in = scan.next();
+        ResourceBase myResource = new ResourceBase(in);
         scan.close();
 
         A.emptyAsteroid();
@@ -128,9 +131,13 @@ public class Settler extends TravellerBase {
 
     }
 
-    /** should there be 2 checks for the robot and space station? how?**/
-    public boolean checkResources(){
 
+    public boolean checkResources(){
+        System.out.println("Are there enough resources?"); // Asks the user for his input.
+        Scanner scan = new Scanner(System.in);
+        String in = scan.next();
+        if (in.)
+        scan.close();
     }
 
     public void storeResources(Asteroid A){

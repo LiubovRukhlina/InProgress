@@ -2,7 +2,7 @@ package com.InProgress;
 
 import java.util.List;
 
-public class PlaceBase {
+public abstract class PlaceBase {
 
     public List<Asteroid> getNeighbors() {
         return neighbors;
@@ -10,13 +10,11 @@ public class PlaceBase {
 
     private List<Asteroid> neighbors;
 
-    private List<Settler> whoIsOnMe() {
+  /*  private List<Settler> whoIsOnMe() {
         return null;
-    }
+    }*/
 
-    private void ChangeLocation(Asteroid dest) {
-
-    }
+    public abstract void changeLocation(Asteroid dest, TravellerBase traveller);
 
     private void setLocation() {
 

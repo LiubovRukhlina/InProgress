@@ -6,9 +6,9 @@ public class TravellerBase {
 
     private String name;
 
+    private boolean isAlive = true;
 
-
-    protected boolean isHidden = False;
+    protected boolean isHidden = false;
 
     protected Asteroid currentPosition;
 
@@ -20,6 +20,14 @@ public class TravellerBase {
         return name;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -28,7 +36,11 @@ public class TravellerBase {
         isHidden = hidden;
     }
 
-    public TravellerBase(Asteroid currentPosition) {
+    public TravellerBase() {
+    }
+
+    public TravellerBase(String name, Asteroid currentPosition) {
+        this.name = name;
         this.currentPosition = currentPosition;
     }
 
@@ -40,18 +52,18 @@ public class TravellerBase {
         this.currentPosition = currentPosition;
     }
 
-    public void travel(PlaceBase P) {
-        if (!P.getNeighbors().contains(this.currentPosition()))
+    public void travel(Asteroid A) {
+        if (!A.getNeighbors().contains(this.currentPosition))
         {
             System.out.println("You cannot travel to the non-neighboring Asteroid");
             return;
         }
-
-        this.currentPosition().changeLocation(P);
-        String s1 = String.format("Settler %s travelled to Asteroid %s", this.name, P.name);
+        this.setCurrentPosition(A);
+        this.currentPosition.changeLocation(A, this);
+        String s1 = String.format("Settler %s travelled to Asteroid %s", this.name, A.getName());
         System.out.println(s1);
 
-        this.hide(P);
+        this.hide(A);
 
 
     }
@@ -90,12 +102,11 @@ public class TravellerBase {
 
     }
 
+
+
     public void die(){
         System.out.println("Settler %s is dead", this.name);
-        /** @Vlad
-         *  Game.active.
-         */
-
+        this.alive = false;
         Game.active.remove(this);
         //do we have to destroy the object or we will delete it from the list in Game only
     }
