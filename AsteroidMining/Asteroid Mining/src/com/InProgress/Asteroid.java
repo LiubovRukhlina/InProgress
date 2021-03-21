@@ -126,7 +126,7 @@ public class Asteroid extends PlaceBase{
 
         System.out.println("changeLocation()");
 
-        traveller.setCurrentPosition(dest);
+        traveller.setCurrentPosition((Asteroid) dest);
 
     }
 
