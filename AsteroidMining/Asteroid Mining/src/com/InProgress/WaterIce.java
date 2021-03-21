@@ -3,10 +3,9 @@ import com.InProgress.Asteroid;
 
 public class WaterIce extends ResourceBase{ 
     /**
-     * A resource that disappears when the asteroid is at perihelion.
+     * Constructor of WaterIce class.
      * @param resourceType Name of the resource.
      */
-
     public WaterIce(String resourceType) {
         super(resourceType);
     }
@@ -20,6 +19,4 @@ public class WaterIce extends ResourceBase{
 
         A.getResourceOfAsteroid().remove(0); // Removes the resource form the asteroid
     }
-
-
 }

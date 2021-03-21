@@ -1,10 +1,12 @@
 package com.InProgress;
 
-public class Iron extends ResourceBase { 
+public class Iron extends ResourceBase {
+
     /**
-     * resource iron
+     * Constructor of Iron class
+     * @param resourceType Name of the Resource
      */
- public Iron(String resourceType) {
+    public Iron(String resourceType) {
         super(resourceType);
     }
 }
