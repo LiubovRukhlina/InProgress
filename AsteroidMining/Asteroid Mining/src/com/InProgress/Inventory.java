@@ -30,13 +30,13 @@ public class Inventory{
      */
     public void addResource(ResourceBase R)
     {
-        System.out.println("addResources");
-        if (storedResources.size() == 10)
+        System.out.println("addResources()");
+      /*  if (storedResources.size() == 10)
         {
             System.out.println("The inventory is full");
         }
         else
-           storedResources.add(R);
+           storedResources.add(R);*/
     }
 
     /**

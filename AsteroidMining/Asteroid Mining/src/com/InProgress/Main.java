@@ -3,67 +3,32 @@ package com.InProgress;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         Game game = new Game();
         game.startGame();
-
-        while (true) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String userInput;
-
-            userInput = reader.readLine();
-            game.parser(userInput);
-        }
-
-
-        //String userInput = "1 travel A2";
-       /* GameMain gameMain = new GameMain();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String userInput;
+        while (true) {
+            System.out.println();
+            System.out.println("travel");
+            System.out.println("drill");
+            System.out.println("mine");
+            System.out.println("storeResource");
+            System.out.println("pickUpResources");
+            System.out.println("buildRobot");
+            System.out.println("buildGate");
+            System.out.println("deployGate");
+            System.out.println("fastTravel");
+            System.out.println("buildSpaceStation");
+            System.out.println();
 
+            String userInput = reader.readLine();
+            game.parser(userInput);
 
-        while (true)
-        {
-            try {
-                userInput = reader.readLine();
-                if (userInput.equals("no"))
-                    break;
-                gameMain.parser(userInput);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Asteroid destAsteroid;
-            userInput = reader.readLine(); // is this a hollow asteroid?
-            for (Asteroid aster: gameMain.asteroids
-                 ) {
-                if (aster.getName().equals(gameMain.inputAsteroid) && aster.getHollow()){
-                    destAsteroid = aster;
-                    System.out.println("yes");
-                }
-
-                else if (aster.getName().equals(gameMain.inputAsteroid) && !aster.getHollow()){
-                    destAsteroid = aster;
-                    System.out.println("no");
-                }
-            }
-
-            userInput = reader.readLine(); // is there enough space?
-            if (destAsteroid.hasEnoughSpace()) {
-                System.out.println("yes");
-                System.out.println("Settler" + gameMain.inputSettlerIndex + " is hidden in Asteroid " + gameMain.inputAsteroid);
-            }
-        }*/
+        }
     }
 
 }

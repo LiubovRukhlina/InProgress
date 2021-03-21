@@ -61,7 +61,6 @@ public abstract class TravellerBase {
         System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        //scan.close();
         if (in.equals("yes")){
             this.hide(A);
         }
@@ -74,12 +73,12 @@ public abstract class TravellerBase {
     /*public void fastTravel(TransportGate TG) {
         System.out.println("Fast travel");
 
-       *//* if (TG.getNeighbors() == null)
+        if (TG.getNeighbors() == null)
         {
             System.out.println("Transport Gate doesn't have a pair");
             return;
         }
-        PlaceBase TG2 = TG.getNeighbors().get(0);*//*
+        PlaceBase TG2 = TG.getNeighbors().get(0);
         if (TG2 instanceof TransportGate){
             this.setCurrentPosition(((TransportGate) TG2).getCurrentPosition());
             this.currentPosition.changeLocation(TG2, this);
@@ -126,7 +125,6 @@ public abstract class TravellerBase {
             System.out.println("Is this Asteroid radioactive?");
             Scanner scan = new Scanner(System.in);
             String in = scan.next();
-            //scan.close();
             if (in.equals("yes")){
                 A.setResourceOfAsteroid(new Uranium("Uranium")); // creates a Uranium Resource on the Asteroid.
                 System.out.println("Is this Asteroid at perihelion?");
@@ -163,21 +161,14 @@ public abstract class TravellerBase {
      * @param A Asteroid that the Traveller is hiding on
      */
     public void hide(Asteroid A){
-        System.out.println("Hide");
-        System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
+        System.out.println("hide()");
+        System.out.println("Is there enough space available?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        //scan.close();
-        if (in.equals("yes")){
-            System.out.println("Is there enough space available?"); // Asks the user for his input.
-            //Scanner scan = new Scanner(System.in);
-            in = scan.next();
-            scan.close();
-            if (in.equals("yes")){
-                setHidden(true);
-                String s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
-                System.out.println(s1);
-            }
+        if (in.equals("yes")) {
+            setHidden(true);
+            String s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
+            System.out.println(s1);
         }
     }
 
