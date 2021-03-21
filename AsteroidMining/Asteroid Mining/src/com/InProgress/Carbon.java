@@ -1,7 +1,9 @@
 package com.InProgress;
 
-public class Carbon extends ResourceBase{
-    public Carbon(String resourceType) {
-        super(resourceType);
-    }
+public class Carbon implements ResourceBase
+{
+    /**
+     * resource carbon.
+     */
+
 }
