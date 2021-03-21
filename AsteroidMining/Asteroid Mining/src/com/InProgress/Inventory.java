@@ -60,8 +60,8 @@ public class Inventory{
     {
         System.out.println("addGates");
         if (storedGates.size() == 0) {
-            storedGates.add(new TransportGate(tg2));
-            storedGates.add(new TransportGate(tg1));
+            storedGates.add(tg1);
+            storedGates.add(tg2);
         }
         else
         {

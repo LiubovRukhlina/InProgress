@@ -1,10 +1,10 @@
 package com.InProgress;
 
-public class TransportGate extends PlaceBase{
+public class TransportGate{
 
     public Boolean isActive;
     public Asteroid currentPosition;
-    public TransportGate neighbor;
+    public TransportGate pair;
 
 
 
@@ -12,18 +12,26 @@ public class TransportGate extends PlaceBase{
         return currentPosition;
     }
 
-
     public void setCurrentPosition(Asteroid currentPosition) {
         this.currentPosition = currentPosition;
     }
 
-    public TransportGate(TransportGate tg2)
+    public TransportGate()
     {
         System.out.println("create");
-        this.neighbor = tg2;
         this.isActive = Boolean.FALSE;
         this.currentPosition = PlaceBase.setLocation();
         //make setLocation static
+    }
+
+    /**
+     * Assigns the Transport Gate with a pair
+     * which is necessary for activation
+     * @param tg2 the second Transport gate
+     */
+    public void makePair(TransportGate tg2)
+    {
+        this.pair= tg2;
     }
     /*
     public TransportGate(String name) {
@@ -39,7 +47,7 @@ public class TransportGate extends PlaceBase{
     {
         System.out.println("activateTransportGate");
         this.isActive = Boolean.TRUE;
-        this.neighbor.isActive = Boolean.TRUE;
+        this.pair.isActive = Boolean.TRUE;
     }
 
     /**
