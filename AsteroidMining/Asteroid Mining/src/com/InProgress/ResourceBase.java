@@ -20,17 +20,6 @@ public class ResourceBase {
     }
 
     /**
-     * @ash
-     * I don't think we need a setter for this.
-     * The resource type will never be changed form the outside.
-     * from Yves
-     */
-    public void setResourceType(String resourceType) {
-
-        this.resourceType = resourceType;
-    }
-
-    /**
      * Returns the name of the Resource type
      *
      * @return Name of the Resource type
