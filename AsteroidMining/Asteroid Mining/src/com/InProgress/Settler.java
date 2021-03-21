@@ -21,6 +21,11 @@ public class Settler extends TravellerBase {
         return liveCounter;
     }
 
+    public Settler(String name)
+    {
+        this.setName(name);
+    }
+
     /*public String getName() {
         return name;
     }

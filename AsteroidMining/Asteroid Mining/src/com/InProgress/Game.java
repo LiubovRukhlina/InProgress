@@ -1,47 +1,46 @@
 package com.InProgress;
 
 import java.io.*;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 public class Game implements Serializable {
+    public static ArrayList<TravellerBase> active; //list of settlers and robots
+    public static ArrayList<Asteroid> asteroids; //list of all asteroids
+   // public static GameState gameState; // current game state
 
-    public static List<TravellerBase> active; //list of settlers and robots
+    public Game(ArrayList<TravellerBase> active, ArrayList<Asteroid> asteroids) {
+        this.active = active;
+        this.asteroids = asteroids;
+    }
 
-    public static List<TravellerBase> getActive() {
+    public Game() {
+    }
+
+    public static ArrayList<TravellerBase> getActive() {
         return active;
     }
 
-    public static List<Asteroid> getAsteroids() {
+    public static ArrayList<Asteroid> getAsteroids() {
         return asteroids;
-    }
-
-    public static List<Asteroid> asteroids; //list of all asteroids
-    String inputAsteroid;
-    String inputSettlerIndex;
-    public static GameState gameState; // current game state
-
-
-    public Game(List<TravellerBase> active, List<Asteroid> asteroids) {
-        this.active = active;
-        this.asteroids = asteroids;
     }
 
     public void parser(String input) {
         String[] parsedInput = input.split(" ");
 
-        inputSettlerIndex = parsedInput[0];
         int settlerIndex = Integer.parseInt(parsedInput[0]);
-        TravellerBase currSettler = active.get(settlerIndex);
+        TravellerBase currSettler = active.get(settlerIndex - 1);
         Asteroid asteroid = null;
         TransportGate transportGate = null;
         String destinationName = parsedInput[2];
 
         for (Asteroid aster:asteroids
              ) {
-            if (asteroid.getName().equals(destinationName))
-                aster = asteroid;
+            if (aster.getName().equals(destinationName)) {
+                asteroid = aster;
+                break;
+            }
         }
 
         if (parsedInput.length >= 3) {  // there can be one word as an input
@@ -63,7 +62,7 @@ public class Game implements Serializable {
                     if (currSettler instanceof Settler)
                     ((Settler) currSettler).deployTransportGate(asteroid);
                 }; break;
-                case "fastTravel": currSettler.fastTravel(new TransportGate(destinationName));break;
+              //  case "fastTravel": currSettler.fastTravel(new TransportGate(destinationName));break;
                 case "buildRobot": {
                     if (currSettler instanceof Settler)
                         ((Settler) currSettler).buildRobot();
@@ -78,22 +77,63 @@ public class Game implements Serializable {
     }
 
     void startGame() {
-        // initialize everything
+        active = new ArrayList<TravellerBase>();
+        asteroids = new ArrayList<>();
 
-        gameState = GameState.PLAYING;
+        //add three settlers
+        for (int i = 1; i <= 3; i++) {
+            active.add(i-1, new Settler(String.valueOf(i)));
+        }
+
+        setAsteroidField();
+
+        for (TravellerBase settler:active
+             ) {
+            settler.setCurrentPosition(asteroids.get(0));
+        }
+
+
+
+
+        /*for (int i = 0; i < 30; i++) {
+
+            if (i < 15) {
+                Predicate<Asteroid> byName = asteroid -> Integer.parseInt(((asteroid.getName()).substring(1))) <= 15;
+                List<Asteroid> neighbors = asteroids.stream().filter(byName).collect(Collectors.toList());
+                neighbors.remove(asteroids.get(i));
+
+                asteroids.get(i).setNeighbors((ArrayList<Asteroid>)neighbors);
+            }
+
+            if (i > 10 && i < 20) {
+                Predicate<Asteroid> byName = asteroid -> Integer.parseInt(((asteroid.getName()).substring(1))) <= 20
+                        && Integer.parseInt(((asteroid.getName()).substring(1))) >= 11;
+                List<Asteroid> neighbors = asteroids.stream().filter(byName).collect(Collectors.toList());
+                neighbors.remove(asteroids.get(i));
+
+                asteroids.get(i).setNeighbors((ArrayList<Asteroid>)neighbors);
+            }
+
+            if (i > 15 && i < 30) {
+
+            }
+
+        }*/
+
+        //gameState = GameState.PLAYING;
     }
 
     public static void endGame() {
 
     }
 
-    private boolean isGameOver() {
+    /*private boolean isGameOver() {
         if (gameState == GameState.PLAYING) {
             return false;
         }
         startGame();
         return true;
-    }
+    }*/
 
 
 /*    private void isWinner() {
@@ -109,10 +149,20 @@ public class Game implements Serializable {
 
 
     void setAsteroidField() {
+        System.out.println("setAsteroidField()");
+        for (int i = 1; i <= 5; i++) {
+            asteroids.add(i-1, new Asteroid("A" + String.valueOf(i), i*2, false));
+        }
 
+        //sets the neighbors
+        asteroids.get(0).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1))));
+        asteroids.get(1).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(0),asteroids.get(2))));
+        asteroids.get(2).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1),asteroids.get(3))));
+        asteroids.get(3).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1),asteroids.get(2))));
+        asteroids.get(4).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(3))));
     }
 
-    // save current flow of game
+    /*// save current flow of game
     private void serializeGame(Game game, String path) {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File(path)));
@@ -123,6 +173,6 @@ public class Game implements Serializable {
         catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }

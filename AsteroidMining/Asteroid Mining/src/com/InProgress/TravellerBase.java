@@ -2,7 +2,7 @@ package com.InProgress;
 
 import java.util.Scanner;
 
-public class TravellerBase {
+public abstract class TravellerBase {
 
     private String name;
     private boolean isAlive = true;
@@ -56,7 +56,7 @@ public class TravellerBase {
         }
         this.setCurrentPosition(A);
         this.currentPosition.changeLocation(A, this);
-        String s1 = String.format("Settler %s travelled to Asteroid %s", this.name, A.getName());
+        String s1 = String.format("Settler%s travelled to Asteroid %s", this.name, A.getName());
         System.out.println(s1);
         System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -74,23 +74,21 @@ public class TravellerBase {
             }
         }
         this.hide(A);
-
-
     }
 
     /**
      * This method is used for travel by using a transport gate.
      * @param TG TransportGate that the Traveller is travelling through
      */
-    public void fastTravel(TransportGate TG) {
+    /*public void fastTravel(TransportGate TG) {
         System.out.println("Fast travel");
 
-        if (TG.getNeighbors() == null)
+       *//* if (TG.getNeighbors() == null)
         {
             System.out.println("Transport Gate doesn't have a pair");
             return;
         }
-        PlaceBase TG2 = TG.getNeighbors().get(0);
+        PlaceBase TG2 = TG.getNeighbors().get(0);*//*
         if (TG2 instanceof TransportGate){
             this.setCurrentPosition(((TransportGate) TG2).getCurrentPosition());
             this.currentPosition.changeLocation(TG2, this);
@@ -100,7 +98,7 @@ public class TravellerBase {
             this.hide(TG.getCurrentPosition());
         }
 
-    }
+    }*/
 
     /**
      * This method is used to drill into an Asteroid.

@@ -1,11 +1,12 @@
 package com.InProgress;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PlaceBase {
 
     private String name;
-    private List<PlaceBase> neighbors;
+   // public ArrayList<PlaceBase> neighbors; //I don't think we need it here -> it should be in Asteroid class
 
     public String getName() {
         return name;
@@ -15,11 +16,15 @@ public abstract class PlaceBase {
         this.name = name;
     }
 
-    public List<PlaceBase> getNeighbors() {
+   /* public ArrayList<PlaceBase> getNeighbors() {
         return neighbors;
     }
 
-  /*  private List<Settler> whoIsOnMe() {
+    public void setNeighbors(ArrayList<PlaceBase> neighbors) {
+        this.neighbors = neighbors;
+    }*/
+
+    /*  private List<Settler> whoIsOnMe() {
         return null;
     }*/
 
