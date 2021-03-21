@@ -46,8 +46,8 @@ public class Inventory{
      */
     public void removeResources(ResourceBase R)
     {
-        System.out.println("removeResources");
-        storedResources.remove(R);
+        System.out.println("removeResources()");
+        //storedResources.remove(R); // we do not remove a real resource for now
     }
 
     /**

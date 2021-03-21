@@ -52,7 +52,7 @@ public class Settler extends TravellerBase {
      * @param A Asteroid that is mined.
      */
     public void mine(Asteroid A){
-        System.out.println("Mine");
+        /*System.out.println("Mine");
         if (!A.getHollow()){
             System.out.println("Only hollow Asteroid can be mined");
             return;
@@ -61,7 +61,7 @@ public class Settler extends TravellerBase {
         if (this.itsInventory.getStoredResources().size() >= 10){
             System.out.println("Inventory is full. storeResource before mining");
             return;
-        }
+        }*/
 
         //What is getResource?? later
         System.out.println("Is the core empty?"); // Asks the user for his input.
@@ -78,7 +78,7 @@ public class Settler extends TravellerBase {
 
             in = scan.next();
             ResourceBase myResource = new ResourceBase(in);
-            scan.close();
+            //scan.close();
 
             A.emptyAsteroid();
             this.itsInventory.addResource(myResource);
@@ -190,10 +190,11 @@ public class Settler extends TravellerBase {
      * @param A Asteroid that the resource is stored on
      */
     public void storeResources(Asteroid A){
-        System.out.println("Store Resources");
-        ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
-        this.itsInventory.removeResources(rb);
-        //asteroid needs a method for adding a resource to it - > setter
+        System.out.println("storeResources()");
+        //ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
+        Carbon mockUpResource = new Carbon("Carbon"); // mockUpResource for the Skeleton
+        A.setStoredResourceOfAsteroid(mockUpResource); // setter call
+        this.itsInventory.removeResources(mockUpResource);
         System.out.println("The Resource was stored on Asteroid" + A.getName());
 
     }
@@ -203,7 +204,7 @@ public class Settler extends TravellerBase {
      * @param A Asteroid from which Settler picks up the resource
      */
     public void pickUpResources(Asteroid A){
-        System.out.println("Pick up resources");
+        System.out.println("pickUpResources()");
         System.out.println("Which resource is stored on the Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();

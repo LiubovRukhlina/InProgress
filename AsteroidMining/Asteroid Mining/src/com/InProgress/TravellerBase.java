@@ -96,8 +96,8 @@ public abstract class TravellerBase {
      * @param A Asteroid that is being drilled
      */
     public void drill(Asteroid A){
-        System.out.println("Drill");
-        int depth = A.getDepth();
+        System.out.println("drill()");
+        /*int depth = A.getDepth();
         if (depth < 1){
             System.out.println("The Asteroid is completely drilled through");
             return;
@@ -118,7 +118,30 @@ public abstract class TravellerBase {
             if(rb instanceof Uranium){
                 ((Uranium) rb).explode(A);
             }
+        }*/
+        int depth = A.getDepth();
+
+        if(depth == 1){
+            System.out.println("rockCover = 1 the asteroid might explode.");
+            System.out.println("Is this Asteroid radioactive?");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.next();
+            //scan.close();
+            if (in.equals("yes")){
+                A.setResourceOfAsteroid(new Uranium("Uranium")); // creates a Uranium Resource on the Asteroid.
+                System.out.println("Is this Asteroid at perihelion?");
+                in = scan.next();
+                if( in.equals(("yes"))){
+                   Uranium mockUp = (Uranium) A.getResourceOfAsteroid().get(0);
+                   mockUp.explode(A);
+                }
+
+            }
+        } else {
+            A.decreaseRockCover();
         }
+
+
 
     }
 

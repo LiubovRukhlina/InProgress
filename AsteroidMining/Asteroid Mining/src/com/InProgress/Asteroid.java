@@ -49,6 +49,11 @@ public class Asteroid extends PlaceBase{
     private List<Robot> robotsOnAsteroid;
     private List<Settler> settlersInAsteroid;
     private List<Robot> robotsInAsteroid;
+
+    public void setResourceOfAsteroid(ResourceBase rb) {
+        this.resourceOfAsteroid.add(rb);
+    }
+
     private List<ResourceBase> resourceOfAsteroid;
     private List<ResourceBase> storedResourceOfAsteroid;
     private Boolean isAtPerihelion;
@@ -91,6 +96,7 @@ public class Asteroid extends PlaceBase{
 
         System.out.println("decreaseRockCover()");
         this.rockCover--;
+        System.out.println("The remaining rockCover = " + this.rockCover);
     }
 
 
@@ -138,6 +144,12 @@ public class Asteroid extends PlaceBase{
 
         traveller.setCurrentPosition((Asteroid) dest);
 
+    }
+
+    public void decreaseStoredResource(int index){
+        System.out.println("decreaseStoredResource()");
+
+        //storedResourceOfAsteroid.remove(index); // we do not remove a real resource right now
     }
 
     // Getters and setters
