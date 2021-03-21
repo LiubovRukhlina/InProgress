@@ -1,5 +1,6 @@
 package com.InProgress;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +42,7 @@ public class Asteroid extends PlaceBase{
 
     }
 
+    public ArrayList<Asteroid> neighbors;
     private String name;
     private int rockCover;
     private List<Settler> settlersOnAsteroid;
@@ -53,6 +55,14 @@ public class Asteroid extends PlaceBase{
     private Boolean isHollow;
     private Boolean isRadioactive;
     private Boolean hasGate;
+
+    public ArrayList<Asteroid> getNeighbors() {
+        return neighbors;
+    }
+
+    public void setNeighbors(ArrayList<Asteroid> neighbors) {
+        this.neighbors = neighbors;
+    }
 
     /**
      * Gets the remaining rockCover of this Asteroid.
@@ -129,7 +139,6 @@ public class Asteroid extends PlaceBase{
         traveller.setCurrentPosition((Asteroid) dest);
 
     }
-
 
     // Getters and setters
     public String getName() { return name; }

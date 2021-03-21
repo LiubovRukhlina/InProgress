@@ -11,12 +11,20 @@ import java.util.Optional;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-	/*// write your code here
+        Game game = new Game();
+        game.startGame();
 
-	    // left it for tomorrow
+        while (true) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String userInput;
+
+            userInput = reader.readLine();
+            game.parser(userInput);
+        }
+
 
         //String userInput = "1 travel A2";
-        GameMain gameMain = new GameMain();
+       /* GameMain gameMain = new GameMain();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String userInput;
@@ -55,7 +63,7 @@ public class Main {
                 System.out.println("yes");
                 System.out.println("Settler" + gameMain.inputSettlerIndex + " is hidden in Asteroid " + gameMain.inputAsteroid);
             }
-        }
-    }*/
+        }*/
     }
+
 }

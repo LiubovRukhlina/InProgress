@@ -7,7 +7,6 @@ public class TransportGate{
     public TransportGate pair;
 
 
-
     public Asteroid getCurrentPosition() {
         return currentPosition;
     }
@@ -20,7 +19,7 @@ public class TransportGate{
     {
         System.out.println("create");
         this.isActive = Boolean.FALSE;
-        this.currentPosition = PlaceBase.setLocation();
+       // this.currentPosition = PlaceBase.setLocation();
         //make setLocation static
     }
 
@@ -61,9 +60,9 @@ public class TransportGate{
     }
 
 
-    @Override
+    /*@Override
     public void changeLocation(PlaceBase dest, TravellerBase traveller)
     {
         dest.changeLocation(this, traveller);
-    }
+    }*/
 }
