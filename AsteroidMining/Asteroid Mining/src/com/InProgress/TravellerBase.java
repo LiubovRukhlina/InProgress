@@ -63,17 +63,8 @@ public abstract class TravellerBase {
         String in = scan.next();
         //scan.close();
         if (in.equals("yes")){
-            System.out.println("Is there enough space available?"); // Asks the user for his input.
-            //Scanner scan = new Scanner(System.in);
-            in = scan.next();
-            scan.close();
-            if (in.equals("yes")){
-                setHidden(true);
-                s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
-                System.out.println(s1);
-            }
+            this.hide(A);
         }
-        this.hide(A);
     }
 
     /**
