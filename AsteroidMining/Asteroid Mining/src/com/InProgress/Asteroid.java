@@ -21,26 +21,12 @@ public class Asteroid extends PlaceBase{
         this.isHollow = false; // initialized as false. Must be changed when resource is assigned.
         this.isRadioactive = false; // initialized as false. Must be changed when resource is assigned.
         this.hasGate = false; // initialized as false.
+        this.resourceOfAsteroid = new ArrayList<>();
     }
 
     /**
      * Default constructor for mock-up asteroids in the skeleton.
      */
-    public Asteroid() {
-        this.name = "TODO";
-        /**
-         * @all
-         * Not sure how to handle the name attribute.
-         * from Yves
-         */
-
-        this.rockCover = 0;
-        this.isAtPerihelion = false;
-        this.isHollow = false;
-        this.isRadioactive = false;
-        this.hasGate = false;
-
-    }
 
     public ArrayList<Asteroid> neighbors;
     private String name;
@@ -81,11 +67,7 @@ public class Asteroid extends PlaceBase{
         System.out.println("How thick is the mantle? Enter number between 1 and 5."); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         int in = scan.nextInt();
-
         setRockCover(in); // Sets the rockCover of this Asteroid to the user input.
-
-        scan.close();
-
         return this.rockCover;
     }
 
@@ -125,7 +107,7 @@ public class Asteroid extends PlaceBase{
 
         System.out.println("emptyAsteroid()");
 
-        this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
+        //this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
 
         this.setHollow(true); // This Asteroid is hollow.
         this.setRadioactive(false); // A hollow Asteroid cannot be radioactive.

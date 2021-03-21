@@ -21,16 +21,16 @@ public class Uranium extends ResourceBase{
      * @param A Asteroid in which the Uranium is
      */
     public void explode(Asteroid A){
-
-
-        for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
+       /* for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
             A.getSettlersOnAsteroid().get(i).die(); // All settler on the Asteroid die.
         }
 
         for(int i = 0; i < A.getRobotsOnAsteroid().size(); i++) {
 
             A.getRobotsOnAsteroid().get(i).travel((Asteroid) A.getNeighbors().get(0)); // All robots on the Asteroid move to a neighbor.
-        }
+        }*/
+
+        System.out.println("explode()");
     }
 
 }

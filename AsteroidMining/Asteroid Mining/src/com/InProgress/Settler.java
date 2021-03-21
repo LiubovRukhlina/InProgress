@@ -54,20 +54,18 @@ public class Settler extends TravellerBase {
     public void mine(Asteroid A){
         /*System.out.println("Mine");
         if (!A.getHollow()){
-            System.out.println("Only hollow Asteroid can be mined");
-            return;
-        }
-
-        if (this.itsInventory.getStoredResources().size() >= 10){
-            System.out.println("Inventory is full. storeResource before mining");
-            return;
-        }*/
-
-        //What is getResource?? later
+    System.out.println("Only hollow Asteroid can be mined");
+    return;
+}
+if (this.itsInventory.getStoredResources().size() >= 10){
+    System.out.println("Inventory is full. storeResource before mining");
+    return;
+}*/
+         //What is getResource?? later
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        //scan.close();
+//scan.close();
         if (in.equals("yes")){
             System.out.println("Nothing to mine"); // Asks the user for his input.
             //Scanner scan = new Scanner(System.in);
@@ -75,17 +73,13 @@ public class Settler extends TravellerBase {
         }
         if (in.equals("no")){
             System.out.println("Which Resource is in the core?"); // Asks the user for his input.
-
             in = scan.next();
             ResourceBase myResource = new ResourceBase(in);
             //scan.close();
-
             A.emptyAsteroid();
             this.itsInventory.addResource(myResource);
             System.out.println(this.getName() + " mined "+ in);
         }
-
-
     }
 
 
@@ -178,10 +172,9 @@ public class Settler extends TravellerBase {
         if (in.equals("yes")){
             return true;
         }
-        else{
+        else {
             return false;
         }
-
     }
 
     /**
