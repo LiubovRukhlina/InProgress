@@ -33,4 +33,4 @@ public class Uranium extends ResourceBase{
         }
     }
 
-    }
+}
