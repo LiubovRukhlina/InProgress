@@ -125,8 +125,15 @@ public class Settler extends TravellerBase {
         System.out.println("Build Transport gate");
 
         if (checkResources()){
-            this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
-           this.itsInventory.addGates(new TransportGate(), new TransportGate());
+            this.itsInventory.removeResources(new ResourceBase("Carbon"));//Implemented later?!
+            //@Sahej made changes
+            TransportGate tg1 = new TransportGate();
+            TransportGate tg2 = new TransportGate();
+            //Pair the gates together
+            tg1.makePair(tg2);
+            tg2.makePair(tg1);
+
+            this.itsInventory.addGates(tg1,tg2);
 
             System.out.println("Two Gates were built and added.");
         }
