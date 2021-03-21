@@ -4,6 +4,7 @@ public class TransportGate extends PlaceBase{
 
     public Boolean isActive;
     public Asteroid currentPosition;
+    public TransportGate neighbor;
     public Asteroid getCurrentPosition() {
         return currentPosition;
     }
@@ -13,23 +14,29 @@ public class TransportGate extends PlaceBase{
         this.currentPosition = currentPosition;
     }
 
-    public TransportGate()
+    public TransportGate(TransportGate tg2)
     {
-        isActive = Boolean.FALSE;
-        //currentPosition = setLocation();
+        System.out.println("create");
+        this.neighbor = tg2;
+        this.isActive = Boolean.FALSE;
+        this.currentPosition = PlaceBase.setLocation();
+        //make setLocation static
     }
-
+    /*
     public TransportGate(String name) {
         this.setName(name);
+        @Vlad did you add this?
     }
-
+    */
     /**
      * Activates the Gate after both the gates have been
      * deployed
      */
     public void activateTransportGate()
     {
-        isActive = Boolean.TRUE;
+        System.out.println("activateTransportGate");
+        this.isActive = Boolean.TRUE;
+        this.neighbor.isActive = Boolean.TRUE;
     }
 
     /**
@@ -38,12 +45,14 @@ public class TransportGate extends PlaceBase{
      */
     public void deactivateTransportGate()
     {
-        isActive = Boolean.FALSE;
+        System.out.println("deactivateTransportGate");
+        this.isActive = Boolean.FALSE;
     }
 
 
     @Override
-    public void changeLocation(PlaceBase dest, TravellerBase traveller) {
+    public void changeLocation(PlaceBase dest, TravellerBase traveller)
+    {
         dest.changeLocation(this, traveller);
     }
 }

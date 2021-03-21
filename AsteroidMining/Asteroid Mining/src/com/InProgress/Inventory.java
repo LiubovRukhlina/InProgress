@@ -1,9 +1,9 @@
 package com.InProgress;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+
+public class Inventory{
     private List<ResourceBase> storedResources;
 
     private List<TransportGate> storedGates;
@@ -30,12 +30,13 @@ public class Inventory {
      */
     public void addResource(ResourceBase R)
     {
+        System.out.println("addResources");
         if (storedResources.size() == 10)
         {
             System.out.println("The inventory is full");
         }
         else
-            storedResources.add(R);
+           storedResources.add(R);
     }
 
     /**
@@ -45,6 +46,7 @@ public class Inventory {
      */
     public void removeResources(ResourceBase R)
     {
+        System.out.println("removeResources");
         storedResources.remove(R);
     }
 
@@ -56,9 +58,10 @@ public class Inventory {
      */
     public void addGates(TransportGate tg1, TransportGate tg2)
     {
+        System.out.println("addGates");
         if (storedGates.size() == 0) {
-            storedGates.add(tg1);
-            storedGates.add(tg2);
+            storedGates.add(new TransportGate(tg2));
+            storedGates.add(new TransportGate(tg1));
         }
         else
         {
@@ -73,6 +76,7 @@ public class Inventory {
      */
     public void removeGate(TransportGate tg)
     {
+        System.out.println("removeGate");
         storedGates.remove(tg);
     }
 }
