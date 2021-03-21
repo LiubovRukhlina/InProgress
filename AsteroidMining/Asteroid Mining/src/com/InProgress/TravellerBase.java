@@ -5,33 +5,24 @@ import java.util.Scanner;
 public class TravellerBase {
 
     private String name;
-
     private boolean isAlive = true;
-
     protected boolean isHidden = false;
-
     protected Asteroid currentPosition;
-
     public boolean isHidden() {
         return isHidden;
     }
-
     public String getName() {
         return name;
     }
-
     public boolean isAlive() {
         return isAlive;
     }
-
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public void setHidden(boolean hidden) {
         isHidden = hidden;
     }
