@@ -13,6 +13,10 @@ public class Settler extends TravellerBase {
     private int liveCounter = 1;
     private Inventory itsInventory = new Inventory();
 
+    /**
+     *Gets the value of the liveCounter of the Settler
+     * @return remaining number of lives
+     */
     public int getLiveCounter() {
         return liveCounter;
     }
@@ -38,7 +42,12 @@ public class Settler extends TravellerBase {
         this.itsInventory = itsInventory;
     }
 
+    /**
+     *This method mines the resource of the Asteroid the Settler is currently on.
+     * @param A Asteroid that is mined.
+     */
     public void mine(Asteroid A){
+        System.out.println("Mine");
         if (!A.getHollow()){
             System.out.println("Only hollow Asteroid can be mined");
             return;
@@ -49,7 +58,7 @@ public class Settler extends TravellerBase {
             return;
         }
 
-//What is getResource?? later
+        //What is getResource?? later
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
@@ -59,26 +68,29 @@ public class Settler extends TravellerBase {
             //Scanner scan = new Scanner(System.in);
             return;
         }
-        System.out.println("Which Resource is in the core?"); // Asks the user for his input.
+        if (in.equals("no")){
+            System.out.println("Which Resource is in the core?"); // Asks the user for his input.
 
-        in = scan.next();
-        ResourceBase myResource = new ResourceBase(in);
-        scan.close();
+            in = scan.next();
+            ResourceBase myResource = new ResourceBase(in);
+            scan.close();
 
-        A.emptyAsteroid();
-        this.itsInventory.addResource(myResource);
+            A.emptyAsteroid();
+            this.itsInventory.addResource(myResource);
+            System.out.println(this.getName() + " mined "+ in);
+        }
+
 
     }
 
 
-
+    /**
+     * This method is used to build a robot.
+     */
     public void buildRobot(){
         System.out.println("buildRobot()");
-        System.out.println("Are there enough resources available?"); // Asks the user for his input.
-        Scanner scan = new Scanner(System.in);
-        String in = scan.next();
-        scan.close();
-        if (in.equals("yes")){
+
+        if (checkResources()){
             Robot myRobot = new Robot();
             this.currentPosition.setLocation(myRobot);
             this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
@@ -90,12 +102,14 @@ public class Settler extends TravellerBase {
         }
     }
 
+    /**
+     * This method is used when the settler wants to build a SpaceStation.
+     * @param A Asteroid on which the SpaceStation is built.
+     */
     public void buildSpaceStation(Asteroid A){
-        System.out.println("Are there enough resources available?"); // Asks the user for his input.
-        Scanner scan = new Scanner(System.in);
-        String in = scan.next();
-        scan.close();
-        if (in.equals("yes")){
+        System.out.println("Build Space Station");
+
+        if (checkResources()){
 
             this.itsInventory.removeResources(new ResourceBase("Carbon"));
             System.out.println("Space station is built. The game ends, Settlers won");
@@ -104,12 +118,13 @@ public class Settler extends TravellerBase {
         }
     }
 
+    /**
+     * This method is used to build a transportation-gate and store it in the settler’s inventory.
+     */
     public void buildTransportGate(){
-        System.out.println("Are there enough resources available?"); // Asks the user for his input.
-        Scanner scan = new Scanner(System.in);
-        String in = scan.next();
-        scan.close();
-        if (in.equals("yes")){
+        System.out.println("Build Transport gate");
+
+        if (checkResources()){
             this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
            this.itsInventory.addGates(new TransportGate(), new TransportGate());
 
@@ -117,7 +132,12 @@ public class Settler extends TravellerBase {
         }
     }
 
+    /**
+     * This method deploys a transport gate on the asteroid the settler is currently on.
+     * @param A Asteroid that the TransportGate is deployed on
+     */
     public void deployTransportGate(Asteroid A){
+        System.out.println("Deploy Transport Gate");
         TransportGate tg = this.itsInventory.getStoredGates().get(0);
         tg.setCurrentPosition(A);
         this.itsInventory.removeGate(tg);
@@ -133,8 +153,12 @@ public class Settler extends TravellerBase {
 
     }
 
-
+    /**
+     * This method checks whether the settler has enough resources.
+     * @return true if Settler has enough resources, and false otherwise.
+     */
     public boolean checkResources(){
+        System.out.println("Check resources");
         System.out.println("Are there enough resources?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
@@ -148,7 +172,13 @@ public class Settler extends TravellerBase {
 
     }
 
+    /**
+     *
+     * This method stores resources in hollow asteroids.
+     * @param A Asteroid that the resource is stored on
+     */
     public void storeResources(Asteroid A){
+        System.out.println("Store Resources");
         ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
         this.itsInventory.removeResources(rb);
         //asteroid needs a method for adding a resource to it - > setter
@@ -156,7 +186,12 @@ public class Settler extends TravellerBase {
 
     }
 
+    /**
+     * This method is used to pick up re-sources which are stored on asteroids by settlers.
+     * @param A Asteroid from which Settler picks up the resource
+     */
     public void pickUpResources(Asteroid A){
+        System.out.println("Pick up resources");
         System.out.println("Which resource is stored on the Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();

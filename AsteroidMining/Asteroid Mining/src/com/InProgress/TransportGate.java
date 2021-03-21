@@ -5,6 +5,9 @@ public class TransportGate extends PlaceBase{
     public Boolean isActive;
     public Asteroid currentPosition;
     public TransportGate neighbor;
+
+
+
     public Asteroid getCurrentPosition() {
         return currentPosition;
     }
