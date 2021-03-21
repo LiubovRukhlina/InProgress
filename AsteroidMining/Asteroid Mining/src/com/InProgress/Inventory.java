@@ -1,28 +1,23 @@
 package com.InProgress;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Inventory{
-    private List<ResourceBase> storedResources;
 
+    private List<ResourceBase> storedResources;
     private List<TransportGate> storedGates;
 
-    public List<ResourceBase> getStoredResources() {
-        return storedResources;
+
+    /**
+     * Constructor of the Inventory class
+     */
+    public Inventory(){
+        this.storedResources = new ArrayList<>();
+        this.storedGates = new ArrayList<>();
     }
 
-    public void setStoredResources(List<ResourceBase> storedResources) {
-        this.storedResources = storedResources;
-    }
-
-    public List<TransportGate> getStoredGates() {
-        return storedGates;
-    }
-
-    public void setStoredGates(List<TransportGate> storedGates) {
-        this.storedGates = storedGates;
-    }
 
     /**
      *Adds the Resource to the Settler's Inventory
@@ -31,6 +26,7 @@ public class Inventory{
     public void addResource(ResourceBase R)
     {
         System.out.println("addResources()");
+        //we do not add real resources in the skeleton
       /*  if (storedResources.size() == 10)
         {
             System.out.println("The inventory is full");
@@ -47,7 +43,8 @@ public class Inventory{
     public void removeResources(ResourceBase R)
     {
         System.out.println("removeResources()");
-        //storedResources.remove(R); // we do not remove a real resource for now
+        // we do not remove a real resource for in the skeleton
+        //storedResources.remove(R);
     }
 
     /**
@@ -58,7 +55,7 @@ public class Inventory{
      */
     public void addGates(TransportGate tg1, TransportGate tg2)
     {
-        System.out.println("addGates");
+        System.out.println("addGates()");
         if (storedGates.size() == 0) {
             storedGates.add(tg1);
             storedGates.add(tg2);
@@ -76,7 +73,23 @@ public class Inventory{
      */
     public void removeGate(TransportGate tg)
     {
-        System.out.println("removeGate");
+        System.out.println("removeGate()");
         storedGates.remove(tg);
+    }
+
+
+    // getter and setter
+    public List<ResourceBase> getStoredResources() {
+        return storedResources;
+    }
+    public void setStoredResources(List<ResourceBase> storedResources) {
+        this.storedResources = storedResources;
+    }
+
+    public List<TransportGate> getStoredGates() {
+        return storedGates;
+    }
+    public void setStoredGates(List<TransportGate> storedGates) {
+        this.storedGates = storedGates;
     }
 }

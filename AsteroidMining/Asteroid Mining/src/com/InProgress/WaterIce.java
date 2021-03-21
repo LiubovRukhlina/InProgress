@@ -10,6 +10,7 @@ public class WaterIce extends ResourceBase{
         super(resourceType);
     }
 
+
     /**
      * Removes the WaterIce from the Asteroid when it is
      * drilled through

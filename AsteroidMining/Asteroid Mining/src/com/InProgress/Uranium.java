@@ -13,6 +13,7 @@ public class Uranium extends ResourceBase{
         super(resourceType);
     }
 
+
     /**
      * Uranium explodes when the Asteroid is drilled through at perihelion.
      * It kills all Settlers on the Asteroid and forces all Robots to

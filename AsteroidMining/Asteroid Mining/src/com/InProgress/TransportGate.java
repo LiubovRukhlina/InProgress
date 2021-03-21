@@ -7,44 +7,34 @@ public class TransportGate{
     public TransportGate pair;
 
 
-    public Asteroid getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(Asteroid currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
+    /**
+     * Constructor of the TransportGate class.
+     */
     public TransportGate()
     {
-        System.out.println("create");
         this.isActive = Boolean.FALSE;
-       // this.currentPosition = PlaceBase.setLocation();
+        // this.currentPosition = PlaceBase.setLocation();
         //make setLocation static
     }
+
 
     /**
      * Assigns the Transport Gate with a pair
      * which is necessary for activation
      * @param tg2 the second Transport gate
      */
-    public void makePair(TransportGate tg2)
-    {
+    public void makePair(TransportGate tg2) {
+        System.out.println("makePair()");
         this.pair= tg2;
     }
-    /*
-    public TransportGate(String name) {
-        this.setName(name);
-        @Vlad did you add this?
-    }
-    */
+
     /**
      * Activates the Gate after both the gates have been
      * deployed
      */
     public void activateTransportGate()
     {
-        System.out.println("activateTransportGate");
+        System.out.println("activateTransportGate()");
         this.isActive = Boolean.TRUE;
         this.pair.isActive = Boolean.TRUE;
     }
@@ -65,4 +55,19 @@ public class TransportGate{
     {
         dest.changeLocation(this, traveller);
     }*/
+
+    // getter and setter
+    public Asteroid getCurrentPosition() {
+        return currentPosition;
+    }
+    public void setCurrentPosition(Asteroid currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public Boolean getActive() { return isActive; }
+    public void setActive(Boolean active) { isActive = active; }
+
+    public TransportGate getPair() { return pair; }
+
+    public void setPair(TransportGate pair) { this.pair = pair; }
 }

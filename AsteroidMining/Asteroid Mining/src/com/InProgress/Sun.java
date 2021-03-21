@@ -1,15 +1,21 @@
 package com.InProgress;
 
+import java.util.Scanner;
+
 /*
 This class should be Singleton.
  */
 public class Sun {
+
     private int countDownOfSunStorm;
     private static Sun instance;
     public String value;
 
+
     //Singleton Constructor
     private Sun(String value) {
+        //@Vlad What does this do? (Yves)
+        // Do we need it?
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
@@ -22,6 +28,7 @@ public class Sun {
         this.countDownOfSunStorm = countDownOfSunStorm;
     }
 
+
     public static Sun getInstance(String value) {
         if (instance == null) {
             instance = new Sun(value);
@@ -29,24 +36,74 @@ public class Sun {
         return instance;
     }
 
-    public int getCountdownOfSunStorm() {
-        return countDownOfSunStorm;
-    }
-
-    private void startSunStorm() {
-        while (countDownOfSunStorm >= 0)
-        {
-            decreaseCountdown();
-        }
-    }
-
     private void decreaseCountdown() {
         countDownOfSunStorm--;
     }
 
-    private boolean findSettlerRobot(TravellerBase travellerBase) {
-        return travellerBase.isHidden;
+    private void startSunStorm() {
+        System.out.println("startSunStorm()");
+        /* No countdown for the skeleton
+        while (countDownOfSunStorm >= 0)
+        {
+            decreaseCountdown();
+        }
+        */
+        findSettlerRobot();
     }
+
+    private void findSettlerRobot() {
+        System.out.println("findSettlerRobot()");
+
+        // checks all Asteroids
+        for(int i = 0; i < Game.getAsteroids().size(); i++)
+        {
+            // checks all Settlers on the Asteroid
+            for(int j = 0; j < Game.getAsteroids().get(i).getSettlersOnAsteroid().size(); j++)
+            {
+                System.out.println("Is Settler" + Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).getName() + " hidden?" );
+                Scanner scan = new Scanner(System.in);
+                String in = scan.next();
+                if (in.equals("no"))
+                {
+                    Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
+                }
+                /*
+                if(Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).isHidden() == false)
+                {
+                    Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
+                }
+                */
+            }
+
+
+            // checks all Robots on the Asteroid
+            for(int j = 0; j < Game.getAsteroids().get(i).getRobotsOnAsteroid().size(); j++)
+            {
+                System.out.println("Is Robot hidden?" );
+                Scanner scan = new Scanner(System.in);
+                String in = scan.next();
+                if (in.equals("no"))
+                {
+                    Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
+                }
+                /*
+                if(Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).isHidden() == false)
+                {
+                    Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
+                }
+                */
+            }
+        }
+
+        this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
+    }
+
+
+    // getters and setters
+    public int getCountdownOfSunStorm() {
+        return countDownOfSunStorm;
+    }
+    public void setCountDownOfSunStorm(int countDownOfSunStorm) { this.countDownOfSunStorm = countDownOfSunStorm; }
 
 
 }

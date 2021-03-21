@@ -22,6 +22,11 @@ public class Robot extends TravellerBase{
         System.out.println("increaseDamage()");
         damageCount++;
 
+        if(this.damageCount == 2)
+        {
+            this.die();
+        }
+
         // commented the output out. I think right now it is not in the skeleton. (Yves)
         //System.out.println("Robot has been damaged.");
     }

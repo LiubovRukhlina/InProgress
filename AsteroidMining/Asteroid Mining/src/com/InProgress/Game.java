@@ -10,21 +10,14 @@ public class Game implements Serializable {
     public static ArrayList<Asteroid> asteroids; //list of all asteroids
    // public static GameState gameState; // current game state
 
+
     public Game(ArrayList<TravellerBase> active, ArrayList<Asteroid> asteroids) {
         this.active = active;
         this.asteroids = asteroids;
     }
 
-    public Game() {
-    }
+    public Game() { }
 
-    public static ArrayList<TravellerBase> getActive() {
-        return active;
-    }
-
-    public static ArrayList<Asteroid> getAsteroids() {
-        return asteroids;
-    }
 
     public void parser(String input) {
         String[] parsedInput = input.split(" ");
@@ -124,7 +117,16 @@ public class Game implements Serializable {
     }
 
     public static void endGame() {
-
+        System.out.println("endGame()");
+        System.out.println("Did the game end successful?");
+        Scanner scan = new Scanner(System.in);
+        String in = scan.next();
+        if (in.equals("yes")){
+            System.out.println("Congratulation! You colonized the Asteroid Belt!");
+        } else {
+            System.out.println("You lose!");
+        }
+        System.exit(0);
     }
 
     /*private boolean isGameOver() {
@@ -146,7 +148,6 @@ public class Game implements Serializable {
             new LoserFrame(); // notify that you lose
         }
     }*/
-
 
     void setAsteroidField() {
         System.out.println("setAsteroidField()");
@@ -174,5 +175,10 @@ public class Game implements Serializable {
             e.printStackTrace();
         }
     }*/
+
+    // getters and setters
+    public static ArrayList<TravellerBase> getActive() { return active; }
+
+    public static ArrayList<Asteroid> getAsteroids() { return asteroids; }
 
 }

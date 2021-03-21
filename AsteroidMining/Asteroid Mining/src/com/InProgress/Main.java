@@ -12,6 +12,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
+            // prints out menu options
             System.out.println();
             System.out.println("travel");
             System.out.println("drill");
@@ -23,6 +24,7 @@ public class Main {
             System.out.println("deployGate");
             System.out.println("fastTravel");
             System.out.println("buildSpaceStation");
+            System.out.println("sunStorm");
             System.out.println();
 
             String userInput = reader.readLine();

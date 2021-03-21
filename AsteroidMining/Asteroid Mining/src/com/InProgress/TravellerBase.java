@@ -8,54 +8,28 @@ public abstract class TravellerBase {
     private boolean isAlive = true;
     protected boolean isHidden = false;
     protected Asteroid currentPosition;
-    public boolean isHidden() {
-        return isHidden;
-    }
-    public String getName() {
-        return name;
-    }
-    public boolean isAlive() {
-        return isAlive;
-    }
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setHidden(boolean hidden) {
-        isHidden = hidden;
-    }
 
-    public TravellerBase() {
-    }
+    public TravellerBase() { }
 
     public TravellerBase(String name, Asteroid currentPosition) {
         this.name = name;
         this.currentPosition = currentPosition;
     }
 
-    public Asteroid getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(Asteroid currentPosition) {
-        this.currentPosition = currentPosition;
-    }
 
     /**
      * moves the object to the chosen Asteroid.
      * @param A destination Asteroid
      */
     public void travel(Asteroid A) {
-        System.out.println("Travel");
+        System.out.println("travel()");
         if (!A.getNeighbors().contains(this.currentPosition))
         {
             System.out.println("You cannot travel to the non-neighboring Asteroid");
             return;
         }
         this.setCurrentPosition(A);
-        this.currentPosition.changeLocation(A, this);
+        this.currentPosition.changeLocation(A, this); // what does this do? the location was changed in line 31
         String s1 = String.format("Settler%s travelled to Asteroid %s", this.name, A.getName());
         System.out.println(s1);
         System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
@@ -70,25 +44,35 @@ public abstract class TravellerBase {
      * This method is used for travel by using a transport gate.
      * @param TG TransportGate that the Traveller is travelling through
      */
-    /*public void fastTravel(TransportGate TG) {
-        System.out.println("Fast travel");
+    public void fastTravel(TransportGate TG) {
+        System.out.println("fastTravel()");
 
-        if (TG.getNeighbors() == null)
+        if (TG.getPair().getActive() == false)
         {
             System.out.println("Transport Gate doesn't have a pair");
             return;
         }
-        PlaceBase TG2 = TG.getNeighbors().get(0);
-        if (TG2 instanceof TransportGate){
-            this.setCurrentPosition(((TransportGate) TG2).getCurrentPosition());
-            this.currentPosition.changeLocation(TG2, this);
-            String s1 = String.format("Settler %s travelled to Asteroid %s", this.name, TG.getCurrentPosition());
-            System.out.println(s1);
-
-            this.hide(TG.getCurrentPosition());
+        else
+        {
+            travel(TG.getPair().getCurrentPosition());
         }
+    }
 
-    }*/
+    /**
+     * This method is used to hide the object in a hollow As-teroid. This will happen automatically when a traveller is on the hollow Astteroid.
+     * @param A Asteroid that the Traveller is hiding on
+     */
+    public void hide(Asteroid A){
+        System.out.println("hide()");
+        System.out.println("Is there enough space available?"); // Asks the user for his input.
+        Scanner scan = new Scanner(System.in);
+        String in = scan.next();
+        if (in.equals("yes")) {
+            setHidden(true);
+            String s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
+            System.out.println(s1);
+        }
+    }
 
     /**
      * This method is used to drill into an Asteroid.
@@ -156,20 +140,38 @@ public abstract class TravellerBase {
         //do we have to destroy the object or we will delete it from the list in Game only
     }
 
-    /**
-     * This method is used to hide the object in a hollow As-teroid. This will happen automatically when a traveller is on the hollow Astteroid.
-     * @param A Asteroid that the Traveller is hiding on
-     */
-    public void hide(Asteroid A){
-        System.out.println("hide()");
-        System.out.println("Is there enough space available?"); // Asks the user for his input.
-        Scanner scan = new Scanner(System.in);
-        String in = scan.next();
-        if (in.equals("yes")) {
-            setHidden(true);
-            String s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
-            System.out.println(s1);
-        }
+
+    public boolean isHidden() {
+        return isHidden;
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    // getter and setter
+    public Asteroid getCurrentPosition() {
+        return currentPosition;
+    }
+    public void setCurrentPosition(Asteroid currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+
 
 }

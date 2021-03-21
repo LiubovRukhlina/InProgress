@@ -6,6 +6,21 @@ import java.util.Scanner;
 
 public class Asteroid extends PlaceBase{
 
+    public ArrayList<Asteroid> neighbors;
+    private String name;
+    private int rockCover;
+    private List<Settler> settlersOnAsteroid;
+    private List<Robot> robotsOnAsteroid;
+    private List<Settler> settlersInAsteroid;
+    private List<Robot> robotsInAsteroid;
+    private List<ResourceBase> resourceOfAsteroid;
+    private List<ResourceBase> storedResourceOfAsteroid;
+    private Boolean isAtPerihelion;
+    private Boolean isHollow;
+    private Boolean isRadioactive;
+    private Boolean hasGate;
+
+
     /**
      * Constructor for later use in the game.
      * @all how and when do we assign the resources? from Yves
@@ -21,39 +36,14 @@ public class Asteroid extends PlaceBase{
         this.isHollow = false; // initialized as false. Must be changed when resource is assigned.
         this.isRadioactive = false; // initialized as false. Must be changed when resource is assigned.
         this.hasGate = false; // initialized as false.
+        this.settlersOnAsteroid = new ArrayList<>();
+        this.robotsOnAsteroid = new ArrayList<>();
+        this.settlersInAsteroid = new ArrayList<>();
+        this.robotsOnAsteroid = new ArrayList<>();
         this.resourceOfAsteroid = new ArrayList<>();
+        this.storedResourceOfAsteroid = new ArrayList<>();
     }
 
-    /**
-     * Default constructor for mock-up asteroids in the skeleton.
-     */
-
-    public ArrayList<Asteroid> neighbors;
-    private String name;
-    private int rockCover;
-    private List<Settler> settlersOnAsteroid;
-    private List<Robot> robotsOnAsteroid;
-    private List<Settler> settlersInAsteroid;
-    private List<Robot> robotsInAsteroid;
-
-    public void setResourceOfAsteroid(ResourceBase rb) {
-        this.resourceOfAsteroid.add(rb);
-    }
-
-    private List<ResourceBase> resourceOfAsteroid;
-    private List<ResourceBase> storedResourceOfAsteroid;
-    private Boolean isAtPerihelion;
-    private Boolean isHollow;
-    private Boolean isRadioactive;
-    private Boolean hasGate;
-
-    public ArrayList<Asteroid> getNeighbors() {
-        return neighbors;
-    }
-
-    public void setNeighbors(ArrayList<Asteroid> neighbors) {
-        this.neighbors = neighbors;
-    }
 
     /**
      * Gets the remaining rockCover of this Asteroid.
@@ -121,20 +111,26 @@ public class Asteroid extends PlaceBase{
      */
     @Override
     public void changeLocation(PlaceBase dest, TravellerBase traveller) {
-
         System.out.println("changeLocation()");
 
         traveller.setCurrentPosition((Asteroid) dest);
-
     }
 
     public void decreaseStoredResource(int index){
         System.out.println("decreaseStoredResource()");
 
-        //storedResourceOfAsteroid.remove(index); // we do not remove a real resource right now
+        // we do not remove a real resource in the skeleton
+        //storedResourceOfAsteroid.remove(index);
     }
 
     // Getters and setters
+    public ArrayList<Asteroid> getNeighbors() {
+        return neighbors;
+    }
+    public void setNeighbors(ArrayList<Asteroid> neighbors) {
+        this.neighbors = neighbors;
+    }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -251,6 +247,10 @@ public class Asteroid extends PlaceBase{
      */
     public List<ResourceBase> getResourceOfAsteroid() {
         return resourceOfAsteroid;
+    }
+
+    public void setResourceOfAsteroid(ResourceBase rb) {
+        this.resourceOfAsteroid.add(rb);
     }
 
 }

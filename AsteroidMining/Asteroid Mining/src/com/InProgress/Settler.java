@@ -1,6 +1,6 @@
 package com.InProgress;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import java.util.Scanner;
 
 public class Settler extends TravellerBase {
@@ -10,42 +10,20 @@ public class Settler extends TravellerBase {
         this.name = name;
     }
 */
-    private int liveCounter = 1;
+    //private int liveCounter = 1; // Luba said we don't need it anymore
     private Inventory itsInventory = new Inventory();
 
-    /**
-     *Gets the value of the liveCounter of the Settler
-     * @return remaining number of lives
-     */
-    public int getLiveCounter() {
-        return liveCounter;
-    }
 
+    /**
+     * Constructor of the Settler class
+     *
+     * @param name Name of the Settler
+     */
     public Settler(String name)
     {
         this.setName(name);
     }
 
-    /*public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }*/
-
-    public void setLiveCounter(int liveCounter) {
-        this.liveCounter = liveCounter;
-    }
-
-    public Inventory getItsInventory() {
-
-        return itsInventory;
-    }
-
-    public void setItsInventory(Inventory itsInventory) {
-        this.itsInventory = itsInventory;
-    }
 
     /**
      *This method mines the resource of the Asteroid the Settler is currently on.
@@ -54,18 +32,18 @@ public class Settler extends TravellerBase {
     public void mine(Asteroid A){
         /*System.out.println("Mine");
         if (!A.getHollow()){
-    System.out.println("Only hollow Asteroid can be mined");
-    return;
-}
-if (this.itsInventory.getStoredResources().size() >= 10){
-    System.out.println("Inventory is full. storeResource before mining");
-    return;
-}*/
-         //What is getResource?? later
+             System.out.println("Only hollow Asteroid can be mined");
+            return;
+        }
+        if (this.itsInventory.getStoredResources().size() >= 10){
+            System.out.println("Inventory is full. storeResource before mining");
+            return;
+        }*/
+
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-//scan.close();
+        //scan.close();
         if (in.equals("yes")){
             System.out.println("Nothing to mine"); // Asks the user for his input.
             //Scanner scan = new Scanner(System.in);
@@ -82,7 +60,6 @@ if (this.itsInventory.getStoredResources().size() >= 10){
         }
     }
 
-
     /**
      * This method is used to build a robot.
      */
@@ -91,13 +68,15 @@ if (this.itsInventory.getStoredResources().size() >= 10){
 
         if (checkResources()){
             Robot myRobot = new Robot();
-            this.currentPosition.setLocation(myRobot);
-            this.itsInventory.removeResources(new ResourceBase("Carbon")); //Implemented later?!
-            PlaceBase A2 = myRobot.getCurrentPosition().getNeighbors().get(0);
-            if (A2 instanceof Asteroid) {
-                myRobot.travel((Asteroid) A2);
-                myRobot.drill((Asteroid)A2);
-            }
+            // I am not sure why we do it that way?
+            // this.currentPosition.setLocation(myRobot);
+            myRobot.setCurrentPosition(this.currentPosition);
+            this.itsInventory.removeResources(new ResourceBase("Carbon"));
+            Asteroid destAsteroid = myRobot.getCurrentPosition().getNeighbors().get(0);
+
+            //After creation the Robot travels to the next Asteroid and drills
+            myRobot.travel(destAsteroid);
+            myRobot.drill(destAsteroid);
         }
     }
 
@@ -121,7 +100,7 @@ if (this.itsInventory.getStoredResources().size() >= 10){
      * This method is used to build a transportation-gate and store it in the settler’s inventory.
      */
     public void buildTransportGate(){
-        System.out.println("Build Transport gate");
+        System.out.println("buildTransportGate()");
 
         if (checkResources()){
             this.itsInventory.removeResources(new ResourceBase("Carbon"));//Implemented later?!
@@ -143,20 +122,18 @@ if (this.itsInventory.getStoredResources().size() >= 10){
      * @param A Asteroid that the TransportGate is deployed on
      */
     public void deployTransportGate(Asteroid A){
-        System.out.println("Deploy Transport Gate");
+        System.out.println("deployTransportGate()");
         TransportGate tg = this.itsInventory.getStoredGates().get(0);
         tg.setCurrentPosition(A);
         this.itsInventory.removeGate(tg);
+
         System.out.println("Is this the second gate?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        scan.close();
         if (in.equals("yes")){
             tg.activateTransportGate();
-            //@Sahej how to activate my pair?
             System.out.println("The Gates are activated");
         }
-
     }
 
     /**
@@ -164,11 +141,10 @@ if (this.itsInventory.getStoredResources().size() >= 10){
      * @return true if Settler has enough resources, and false otherwise.
      */
     public boolean checkResources(){
-        System.out.println("Check resources");
+        System.out.println("checkResources()");
         System.out.println("Are there enough resources?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        scan.close();
         if (in.equals("yes")){
             return true;
         }
@@ -189,22 +165,50 @@ if (this.itsInventory.getStoredResources().size() >= 10){
         A.setStoredResourceOfAsteroid(mockUpResource); // setter call
         this.itsInventory.removeResources(mockUpResource);
         System.out.println("The Resource was stored on Asteroid" + A.getName());
-
     }
 
     /**
-     * This method is used to pick up re-sources which are stored on asteroids by settlers.
+     * This method is used to pick up resources which are stored on asteroids by settlers.
      * @param A Asteroid from which Settler picks up the resource
      */
     public void pickUpResources(Asteroid A){
         System.out.println("pickUpResources()");
-        System.out.println("Which resource is stored on the Asteroid?"); // Asks the user for his input.
+        System.out.println("Is there a resource to pick up?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        scan.close();
-        //missing A.decreaseStoredResource(); -> getter of the list similar to the way you do it with when you add it in the next line.
-        // but you should first add the resource to the inventory and then remove it from the asteroid.
-        this.itsInventory.addResource(A.getStoredResourceOfAsteroid().get(0));
-        System.out.println("The resource was picked up");
+        if(in.equals("yes")){
+            Carbon mockUpResource = new Carbon("Carbon");
+            //missing A.decreaseStoredResource(); -> getter of the list similar to the way you do it with when you add it in the next line.
+            // but you should first add the resource to the inventory and then remove it from the asteroid.
+            this.itsInventory.addResource(mockUpResource);
+
+            A.getStoredResourceOfAsteroid().remove(mockUpResource);
+
+            System.out.println("The resource was picked up");
+        }
     }
+
+
+    // getter and setter
+    /*
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    */
+
+    /**
+     *Gets the value of the liveCounter of the Settler
+     * @return remaining number of lives
+     */
+    // public int getLiveCounter() { return liveCounter; }
+    // public void setLiveCounter(int liveCounter) { this.liveCounter = liveCounter; }
+
+    public Inventory getItsInventory() {
+
+        return itsInventory;
+    }
+    public void setItsInventory(Inventory itsInventory) {
+        this.itsInventory = itsInventory;
+    }
+
+
 }
