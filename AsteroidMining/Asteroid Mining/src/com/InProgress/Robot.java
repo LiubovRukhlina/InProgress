@@ -8,7 +8,15 @@ public class Robot extends TravellerBase{
      * methods should print their name first.
      */
 
-    private int damageCount = 0;
+    private int damageCount;
+    
+    /**
+     * Constructor of the Robot class
+     */
+    public Robot() {
+        this.damageCount = 0;
+    }
+
 
 
     /**
