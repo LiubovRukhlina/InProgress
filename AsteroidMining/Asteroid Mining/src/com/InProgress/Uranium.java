@@ -23,22 +23,6 @@ public class Uranium extends ResourceBase{
     public void explode(Asteroid A){
 
 
-        /*
-        boolean position = getAtPerihelion(A); // this is checked during the drilling.
-        if (position == true) {
-          int LifeOfSettler = Settler.getLiveCounter(); //@Ash where is the does the settler die? What about robots?
-          LifeOfSettler = LifeOfSettler - 1; // this should happen in the die method
-            System.out.println("Asteroid explodes");
-            System.out.println("Settler on this asteroid is dead");
-
-         */
-
-
-            //@Ash check out how javadoc is working, this is wrong.
-            /**
-             *  this asteroid explodes if it is at perihelion.
-             * @param A name of the asteroid.
-             */
         for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
             A.getSettlersOnAsteroid().get(i).die(); // All settler on the Asteroid die.
         }
