@@ -63,14 +63,12 @@ public class Settler extends TravellerBase {
      * @param A Asteroid on which the SpaceStation is built.
      */
     public void buildSpaceStation(Asteroid A){
-        System.out.println("Build Space Station");
+        System.out.println("BbuildSpaceStation()");
 
         if (checkResources()){
 
             this.itsInventory.removeResources(new ResourceBase("Carbon"));
-            System.out.println("Space station is built. The game ends, Settlers won");
             Game.endGame();
-
         }
     }
 

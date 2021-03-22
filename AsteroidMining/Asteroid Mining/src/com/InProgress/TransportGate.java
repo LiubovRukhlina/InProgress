@@ -1,6 +1,6 @@
 package com.InProgress;
 
-public class TransportGate{
+public class TransportGate extends PlaceBase{
 
     public Boolean isActive;
     public Asteroid currentPosition;
@@ -13,8 +13,6 @@ public class TransportGate{
     public TransportGate()
     {
         this.isActive = Boolean.FALSE;
-        // this.currentPosition = PlaceBase.setLocation();
-        //make setLocation static
     }
 
 
@@ -49,13 +47,6 @@ public class TransportGate{
         System.out.println("deactivateTransportGate");
         this.isActive = Boolean.FALSE;
     }
-
-
-    /*@Override
-    public void changeLocation(PlaceBase dest, TravellerBase traveller)
-    {
-        dest.changeLocation(this, traveller);
-    }*/
 
     // getter and setter
     public Asteroid getCurrentPosition() {
