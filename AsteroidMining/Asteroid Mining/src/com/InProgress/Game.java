@@ -8,10 +8,15 @@ import java.util.stream.*;
 public class Game implements Serializable {
     public static ArrayList<TravellerBase> active; //list of settlers and robots
     public static ArrayList<Asteroid> asteroids; //list of all asteroids
+    public static ArrayList<TransportGate> gates;
     Sun sun; // in charge of sun storms
 
     public Game() { }
 
+    /**
+     * Processes the inputs entered by a user
+     * @param input a command a user types in
+     */
     public void parser(String input) {
         String[] parsedInput = input.split(" ");
         Asteroid asteroid = null;
@@ -20,16 +25,14 @@ public class Game implements Serializable {
         try {
             int settlerIndex = Integer.parseInt(parsedInput[0]);
             currSettler = active.get(settlerIndex - 1);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             switch (parsedInput[0]) { //single-word input
                 case "sunStorm": sun.startSunStorm(); break;
             }
         }
 
         if (parsedInput.length == 2) { //2-word input
-            switch (parsedInput[1].toLowerCase(Locale.ROOT)) {
+            switch (parsedInput[1]) {
                 case "buildGates": {
                     if (currSettler instanceof Settler)
                         ((Settler) currSettler).buildTransportGate();
@@ -50,7 +53,7 @@ public class Game implements Serializable {
                     break;
                 }
             }
-            switch (parsedInput[1].toLowerCase(Locale.ROOT)) {
+            switch (parsedInput[1]) {
                 case "travel": currSettler.travel(asteroid); break;
                 case "mine": {
                     if (currSettler instanceof Settler)
@@ -64,19 +67,27 @@ public class Game implements Serializable {
                     if (currSettler instanceof Settler)
                     ((Settler) currSettler).deployTransportGate(asteroid);
                 }; break;
-                //case "fastTravel": currSettler.fastTravel(new TransportGate(destinationName));break;
+                case "fastTravel": currSettler.fastTravel(gates.get(0));break;
                 case "buildSpaceStation": {
                     if (currSettler instanceof Settler)
                         ((Settler) currSettler).buildSpaceStation(asteroid);
                 }; break;
                 case "drill": currSettler.drill(asteroid); break;
+                case "storeResource": {
+                    if (currSettler instanceof Settler)
+                        ((Settler) currSettler).storeResources(asteroid);
+                }break;
             }
         }
     }
 
+    /**
+     *  Instantiates all the main parts of the game
+     */
     void startGame() {
         active = new ArrayList<TravellerBase>();
         asteroids = new ArrayList<>();
+        gates = new ArrayList<>();
         sun = new Sun();
 
         //add three settlers
@@ -91,8 +102,21 @@ public class Game implements Serializable {
             settler.setCurrentPosition(asteroids.get(0));
             asteroids.get(0).setSettlersOnAsteroid((Settler) settler);
         }
+        TransportGate tg1 = new TransportGate();
+        TransportGate tg2 = new TransportGate();
+
+        tg1.makePair(tg2);
+        tg1.activateTransportGate();
+        tg1.setCurrentPosition(asteroids.get(0));
+        tg2.setCurrentPosition(asteroids.get(4));
+
+        gates.add(tg1);
+        gates.add(tg2);
     }
 
+    /**
+     * describes the end of the game
+     */
     public static void endGame() {
         System.out.println("endGame()");
         System.out.println("Did the game end successful?");
@@ -107,6 +131,9 @@ public class Game implements Serializable {
     }
 
 
+    /**
+     * places asteroids and define neighbors
+     */
     void setAsteroidField() {
         System.out.println("setAsteroidField()");
         for (int i = 1; i <= 5; i++) {

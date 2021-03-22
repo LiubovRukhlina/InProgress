@@ -29,8 +29,14 @@ public abstract class TravellerBase {
             return;
         }
         this.setCurrentPosition(A);
-        this.currentPosition.changeLocation(A, this); // what does this do? the location was changed in line 31
-        String s1 = String.format("Settler%s travelled to Asteroid %s", this.name, A.getName());
+        this.currentPosition.acceptTraveller(this);
+        String s1;
+        if (this instanceof Robot) {
+            s1 = String.format("Robot travelled to Asteroid %s", A.getName());
+        }
+        else {
+            s1 = String.format("Settler%s travelled to Asteroid %s", this.getName(), A.getName());
+        }
         System.out.println(s1);
         System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -54,12 +60,21 @@ public abstract class TravellerBase {
         }
         else
         {
-            travel(TG.getPair().getCurrentPosition());
+            this.setCurrentPosition(TG.getPair().getCurrentPosition());
+            this.currentPosition.acceptTraveller(this);
+            String s1 = String.format("Settler%s travelled to Asteroid %s", this.name, TG.getPair().getCurrentPosition().getName());
+            System.out.println(s1);
+            System.out.println("Is this a hollow Asteroid?"); // Asks the user for his input.
+            Scanner scan = new Scanner(System.in);
+            String in = scan.next();
+            if (in.equals("yes")){
+                this.hide(TG.getPair().getCurrentPosition());
+            }
         }
     }
 
     /**
-     * This method is used to hide the object in a hollow As-teroid. This will happen automatically when a traveller is on the hollow Astteroid.
+     * This method is used to hide the object in a hollow Asteroid. This will happen automatically when a traveller is on the hollow Astteroid.
      * @param A Asteroid that the Traveller is hiding on
      */
     public void hide(Asteroid A){
@@ -68,8 +83,14 @@ public abstract class TravellerBase {
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
         if (in.equals("yes")) {
+            String s1;
             setHidden(true);
-            String s1 = String.format("Settler %s is hidden in Asteroid %s", this.name, A.getName());
+            if (this instanceof Robot) {
+                s1 = String.format("Robot is hidden in Asteroid %s", A.getName());
+            }
+            else {
+                s1 = String.format("Settler%s is hidden in Asteroid %s", this.getName(), A.getName());
+            }
             System.out.println(s1);
         }
     }
@@ -80,28 +101,6 @@ public abstract class TravellerBase {
      */
     public void drill(Asteroid A){
         System.out.println("drill()");
-        /*int depth = A.getDepth();
-        if (depth < 1){
-            System.out.println("The Asteroid is completely drilled through");
-            return;
-        }
-
-        A.decreaseRockCover();
-        depth = A.getDepth();
-        if (depth == 1){
-            System.out.println("rockCover = 1 the asteroid might explode.");
-        }
-        else{
-            System.out.println("The remaining RockCover = " + depth);
-
-        }
-
-        if (depth == 0 && A.getRadioactive() && A.getAtPerihelion()){
-            ResourceBase rb = A.getResourceOfAsteroid().get(0);
-            if(rb instanceof Uranium){
-                ((Uranium) rb).explode(A);
-            }
-        }*/
         int depth = A.getDepth();
 
         if(depth == 1){
@@ -122,24 +121,19 @@ public abstract class TravellerBase {
         } else {
             A.decreaseRockCover();
         }
-
-
-
     }
-
 
     /**
      * This method kills the object.
      */
     public void die(){
-        System.out.println("Die");
+        System.out.println("die()");
         System.out.println("Settler" + this.getName() + " is dead");
 
         this.isAlive = false;
         Game.active.remove(this);
         //do we have to destroy the object or we will delete it from the list in Game only
     }
-
 
     public boolean isHidden() {
         return isHidden;
@@ -171,7 +165,4 @@ public abstract class TravellerBase {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
-
-
-
 }
