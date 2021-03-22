@@ -82,7 +82,7 @@ public class Game implements Serializable {
     }
 
     /**
-     *  Instantiates all the main parts of the game
+     *  Instantiates all the main parts of the skeleton
      */
     void startGame() {
         active = new ArrayList<TravellerBase>();

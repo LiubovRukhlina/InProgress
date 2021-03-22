@@ -132,7 +132,6 @@ public abstract class TravellerBase {
 
         this.isAlive = false;
         Game.active.remove(this);
-        //do we have to destroy the object or we will delete it from the list in Game only
     }
 
     public boolean isHidden() {

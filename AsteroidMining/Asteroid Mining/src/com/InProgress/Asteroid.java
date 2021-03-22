@@ -71,24 +71,6 @@ public class Asteroid extends PlaceBase{
         System.out.println("The remaining rockCover = " + this.rockCover);
     }
 
-
-    /**
-     * Changes the isAtPerihelion attribute of this Asteroid.
-     * This Asteroid asks the Sun object if it must change its status.
-     *
-     * @param S Sun object
-     */
-    public void sunState(Sun S) {
-
-        /**
-         * @Vlad
-         * How do the Sun and Asteroid interact?
-         * from Yves
-         */
-        System.out.println("sunState()");
-        this.setAtPerihelion(true); // Sun should have a function that returns random boolean values.
-    }
-
     /**
      * Removes the resource of this Asteroid and
      * make this Asteroid hollow.
@@ -97,6 +79,7 @@ public class Asteroid extends PlaceBase{
 
         System.out.println("emptyAsteroid()");
 
+        // there are no resources assigned in the skeleton therefore the clear method is not called.
         //this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
 
         this.setHollow(true); // This Asteroid is hollow.
@@ -107,7 +90,6 @@ public class Asteroid extends PlaceBase{
      * Adds a new traveller to the traveller list of the asteroid
      * @param traveller new traveller arriving at the asteroid
      */
-
     public void acceptTraveller(TravellerBase traveller) {
         System.out.println("acceptTraveller()");
         if (traveller instanceof Robot) {
@@ -117,6 +99,10 @@ public class Asteroid extends PlaceBase{
         }
     }
 
+    /**
+     * Removes one of the stored resources of this Asteroid.
+     * @param index index of the resource that is removed
+     */
     public void decreaseStoredResource(int index){
         System.out.println("decreaseStoredResource()");
 
