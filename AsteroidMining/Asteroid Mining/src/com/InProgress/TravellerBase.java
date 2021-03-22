@@ -133,7 +133,7 @@ public abstract class TravellerBase {
      */
     public void die(){
         System.out.println("Die");
-        System.out.println("Settler" + this.getName() + "is dead");
+        System.out.println("Settler" + this.getName() + " is dead");
 
         this.isAlive = false;
         Game.active.remove(this);

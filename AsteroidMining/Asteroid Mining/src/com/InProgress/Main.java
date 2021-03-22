@@ -20,7 +20,7 @@ public class Main {
             System.out.println("storeResource");
             System.out.println("pickUpResources");
             System.out.println("buildRobot");
-            System.out.println("buildGate");
+            System.out.println("buildGates");
             System.out.println("deployGate");
             System.out.println("fastTravel");
             System.out.println("buildSpaceStation");
@@ -29,7 +29,6 @@ public class Main {
 
             String userInput = reader.readLine();
             game.parser(userInput);
-
         }
     }
 

@@ -6,41 +6,19 @@ import java.util.Scanner;
 This class should be Singleton.
  */
 public class Sun {
-
     private int countDownOfSunStorm;
-    private static Sun instance;
-    public String value;
 
-
-    //Singleton Constructor
-    private Sun(String value) {
-        //@Vlad What does this do? (Yves)
-        // Do we need it?
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        this.value = value;
+    public Sun() {
     }
 
     public Sun(int countDownOfSunStorm) {
         this.countDownOfSunStorm = countDownOfSunStorm;
     }
 
-
-    public static Sun getInstance(String value) {
-        if (instance == null) {
-            instance = new Sun(value);
-        }
-        return instance;
-    }
-
     private void decreaseCountdown() {
         countDownOfSunStorm--;
     }
-
-    private void startSunStorm() {
+    public void startSunStorm() {
         System.out.println("startSunStorm()");
         /* No countdown for the skeleton
         while (countDownOfSunStorm >= 0)
