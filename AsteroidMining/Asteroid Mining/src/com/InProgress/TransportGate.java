@@ -26,6 +26,7 @@ public class TransportGate{
     public void makePair(TransportGate tg2) {
         System.out.println("makePair()");
         this.pair= tg2;
+        tg2.pair = this;
     }
 
     /**

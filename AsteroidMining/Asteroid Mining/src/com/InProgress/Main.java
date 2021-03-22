@@ -18,7 +18,7 @@ public class Main {
             System.out.println("drill");
             System.out.println("mine");
             System.out.println("storeResource");
-            System.out.println("pickUpResources");
+            System.out.println("pickUpResource");
             System.out.println("buildRobot");
             System.out.println("buildGates");
             System.out.println("deployGate");

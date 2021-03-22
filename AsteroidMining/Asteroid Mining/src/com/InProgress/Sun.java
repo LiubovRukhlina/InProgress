@@ -2,15 +2,18 @@ package com.InProgress;
 
 import java.util.Scanner;
 
-/*
-This class should be Singleton.
- */
+
 public class Sun {
     private int countDownOfSunStorm;
 
     public Sun() {
     }
 
+    /**
+     * constructor
+     * @param countDownOfSunStorm - time before the sun storm
+     *
+     */
     public Sun(int countDownOfSunStorm) {
         this.countDownOfSunStorm = countDownOfSunStorm;
     }
@@ -18,6 +21,10 @@ public class Sun {
     private void decreaseCountdown() {
         countDownOfSunStorm--;
     }
+
+    /**
+     * launches the sun storm
+     */
     public void startSunStorm() {
         System.out.println("startSunStorm()");
         /* No countdown for the skeleton
@@ -29,6 +36,9 @@ public class Sun {
         findSettlerRobot();
     }
 
+    /**
+     *  checks the asteroids and if there are any unhidden settlers/robots on them
+     */
     private void findSettlerRobot() {
         System.out.println("findSettlerRobot()");
 
@@ -52,8 +62,7 @@ public class Sun {
                 }
                 */
             }
-
-
+            
             // checks all Robots on the Asteroid
             for(int j = 0; j < Game.getAsteroids().get(i).getRobotsOnAsteroid().size(); j++)
             {
@@ -82,6 +91,4 @@ public class Sun {
         return countDownOfSunStorm;
     }
     public void setCountDownOfSunStorm(int countDownOfSunStorm) { this.countDownOfSunStorm = countDownOfSunStorm; }
-
-
 }

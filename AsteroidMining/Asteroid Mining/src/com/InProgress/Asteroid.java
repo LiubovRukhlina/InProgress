@@ -104,16 +104,17 @@ public class Asteroid extends PlaceBase{
     }
 
     /**
-     * Changes the current location of traveller to its destination.
-     *
-     * @param dest Destination of the traveller
-     * @param traveller traveller changing its location
+     * Adds a new traveller to the traveller list of the asteroid
+     * @param traveller new traveller arriving at the asteroid
      */
-    @Override
-    public void changeLocation(PlaceBase dest, TravellerBase traveller) {
-        System.out.println("changeLocation()");
 
-        traveller.setCurrentPosition((Asteroid) dest);
+    public void acceptTraveller(TravellerBase traveller) {
+        System.out.println("acceptTraveller()");
+        if (traveller instanceof Robot) {
+            this.robotsOnAsteroid.add((Robot) traveller);
+        } else {
+           this.settlersOnAsteroid.add((Settler) traveller);
+        }
     }
 
     public void decreaseStoredResource(int index){

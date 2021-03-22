@@ -1,18 +1,9 @@
 package com.InProgress;
 
-//import javax.annotation.Resource;
 import java.util.Scanner;
 
 public class Settler extends TravellerBase {
-    /*private String name;
-
-    public Settler(String name) {
-        this.name = name;
-    }
-*/
-    //private int liveCounter = 1; // Luba said we don't need it anymore
     private Inventory itsInventory = new Inventory();
-
 
     /**
      * Constructor of the Settler class
@@ -24,36 +15,23 @@ public class Settler extends TravellerBase {
         this.setName(name);
     }
 
-
     /**
      *This method mines the resource of the Asteroid the Settler is currently on.
      * @param A Asteroid that is mined.
      */
     public void mine(Asteroid A){
-        /*System.out.println("Mine");
-        if (!A.getHollow()){
-             System.out.println("Only hollow Asteroid can be mined");
-            return;
-        }
-        if (this.itsInventory.getStoredResources().size() >= 10){
-            System.out.println("Inventory is full. storeResource before mining");
-            return;
-        }*/
-
+        System.out.println("mine()");
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
         String in = scan.next();
-        //scan.close();
         if (in.equals("yes")){
             System.out.println("Nothing to mine"); // Asks the user for his input.
-            //Scanner scan = new Scanner(System.in);
             return;
         }
         if (in.equals("no")){
             System.out.println("Which Resource is in the core?"); // Asks the user for his input.
             in = scan.next();
             ResourceBase myResource = new ResourceBase(in);
-            //scan.close();
             A.emptyAsteroid();
             this.itsInventory.addResource(myResource);
             System.out.println(this.getName() + " mined "+ in);
