@@ -8,6 +8,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
         Game game = new Game();
         game.startGame();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -31,6 +32,7 @@ public class Main {
             String userInput = reader.readLine();
             game.parser(userInput);
         }
+
     }
 
 }

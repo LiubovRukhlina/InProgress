@@ -6,25 +6,34 @@ import java.util.List;
 
 public class Inventory{
 
+    //<editor-fold desc="Attributes">
+
     private List<ResourceBase> storedResources;
     private List<TransportGate> storedGates;
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
 
     /**
      * Constructor of the Inventory class
      */
-    public Inventory(){
+    public Inventory() {
         this.storedResources = new ArrayList<>();
         this.storedGates = new ArrayList<>();
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
 
     /**
      *Adds the Resource to the Settler's Inventory
      * @param R Type of the Resource to be added
      */
-    public void addResource(ResourceBase R)
-    {
+    public void addResource(ResourceBase R) {
         System.out.println("addResources()");
         //we do not add real resources in the skeleton
       /*  if (storedResources.size() == 10)
@@ -40,8 +49,7 @@ public class Inventory{
      * Settler's Inventory
      * @param R Type of the Resource to be added
      */
-    public void removeResources(ResourceBase R)
-    {
+    public void removeResources(ResourceBase R) {
         System.out.println("removeResources()");
         // we do not remove a real resource for in the skeleton
         //storedResources.remove(R);
@@ -53,8 +61,7 @@ public class Inventory{
      * @param tg1 First Transport Gate
      * @param tg2 Second Transport Gate
      */
-    public void addGates(TransportGate tg1, TransportGate tg2)
-    {
+    public void addGates(TransportGate tg1, TransportGate tg2) {
         System.out.println("addGates()");
         if (storedGates.size() == 0) {
             storedGates.add(tg1);
@@ -71,25 +78,21 @@ public class Inventory{
      * after it has been deployed
      * @param tg Transport Gate
      */
-    public void removeGate(TransportGate tg)
-    {
+    public void removeGate(TransportGate tg) {
         System.out.println("removeGate()");
         storedGates.remove(tg);
     }
 
+    //</editor-fold>
 
-    // getter and setter
-    public List<ResourceBase> getStoredResources() {
-        return storedResources;
-    }
-    public void setStoredResources(List<ResourceBase> storedResources) {
-        this.storedResources = storedResources;
-    }
 
-    public List<TransportGate> getStoredGates() {
-        return storedGates;
-    }
-    public void setStoredGates(List<TransportGate> storedGates) {
-        this.storedGates = storedGates;
-    }
+    //<editor-fold desc="Getters and Setters">
+
+    public List<ResourceBase> getStoredResources() { return storedResources; }
+    public void setStoredResources(List<ResourceBase> storedResources) { this.storedResources = storedResources; }
+
+    public List<TransportGate> getStoredGates() { return storedGates; }
+    public void setStoredGates(List<TransportGate> storedGates) { this.storedGates = storedGates; }
+
+    //</editor-fold>
 }

@@ -4,10 +4,17 @@ import java.util.Scanner;
 
 public abstract class TravellerBase {
 
+    //<editor-fold desc="Attributes">
+
     private String name;
-    private boolean isAlive = true;
+    protected boolean isAlive = true;
     protected boolean isHidden = false;
     protected Asteroid currentPosition;
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
 
     public TravellerBase() { }
 
@@ -16,6 +23,10 @@ public abstract class TravellerBase {
         this.currentPosition = currentPosition;
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
 
     /**
      * moves the object to the chosen Asteroid.
@@ -77,7 +88,7 @@ public abstract class TravellerBase {
      * This method is used to hide the object in a hollow Asteroid. This will happen automatically when a traveller is on the hollow Astteroid.
      * @param A Asteroid that the Traveller is hiding on
      */
-    public void hide(Asteroid A){
+    public void hide(Asteroid A) {
         System.out.println("hide()");
         System.out.println("Is there enough space available?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -99,7 +110,7 @@ public abstract class TravellerBase {
      * This method is used to drill into an Asteroid.
      * @param A Asteroid that is being drilled
      */
-    public void drill(Asteroid A){
+    public void drill(Asteroid A) {
         System.out.println("drill()");
         int depth = A.getDepth();
 
@@ -126,7 +137,7 @@ public abstract class TravellerBase {
     /**
      * This method kills the object.
      */
-    public void die(){
+    public void die() {
         System.out.println("die()");
         System.out.println("Settler" + this.getName() + " is dead");
 
@@ -142,26 +153,18 @@ public abstract class TravellerBase {
         return isAlive;
     }
 
-    // getter and setter
-    public Asteroid getCurrentPosition() {
-        return currentPosition;
-    }
-    public void setCurrentPosition(Asteroid currentPosition) {
-        this.currentPosition = currentPosition;
-    }
+    //</editor-fold>
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    //<editor-fold desc="Getters and Setters">
 
-    public void setHidden(boolean hidden) {
-        isHidden = hidden;
-    }
+    public Asteroid getCurrentPosition() { return currentPosition; }
+    public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
 
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public void setHidden(boolean hidden) { isHidden = hidden; }
+    public void setAlive(boolean alive) { isAlive = alive; }
+
+    //</editor-fold>
 }
