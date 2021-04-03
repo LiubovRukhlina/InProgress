@@ -3,19 +3,23 @@ package com.InProgress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Asteroid extends PlaceBase{
 
 
     //<editor-fold desc="Attributes">
 
+    private int x;
+    private int y;
+    private int z;
     private int rockCover;
     private String name;
-    public ArrayList<Asteroid> neighbors;
+    public TransportGate gate;
     private List<Settler> settlersOnAsteroid;
     private List<Robot> robotsOnAsteroid;
-    private List<Settler> settlersInAsteroid;
-    private List<Robot> robotsInAsteroid;
+    //private List<Settler> settlersInAsteroid;
+    //private List<Robot> robotsInAsteroid;
     private List<ResourceBase> resourceOfAsteroid;
     private List<ResourceBase> storedResourceOfAsteroid;
     private Boolean isAtPerihelion;
@@ -31,22 +35,26 @@ public class Asteroid extends PlaceBase{
     /**
      * Constructor for later use in the game.
      *
-     * @param name Name of this Asteroid
-     * @param rockCover Thickness of the rockCover
+     * @param x X-coordinate of this Asteroid
+     * @param y Y-coordinate of this Asteroid
+     * @param z Z-coordinate of this Asteroid
      * @param isAtPerihelion determines if this Asteroid is at perihelion
      */
-    public Asteroid(String name, int rockCover, Boolean isAtPerihelion) {
-        this.name = name;
-        this.rockCover = rockCover;
+    public Asteroid(int x, int y, int z, Boolean isAtPerihelion) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.name = "A" + x + y +z;
+        this.rockCover = ThreadLocalRandom.current().nextInt(0, 10); // random number 0=<rockCover<10
         this.isAtPerihelion = isAtPerihelion;
         this.isHollow = false; // initialized as false. Must be changed when resource is assigned.
         this.isRadioactive = false; // initialized as false. Must be changed when resource is assigned.
         this.hasGate = false; // initialized as false.
         this.settlersOnAsteroid = new ArrayList<>();
         this.robotsOnAsteroid = new ArrayList<>();
-        this.settlersInAsteroid = new ArrayList<>();
-        this.robotsOnAsteroid = new ArrayList<>();
-        this.resourceOfAsteroid = new ArrayList<>();
+        //this.settlersInAsteroid = new ArrayList<>();
+        //this.robotsInAsteroid = new ArrayList<>();
+        this.resourceOfAsteroid = new ArrayList<>(); // see Issue #13: Which resource do we assign?
         this.storedResourceOfAsteroid = new ArrayList<>();
     }
 
@@ -124,12 +132,17 @@ public class Asteroid extends PlaceBase{
 
     //<editor-fold desc="Getters and Setters">
 
-    public ArrayList<Asteroid> getNeighbors() {
-        return neighbors;
-    }
-    public void setNeighbors(ArrayList<Asteroid> neighbors) {
-        this.neighbors = neighbors;
-    }
+    public int getX() { return x; }
+    public void setX(int x) { this.x = x; }
+
+    public int getY() { return y; }
+    public void setY(int y) { this.y = y; }
+
+    public int getZ() { return z; }
+    public void setZ(int z) { this.z = z; }
+
+    public TransportGate getGate() { return gate; }
+    public void setGate(TransportGate gate) { this.gate = gate; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -137,7 +150,13 @@ public class Asteroid extends PlaceBase{
     public void setRockCover(int rockCover) { this.rockCover = rockCover; }
 
     public Boolean getAtPerihelion() { return isAtPerihelion; }
-    public void setAtPerihelion(Boolean atPerihelion) { isAtPerihelion = atPerihelion; }
+    public void setAtPerihelion(Boolean atPerihelion) {
+        isAtPerihelion = atPerihelion;
+        if(isAtPerihelion && isRadioactive)
+        {
+            // TODO Uranium must explode.
+        }
+    }
 
     public Boolean getHollow() { return isHollow; }
     public void setHollow(Boolean hollow) { isHollow = hollow; }
@@ -154,11 +173,11 @@ public class Asteroid extends PlaceBase{
     public List<Robot> getRobotsOnAsteroid() { return this.robotsOnAsteroid; }
     public void setRobotsOnAsteroid(Robot newRobot) { this.robotsOnAsteroid.add(newRobot); }
 
-    public List<Settler> getSettlersInAsteroid() { return this.settlersInAsteroid; }
-    public void setSettlersInAsteroid(Settler newSettler) { this.settlersInAsteroid.add(newSettler); }
+    //public List<Settler> getSettlersInAsteroid() { return this.settlersInAsteroid; }
+    //public void setSettlersInAsteroid(Settler newSettler) { this.settlersInAsteroid.add(newSettler); }
 
-    public List<Robot> getRobotsInAsteroid() { return robotsInAsteroid; }
-    public void setRobotsInAsteroid(Robot newRobot) { this.robotsInAsteroid.add(newRobot); }
+    //public List<Robot> getRobotsInAsteroid() { return robotsInAsteroid; }
+    //public void setRobotsInAsteroid(Robot newRobot) { this.robotsInAsteroid.add(newRobot); }
 
     public List<ResourceBase> getStoredResourceOfAsteroid() { return storedResourceOfAsteroid; }
     public void setStoredResourceOfAsteroid(ResourceBase newResource) { this.storedResourceOfAsteroid.add(newResource); }
