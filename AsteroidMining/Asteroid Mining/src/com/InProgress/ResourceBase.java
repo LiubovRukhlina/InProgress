@@ -5,22 +5,29 @@ import java.util.*;
 
 public class ResourceBase {
 
+    //<editor-fold desc="Attributes">
+
     protected String resourceType;
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
 
     /**
      * constructor for ResourceBase
      * @param resourceType Name of the resource
      */
-    public ResourceBase(String resourceType) { this.resourceType = resourceType; }
+    public ResourceBase(String resourceType) {
+        this.resourceType = resourceType; }
+
+    //</editor-fold">
 
 
-    /**
-     * Returns the name of the Resource type
-     *
-     * @return Name of the Resource type
-     */
+    //<editor-fold desc="Getters and Setters">
+
     public String getResourceType() { return resourceType; }
 
+    //</editor-fold>
 
 }

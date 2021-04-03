@@ -4,10 +4,16 @@ import java.util.Scanner;
 
 
 public class Sun {
+
+    //<editor-fold desc="Attributes">
+
     private int countDownOfSunStorm;
 
-    public Sun() {
-    }
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
+    public Sun() { }
 
     /**
      * constructor
@@ -18,6 +24,14 @@ public class Sun {
         this.countDownOfSunStorm = countDownOfSunStorm;
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
+
+    /**
+     *  Decreases the countdown of this sun by 1 after each round.
+     */
     private void decreaseCountdown() {
         countDownOfSunStorm--;
     }
@@ -85,10 +99,13 @@ public class Sun {
         this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
     }
 
+    //</editor-fold>
 
-    // getters and setters
-    public int getCountdownOfSunStorm() {
-        return countDownOfSunStorm;
-    }
+
+    //<editor-fold desc="Getters and Setters">
+
+    public int getCountdownOfSunStorm() { return countDownOfSunStorm; }
     public void setCountDownOfSunStorm(int countDownOfSunStorm) { this.countDownOfSunStorm = countDownOfSunStorm; }
+
+    //</editor-fold>
 }

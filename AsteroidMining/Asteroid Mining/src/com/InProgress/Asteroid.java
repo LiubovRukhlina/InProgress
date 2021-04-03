@@ -6,9 +6,12 @@ import java.util.Scanner;
 
 public class Asteroid extends PlaceBase{
 
-    public ArrayList<Asteroid> neighbors;
-    private String name;
+
+    //<editor-fold desc="Attributes">
+
     private int rockCover;
+    private String name;
+    public ArrayList<Asteroid> neighbors;
     private List<Settler> settlersOnAsteroid;
     private List<Robot> robotsOnAsteroid;
     private List<Settler> settlersInAsteroid;
@@ -20,10 +23,13 @@ public class Asteroid extends PlaceBase{
     private Boolean isRadioactive;
     private Boolean hasGate;
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
 
     /**
      * Constructor for later use in the game.
-     * @all how and when do we assign the resources? from Yves
      *
      * @param name Name of this Asteroid
      * @param rockCover Thickness of the rockCover
@@ -44,6 +50,10 @@ public class Asteroid extends PlaceBase{
         this.storedResourceOfAsteroid = new ArrayList<>();
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
 
     /**
      * Gets the remaining rockCover of this Asteroid.
@@ -103,14 +113,17 @@ public class Asteroid extends PlaceBase{
      * Removes one of the stored resources of this Asteroid.
      * @param index index of the resource that is removed
      */
-    public void decreaseStoredResource(int index){
+    public void decreaseStoredResource(int index) {
         System.out.println("decreaseStoredResource()");
 
         // we do not remove a real resource in the skeleton
         //storedResourceOfAsteroid.remove(index);
     }
+    //</editor-fold>
 
-    // Getters and setters
+
+    //<editor-fold desc="Getters and Setters">
+
     public ArrayList<Asteroid> getNeighbors() {
         return neighbors;
     }
@@ -135,109 +148,24 @@ public class Asteroid extends PlaceBase{
     public Boolean getHasGate() { return hasGate; }
     public void setHasGate(Boolean hasGate) { this.hasGate = hasGate; }
 
-    /**
-     * Returns a list of all Setters who are currently on this Asteroid.
-     *
-     * @return List of all Settlers on this Asteroid.
-     */
-    public List<Settler> getSettlersOnAsteroid() {
-        return this.settlersOnAsteroid;
-    }
+    public List<Settler> getSettlersOnAsteroid() { return this.settlersOnAsteroid; }
+    public void setSettlersOnAsteroid(Settler newSettler) { this.settlersOnAsteroid.add(newSettler); }
 
-    /**
-     * Adds a new Settler to this Asteroids list of Settlers currently on it.
-     *
-     * @param newSettler new Settler who arrived on this Asteroid
-     */
-    public void setSettlersOnAsteroid(Settler newSettler) {
-        this.settlersOnAsteroid.add(newSettler);
-    }
+    public List<Robot> getRobotsOnAsteroid() { return this.robotsOnAsteroid; }
+    public void setRobotsOnAsteroid(Robot newRobot) { this.robotsOnAsteroid.add(newRobot); }
 
-    /**
-     * Returns a list of all Robots which are currently on this Asteroid.
-     *
-     * @return List of all Robots on this Asteroid.
-     */
-    public List<Robot> getRobotsOnAsteroid() {
-        return this.robotsOnAsteroid;
-    }
+    public List<Settler> getSettlersInAsteroid() { return this.settlersInAsteroid; }
+    public void setSettlersInAsteroid(Settler newSettler) { this.settlersInAsteroid.add(newSettler); }
 
-    /**
-     * Adds a new Robot to this Asteroids list of Settlers currently on it.
-     *
-     * @param newRobot new Robot which arrived on this Asteroid
-     */
-    public void setRobotsOnAsteroid(Robot newRobot) {
-        this.robotsOnAsteroid.add(newRobot);
-    }
+    public List<Robot> getRobotsInAsteroid() { return robotsInAsteroid; }
+    public void setRobotsInAsteroid(Robot newRobot) { this.robotsInAsteroid.add(newRobot); }
 
-    /**
-     * Returns a list all of Settlers hidden in the Asteroid.
-     *
-     * @return List all of Settlers hidden in the Asteroid
-     */
-    public List<Settler> getSettlersInAsteroid() {
-        return this.settlersInAsteroid;
-    }
+    public List<ResourceBase> getStoredResourceOfAsteroid() { return storedResourceOfAsteroid; }
+    public void setStoredResourceOfAsteroid(ResourceBase newResource) { this.storedResourceOfAsteroid.add(newResource); }
 
-    /**
-     * Adds a new Settler to the list of Settlers in this Asteroid.
-     *
-     * @param newSettler new Settler hidden in this Asteroid
-     */
-    public void setSettlersInAsteroid(Settler newSettler) {
-        this.settlersInAsteroid.add(newSettler);
-    }
 
-    /**
-     * Returns a list of all of Robots hidden in the Asteroid.
-     *
-     * @return List of all Robots hidden in the Asteroid
-     */
-    public List<Robot> getRobotsInAsteroid() {
-        return robotsInAsteroid;
-    }
+    public List<ResourceBase> getResourceOfAsteroid() { return resourceOfAsteroid; }
+    public void setResourceOfAsteroid(ResourceBase rb) { this.resourceOfAsteroid.add(rb); }
 
-    /**
-     * Adds a new Robot to the list of Robots in this Asteroid.
-     *
-     * @param newRobot new Robot hidden in this Asteroid
-     */
-    public void setRobotsInAsteroid(Robot newRobot) {
-        this.robotsInAsteroid.add(newRobot);
-    }
-
-    /**
-     * Returns a list of all Resources currently stored on the Asteroid.
-     *
-     * @return List of all Resources stored on the Asteroid
-     */
-    public List<ResourceBase> getStoredResourceOfAsteroid() {
-        return storedResourceOfAsteroid;
-    }
-
-    /**
-     * Adds a new Resource to the list of stored Resources of this Asteroid.
-     *
-     * @param newResource new Resource that is stored on this Asteroid
-     */
-    public void setStoredResourceOfAsteroid(ResourceBase newResource) {
-        this.storedResourceOfAsteroid.add(newResource);
-    }
-
-    /**
-     * Returns the list of Resource of this Asteroid.
-     * Since Asteroid are homogeneous and store only 1 unit,
-     * the list has only one element.
-     *
-     * @return List of Resource of this Asteroid
-     */
-    public List<ResourceBase> getResourceOfAsteroid() {
-        return resourceOfAsteroid;
-    }
-
-    public void setResourceOfAsteroid(ResourceBase rb) {
-        this.resourceOfAsteroid.add(rb);
-    }
-
+    //</editor-fold>
 }

@@ -3,7 +3,15 @@ package com.InProgress;
 import java.util.Scanner;
 
 public class Settler extends TravellerBase {
+
+    //<editor-fold desc="Attributes">
+
     private Inventory itsInventory = new Inventory();
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructor">
 
     /**
      * Constructor of the Settler class
@@ -15,11 +23,16 @@ public class Settler extends TravellerBase {
         this.setName(name);
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
+
     /**
      *This method mines the resource of the Asteroid the Settler is currently on.
      * @param A Asteroid that is mined.
      */
-    public void mine(Asteroid A){
+    public void mine(Asteroid A) {
         System.out.println("mine()");
         System.out.println("Is the core empty?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -41,7 +54,7 @@ public class Settler extends TravellerBase {
     /**
      * This method is used to build a robot.
      */
-    public void buildRobot(){
+    public void buildRobot() {
         System.out.println("buildRobot()");
 
         if (checkResources()){
@@ -62,7 +75,7 @@ public class Settler extends TravellerBase {
      * This method is used when the settler wants to build a SpaceStation.
      * @param A Asteroid on which the SpaceStation is built.
      */
-    public void buildSpaceStation(Asteroid A){
+    public void buildSpaceStation(Asteroid A) {
         System.out.println("BbuildSpaceStation()");
 
         if (checkResources()){
@@ -75,7 +88,7 @@ public class Settler extends TravellerBase {
     /**
      * This method is used to build a transportation-gate and store it in the settler’s inventory.
      */
-    public void buildTransportGate(){
+    public void buildTransportGate() {
         System.out.println("buildTransportGate()");
 
         if (checkResources()){
@@ -97,7 +110,7 @@ public class Settler extends TravellerBase {
      * This method deploys a transport gate on the asteroid the settler is currently on.
      * @param A Asteroid that the TransportGate is deployed on
      */
-    public void deployTransportGate(Asteroid A){
+    public void deployTransportGate(Asteroid A) {
         System.out.println("deployTransportGate()");
         TransportGate tg = this.itsInventory.getStoredGates().get(0);
         tg.setCurrentPosition(A);
@@ -116,7 +129,7 @@ public class Settler extends TravellerBase {
      * This method checks whether the settler has enough resources.
      * @return true if Settler has enough resources, and false otherwise.
      */
-    public boolean checkResources(){
+    public boolean checkResources() {
         System.out.println("checkResources()");
         System.out.println("Are there enough resources?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -134,7 +147,7 @@ public class Settler extends TravellerBase {
      * This method stores resources in hollow asteroids.
      * @param A Asteroid that the resource is stored on
      */
-    public void storeResources(Asteroid A){
+    public void storeResources(Asteroid A) {
         System.out.println("storeResources()");
         //ResourceBase rb =  this.itsInventory.getStoredResources().get(0);
         Carbon mockUpResource = new Carbon("Carbon"); // mockUpResource for the Skeleton
@@ -147,7 +160,7 @@ public class Settler extends TravellerBase {
      * This method is used to pick up resources which are stored on asteroids by settlers.
      * @param A Asteroid from which Settler picks up the resource
      */
-    public void pickUpResources(Asteroid A){
+    public void pickUpResources(Asteroid A) {
         System.out.println("pickUpResources()");
         System.out.println("Is there a resource to pick up?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -164,27 +177,21 @@ public class Settler extends TravellerBase {
         }
     }
 
+    //</editor-fold>
 
-    // getter and setter
-    /*
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    */
 
-    /**
-     *Gets the value of the liveCounter of the Settler
-     * @return remaining number of lives
-     */
-    // public int getLiveCounter() { return liveCounter; }
-    // public void setLiveCounter(int liveCounter) { this.liveCounter = liveCounter; }
+    //<editor-fold desc="Getters and Setters">
 
-    public Inventory getItsInventory() {
+    //public String getName() { return name; }
+    //public void setName(String name) { this.name = name; }
 
-        return itsInventory;
-    }
-    public void setItsInventory(Inventory itsInventory) {
-        this.itsInventory = itsInventory;
-    }
 
+    //public int getLiveCounter() { return liveCounter; }
+    //public void setLiveCounter(int liveCounter) { this.liveCounter = liveCounter; }
+
+    public Inventory getItsInventory() { return itsInventory; }
+    public void setItsInventory(Inventory itsInventory) { this.itsInventory = itsInventory; }
+
+    //</editor-fold>
 
 }

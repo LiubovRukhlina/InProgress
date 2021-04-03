@@ -5,6 +5,8 @@ import java.lang.Boolean;
 
 public class Uranium extends ResourceBase{
 
+    //<editor-fold desc="Constructor">
+
     /**
      * radioactive resource
      * @param resourceType Nma eof the resource.
@@ -13,6 +15,10 @@ public class Uranium extends ResourceBase{
         super(resourceType);
     }
 
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
 
     /**
      * Uranium explodes when the Asteroid is drilled through at perihelion.
@@ -21,7 +27,7 @@ public class Uranium extends ResourceBase{
      *
      * @param A Asteroid in which the Uranium is
      */
-    public void explode(Asteroid A){
+    public void explode(Asteroid A) {
         System.out.println("explode()");
         for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
             A.getSettlersOnAsteroid().get(i).die(); // All settler on the Asteroid die.
@@ -32,5 +38,7 @@ public class Uranium extends ResourceBase{
             A.getRobotsOnAsteroid().get(i).travel((Asteroid) A.getNeighbors().get(0)); // All robots on the Asteroid move to a neighbor.
         }
     }
+
+    //</editor-fold>
 
 }

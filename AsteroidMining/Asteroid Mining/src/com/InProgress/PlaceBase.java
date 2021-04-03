@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PlaceBase {
+
+    //<editor-fold desc="Attributes">
+
     private String name;
 
-    // getter and setter
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    //</editor-fold>
+
+    //<editor-fold desc="Getters and Setters">
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    //</editor-fold">
 }
