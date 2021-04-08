@@ -6,10 +6,12 @@ public abstract class TravellerBase {
 
     //<editor-fold desc="Attributes">
 
-    private String name;
+    protected String name;
+    protected int playerID;
+    protected Asteroid currentPosition;
     protected boolean isAlive = true;
     protected boolean isHidden = false;
-    protected Asteroid currentPosition;
+
 
     //</editor-fold>
 
@@ -157,11 +159,14 @@ public abstract class TravellerBase {
 
     //<editor-fold desc="Getters and Setters">
 
-    public Asteroid getCurrentPosition() { return currentPosition; }
-    public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
-
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public int getPlayerID() { return playerID; }
+    public void setPlayerID(int playerID) { this.playerID = playerID; }
+
+    public Asteroid getCurrentPosition() { return currentPosition; }
+    public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
 
     public void setHidden(boolean hidden) { isHidden = hidden; }
     public void setAlive(boolean alive) { isAlive = alive; }
