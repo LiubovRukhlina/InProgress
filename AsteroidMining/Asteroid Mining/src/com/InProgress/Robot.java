@@ -43,7 +43,7 @@ public class Robot extends TravellerBase{
         /**
          * According to the guidelines (check and revert)
          */
-        if(DestX % currentX == 2 && DestY % currentY == 2 && DestZ % currentZ == 2 )
+        if(Maths.abs(DestX-currentX) <= 2 || Maths.abs(DestY-currentY) <= 2 || Maths.abs(DestZ-currentZ) <= 2 )
             currentLocation = Dest;
 
     }
@@ -93,7 +93,7 @@ public class Robot extends TravellerBase{
 
     //<editor-fold desc="Getters and Setters">
 
-   
+
 
     /**
      * drill method
