@@ -16,12 +16,12 @@ public class Asteroid extends PlaceBase{
     private int rockCover;
     private String name;
     public TransportGate gate;
-    private List<Settler> settlersOnAsteroid;
-    private List<Robot> robotsOnAsteroid;
-    //private List<Settler> settlersInAsteroid;
-    //private List<Robot> robotsInAsteroid;
-    private List<ResourceBase> resourceOfAsteroid;
-    private List<ResourceBase> storedResourceOfAsteroid;
+    private ArrayList<Settler> settlersOnAsteroid;
+    private ArrayList<Robot> robotsOnAsteroid;
+    //private ArrayList<Settler> settlersInAsteroid;
+    //private ArrayList<Robot> robotsInAsteroid;
+    private ArrayList<ResourceBase> resourceOfAsteroid;
+    private ArrayList<ResourceBase> storedResourceOfAsteroid;
     private Boolean isAtPerihelion;
     private Boolean isHollow;
     private Boolean isRadioactive;
@@ -38,23 +38,49 @@ public class Asteroid extends PlaceBase{
      * @param x X-coordinate of this Asteroid
      * @param y Y-coordinate of this Asteroid
      * @param z Z-coordinate of this Asteroid
-     * @param isAtPerihelion determines if this Asteroid is at perihelion
+     * @param rnd random value used to determine the Resource
      */
-    public Asteroid(int x, int y, int z, Boolean isAtPerihelion) {
+    public Asteroid(int x, int y, int z, int rnd) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.name = "A" + x + y +z;
         this.rockCover = ThreadLocalRandom.current().nextInt(0, 10); // random number 0=<rockCover<10
-        this.isAtPerihelion = isAtPerihelion;
-        this.isHollow = false; // initialized as false. Must be changed when resource is assigned.
-        this.isRadioactive = false; // initialized as false. Must be changed when resource is assigned.
+        this.isAtPerihelion = false;
+        this.resourceOfAsteroid = new ArrayList<>();
+
+        switch (rnd) { // TODO see Issue #13: Which resource do we assign?
+            case 1 -> { // Assigns Carbon to this Asteroid
+                this.resourceOfAsteroid.add(new Carbon("Carbon"));
+                this.isHollow = false;
+                this.isRadioactive = false;
+            }
+            case 2 -> { // Assigns Iron to this Asteroid
+                this.resourceOfAsteroid.add(new Iron("Iron"));
+                this.isHollow = false;
+                this.isRadioactive = false;
+            }
+            case 3 -> { // Assigns Uranium to this Asteroid
+                this.resourceOfAsteroid.add(new Uranium("Uranium"));
+                this.isHollow = false;
+                this.isRadioactive = true;
+            }
+            case 4 -> { // Assigns WaterIce to this Asteroid
+                this.resourceOfAsteroid.add(new WaterIce("WaterIce"));
+                this.isHollow = false;
+                this.isRadioactive = false;
+            }
+            case 5 -> { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
+                this.isHollow = true;
+                this.isRadioactive = false;
+            }
+        }
+
         this.hasGate = false; // initialized as false.
         this.settlersOnAsteroid = new ArrayList<>();
         this.robotsOnAsteroid = new ArrayList<>();
-        //this.settlersInAsteroid = new ArrayList<>();
-        //this.robotsInAsteroid = new ArrayList<>();
-        this.resourceOfAsteroid = new ArrayList<>(); // see Issue #13: Which resource do we assign?
+        // this.settlersInAsteroid = new ArrayList<>();
+        // this.robotsInAsteroid = new ArrayList<>();
         this.storedResourceOfAsteroid = new ArrayList<>();
     }
 
@@ -70,12 +96,6 @@ public class Asteroid extends PlaceBase{
      *          It must be greater or equal to 0.
      */
     public int getDepth() {
-
-        System.out.println("getDepth()");
-        System.out.println("How thick is the mantle? Enter number between 1 and 5."); // Asks the user for his input.
-        Scanner scan = new Scanner(System.in);
-        int in = scan.nextInt();
-        setRockCover(in); // Sets the rockCover of this Asteroid to the user input.
         return this.rockCover;
     }
 
@@ -83,10 +103,7 @@ public class Asteroid extends PlaceBase{
      * Decreases the rockCover of this Asteroid by 1 unit.
      */
     public void decreaseRockCover() {
-
-        System.out.println("decreaseRockCover()");
         this.rockCover--;
-        System.out.println("The remaining rockCover = " + this.rockCover);
     }
 
     /**
@@ -94,39 +111,55 @@ public class Asteroid extends PlaceBase{
      * make this Asteroid hollow.
      */
     public void emptyAsteroid() {
-
-        System.out.println("emptyAsteroid()");
-
-        // there are no resources assigned in the skeleton therefore the clear method is not called.
-        //this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
-
+        this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
         this.setHollow(true); // This Asteroid is hollow.
         this.setRadioactive(false); // A hollow Asteroid cannot be radioactive.
     }
 
     /**
-     * Adds a new traveller to the traveller list of the asteroid
+     * Adds a new traveller to the traveller list of the asteroid.
+     * If the traveller is a settler it first only accepts this asteroid only accepts the settler
+     * if there are less then 3 settlers on it and at most 1 of them is from the same Player.
      * @param traveller new traveller arriving at the asteroid
      */
-    public void acceptTraveller(TravellerBase traveller) {
-        System.out.println("acceptTraveller()");
+    public boolean acceptTraveller(TravellerBase traveller) {
+
+        int settlerCounter = 0;
+
+        // if the Traveller is a Robot it will be always accepted.
         if (traveller instanceof Robot) {
-            this.robotsOnAsteroid.add((Robot) traveller);
+            this.robotsOnAsteroid.add((Robot) traveller); // add robot to this asteroid
+            return true;
+
         } else {
-           this.settlersOnAsteroid.add((Settler) traveller);
+            // check number of setters on this Asteroid
+            if (this.settlersOnAsteroid.size() < 3) {
+                for (var settler : settlersOnAsteroid) {
+                    // check if how many settlers of the same player are there
+                    if (traveller.getPlayerID() == settler.getPlayerID()) {
+                        settlerCounter++;
+                    }
+                }
+                if(settlerCounter < 2) {
+                    this.settlersOnAsteroid.add((Settler) traveller); // add settler to this asteroid
+                    return true;
+                } else {
+                    return false; // in case there are already 2 settlers of the same player
+                }
+
+            } else {
+                return false; // in case there are already 3 settlers in total
+            }
         }
     }
 
     /**
      * Removes one of the stored resources of this Asteroid.
-     * @param index index of the resource that is removed
      */
-    public void decreaseStoredResource(int index) {
-        System.out.println("decreaseStoredResource()");
-
-        // we do not remove a real resource in the skeleton
-        //storedResourceOfAsteroid.remove(index);
+    public void decreaseStoredResource() {
+        this.storedResourceOfAsteroid.remove(0);
     }
+
     //</editor-fold>
 
 
@@ -152,9 +185,10 @@ public class Asteroid extends PlaceBase{
     public Boolean getAtPerihelion() { return isAtPerihelion; }
     public void setAtPerihelion(Boolean atPerihelion) {
         isAtPerihelion = atPerihelion;
-        if(isAtPerihelion && isRadioactive)
+        if(isAtPerihelion && isRadioactive && rockCover == 0)
         {
-            // TODO Uranium must explode.
+            // TODO explosion of uranium
+            // (Uranium) this.resourceOfAsteroid.get(0).explode();
         }
     }
 

@@ -2,6 +2,7 @@ package com.InProgress;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -83,7 +84,7 @@ public class Game implements Serializable {
         for (int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
                 for(int k = 0; k < 10; k++) {
-                    asteroids.get(i).get(j).add(k, new Asteroid(i, j, k, false));
+                    asteroids.get(i).get(j).add(k, new Asteroid(i, j, k, ThreadLocalRandom.current().nextInt(1, 6)));
                 }
             }
         }
