@@ -1,5 +1,7 @@
 package com.InProgress;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -11,9 +13,6 @@ public class Robot extends TravellerBase {
      */
     private int damageCount;
     public Asteroid currentLocation;
-    private int currentX = currentLocation.getX();
-    private int currentY = currentLocation.getY();
-    private int currentZ = currentLocation.getZ();
     private boolean isHidden = false;
 
     //</editor-fold>
@@ -40,8 +39,17 @@ public class Robot extends TravellerBase {
         /**
          * According to the guidelines (check and revert)
          */
-        if (Maths.abs(DestX - currentX) <= 2 || Maths.abs(DestY - currentY) <= 2 || Maths.abs(DestZ - currentZ) <= 2)
-            currentLocation = Dest;
+        if (!Dest.IsExplode) {
+            if ((Math.abs(DestX - currentLocation.getX()) <= 2 || Math.abs(DestY - currentLocation.getY()) <= 2 || Math.abs(DestZ - currentLocation.getZ()) <= 2)) {
+                currentLocation.getRobotsOnAsteroid().remove(this);  // robot is removed from the list
+                Dest.getRobotsOnAsteroid().add(this); // robot is added to the list
+                currentLocation = Dest;  // successful travel
+                isHidden = false;
+                hide(); // hides when successfully travels
+            }
+        } else {
+            System.out.println("Invalid destination! Enter a new destination");
+        }
 
     }
 
@@ -54,7 +62,11 @@ public class Robot extends TravellerBase {
 
             if (Gate1.isActive) {    // if the gate is active (means if the pair is also deployed)
                 TransportGate Gate2 = Gate1.getPair();
-                currentLocation = Gate2.getCurrentPosition(); // we travel to the location of the pair.
+                currentLocation.getRobotsOnAsteroid().remove(this); // robot is removed from the list
+                currentLocation = Gate2.getCurrentPosition();// we travel to the location of the pair.
+                currentLocation.getRobotsOnAsteroid().add(this); // robot is added to the list
+                isHidden = false;
+                hide();
             }
         }
     }
@@ -89,28 +101,42 @@ public class Robot extends TravellerBase {
 
 
     /**
-     * drill method
+     * the robot drills
      */
     public void drill() {
 
         int depth = currentLocation.getDepth(); // gets the mantle length of the asteroid
         if (depth != 0) { // if it is not hollow, then we drill
-            for (int i = 0; i < depth; i++) {
-                currentLocation.decreaseRockCover(); //drilling
-            }
+            currentLocation.decreaseRockCover(); //drilling
+        } else {
+            int rndX = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+            int rndY = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+            int rndZ = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+            travel(Game.asteroids.get(currentLocation.getX() + rndX).get(currentLocation.getY() + rndY).get(currentLocation.getY() + rndZ));
         }
     }
 
     /**
-     * hide method
+     * the robot hides to evade sunstorms and survive
      */
     public void hide() {
         if (!isHidden) { //if the robot is already hidden
-            if (currentLocation.IsHollow) { // if the asteroid is a hollow one
-                isHidden = true;
+            int cntRobots = 0;
+            int cntSettlers =0;
+            for (int i = 0; i < currentLocation.getRobotsOnAsteroid().size(); i++){
+                if(currentLocation.getRobotsOnAsteroid().get(i).isHidden) // to check if hidden
+                    cntRobots++;
+            }
+            for(int i = 0; i < currentLocation.getSettlersOnAsteroid().size(); i++ ){
+                if(currentLocation.getSettlersOnAsteroid().get(i).isHidden)   // to check if hidden
+                    cntSettlers++;
+            }
+            if(cntRobots<=2 && cntSettlers + cntRobots <= 2){ // 2 robots or 1 robot and 1 settler
+                if (currentLocation.IsHollow) { // if the asteroid is a hollow one
+                    isHidden = true;
+            }
             }
         }
-
     }
 
     public int getDamageCount() {
