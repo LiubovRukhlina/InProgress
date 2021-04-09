@@ -2,6 +2,7 @@ package com.InProgress;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -10,7 +11,7 @@ public class Game implements Serializable {
     //<editor-fold desc="Attributes">
 
     public static ArrayList<TravellerBase> active; //list of settlers and robots
-    public static ArrayList<Asteroid> asteroids; //list of all asteroids
+    public static ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     public static ArrayList<TransportGate> gates;
     Sun sun; // in charge of sun storms
 
@@ -76,20 +77,17 @@ public class Game implements Serializable {
     }
 
     /**
-     * places asteroids and define neighbors
+     * places asteroids in the 3D-list
      */
-    void setAsteroidField() {
+    void setAsteroidField() { // see Issue #13: Which resource do we assign?
         System.out.println("setAsteroidField()");
-        for (int i = 1; i <= 5; i++) {
-            asteroids.add(i-1, new Asteroid("A" + String.valueOf(i), i*2, false));
+        for (int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                for(int k = 0; k < 10; k++) {
+                    asteroids.get(i).get(j).add(k, new Asteroid(i, j, k, ThreadLocalRandom.current().nextInt(1, 6)));
+                }
+            }
         }
-
-        //sets neighbors
-        asteroids.get(0).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1))));
-        asteroids.get(1).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(0),asteroids.get(2))));
-        asteroids.get(2).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1),asteroids.get(3))));
-        asteroids.get(3).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(1),asteroids.get(2))));
-        asteroids.get(4).setNeighbors(new ArrayList<>(Arrays.asList(asteroids.get(3))));
     }
 
     /**
