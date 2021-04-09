@@ -26,7 +26,12 @@ public class Robot extends TravellerBase {
     public Robot() {
         this.damageCount = 0;
     }
+    
+    
+    //</editor-fold>
 
+
+    //<editor-fold desc="Methods">
 
     /**
      * @param Dest destination asteroid where the user wants to travel
@@ -71,12 +76,6 @@ public class Robot extends TravellerBase {
         }
     }
 
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Method">
-
     /**
      * Increases the damageCount of this Robot.
      * A robot will die when the damageCount equals 2.
@@ -93,12 +92,6 @@ public class Robot extends TravellerBase {
         // commented the output out. I think right now it is not in the skeleton. (Yves)
         //System.out.println("Robot has been damaged.");
     }
-
-    //</editor-fold>
-
-
-    //<editor-fold desc="Getters and Setters">
-
 
     /**
      * the robot drills
@@ -138,6 +131,11 @@ public class Robot extends TravellerBase {
             }
         }
     }
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Getters and Setters">
 
     public int getDamageCount() {
         return damageCount;
