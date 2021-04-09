@@ -26,6 +26,7 @@ public class Asteroid extends PlaceBase{
     private Boolean isHollow;
     private Boolean isRadioactive;
     private Boolean hasGate;
+    public Boolean IsExplode;
 
     //</editor-fold>
 
