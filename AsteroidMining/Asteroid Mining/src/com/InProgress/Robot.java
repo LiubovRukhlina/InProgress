@@ -26,8 +26,8 @@ public class Robot extends TravellerBase {
     public Robot() {
         this.damageCount = 0;
     }
-    
-    
+
+
     //</editor-fold>
 
 
@@ -42,7 +42,7 @@ public class Robot extends TravellerBase {
         int DestZ = Dest.getZ();
 
         /**
-         * According to the guidelines (check and revert)
+         * to check if the desired asteroid is a neighbout or not!
          */
         if (!Dest.IsExplode) {
             if ((Math.abs(DestX - currentLocation.getX()) <= 2 || Math.abs(DestY - currentLocation.getY()) <= 2 || Math.abs(DestZ - currentLocation.getZ()) <= 2)) {
@@ -73,6 +73,12 @@ public class Robot extends TravellerBase {
                 isHidden = false;
                 hide();
             }
+            else{
+                System.out.println("The other pair is not deployed yet!");
+            }
+        }
+        else {
+            System.out.println("This asteroid does not have a tansport gate.");
         }
     }
 
