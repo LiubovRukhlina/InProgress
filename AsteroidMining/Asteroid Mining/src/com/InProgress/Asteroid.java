@@ -49,7 +49,7 @@ public class Asteroid extends PlaceBase{
         this.isAtPerihelion = false;
         this.resourceOfAsteroid = new ArrayList<>();
 
-        switch (rnd) { // TODO see Issue #13: Which resource do we assign?
+        switch (rnd) {
             case 1 -> { // Assigns Carbon to this Asteroid
                 this.resourceOfAsteroid.add(new Carbon("Carbon"));
                 this.isHollow = false;
@@ -154,6 +154,24 @@ public class Asteroid extends PlaceBase{
     }
 
     /**
+     * Changes the atPerihelion attribute of this asteroid.
+     * Checks whether Uranium or WaterIce is in the core and acts accordingly.
+     *
+     * @param atPerihelion new value of the atPerihelion attribute
+     */
+    public void setAtPerihelion(Boolean atPerihelion) {
+        isAtPerihelion = atPerihelion;
+        if(isAtPerihelion && isRadioactive && rockCover == 0)
+        {
+            this.resourceOfAsteroid.get(0).explode(this);
+        }
+        if(this.getResourceOfAsteroid().get(0).getResourceType()=="WaterIce" && rockCover == 0)
+        {
+            this.resourceOfAsteroid.get(0).sublime(this);
+        }
+    }
+
+    /**
      * Removes one of the stored resources of this Asteroid.
      */
     public void decreaseStoredResource() {
@@ -183,14 +201,6 @@ public class Asteroid extends PlaceBase{
     public void setRockCover(int rockCover) { this.rockCover = rockCover; }
 
     public Boolean getAtPerihelion() { return isAtPerihelion; }
-    public void setAtPerihelion(Boolean atPerihelion) {
-        isAtPerihelion = atPerihelion;
-        if(isAtPerihelion && isRadioactive && rockCover == 0)
-        {
-            // TODO explosion of uranium
-            // (Uranium) this.resourceOfAsteroid.get(0).explode();
-        }
-    }
 
     public Boolean getHollow() { return isHollow; }
     public void setHollow(Boolean hollow) { isHollow = hollow; }

@@ -23,6 +23,7 @@ public class WaterIce extends ResourceBase{
      * drilled through
      * @param A Asteroid of this WaterIce Resource
      */
+    @Override
     public void sublime(Asteroid A) {
 
         A.getResourceOfAsteroid().remove(0); // Removes the resource form the asteroid

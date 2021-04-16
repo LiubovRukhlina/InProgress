@@ -70,8 +70,7 @@ public class Sun {
      * launches the sun storm
      */
     public void startSunStorm() {
-        System.out.println("startSunStorm()");
-        /* No countdown for the skeleton
+        /* No countdown for the prototype
         while (countDownOfSunStorm >= 0)
         {
             decreaseCountdown();
@@ -84,49 +83,25 @@ public class Sun {
      *  checks the asteroids and if there are any unhidden settlers/robots on them
      */
     private void findTraveller() {
-        System.out.println("findSettlerRobot()");
 
-        // checks all Asteroids
-        for(int i = 0; i < Game.getAsteroids().size(); i++)
-        {
-            // checks all Settlers on the Asteroid
-            for(int j = 0; j < Game.getAsteroids().get(i).getSettlersOnAsteroid().size(); j++)
-            {
-                System.out.println("Is Settler" + Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).getName() + " hidden?" );
-                Scanner scan = new Scanner(System.in);
-                String in = scan.next();
-                if (in.equals("no"))
-                {
-                    Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                for (int k = 0; k < 10; k++) {
+                    for (int s = 0; s < Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().size(); s++) {
+                        if (Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().get(s).isHidden() == false) {
+                            Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().get(s).die();
+                        }
+                    }
+                    for (int r = 0; r < Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().size(); r++) {
+                        if (Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().get(r).isHidden() == false) {
+                            Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().get(r).die();
+                        }
+                    }
                 }
-                /*
-                if(Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).isHidden() == false)
-                {
-                    Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
-                }
-                */
-            }
-            
-            // checks all Robots on the Asteroid
-            for(int j = 0; j < Game.getAsteroids().get(i).getRobotsOnAsteroid().size(); j++)
-            {
-                System.out.println("Is Robot hidden?" );
-                Scanner scan = new Scanner(System.in);
-                String in = scan.next();
-                if (in.equals("no"))
-                {
-                    Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
-                }
-                /*
-                if(Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).isHidden() == false)
-                {
-                    Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
-                }
-                */
             }
         }
 
-        this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
+        //this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
     }
 
     //</editor-fold>

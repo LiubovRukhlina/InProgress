@@ -79,8 +79,7 @@ public class Game implements Serializable {
     /**
      * places asteroids in the 3D-list
      */
-    void setAsteroidField() { // see Issue #13: Which resource do we assign?
-        System.out.println("setAsteroidField()");
+    void setAsteroidField() {
         for (int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
                 for(int k = 0; k < 10; k++) {
@@ -165,6 +164,8 @@ public class Game implements Serializable {
 
     public static ArrayList<TravellerBase> getActive() { return active; }
     public static ArrayList<Asteroid> getAsteroids() { return asteroids; }
+
+
 
     //</editor-fold>
 
