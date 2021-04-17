@@ -11,6 +11,8 @@ public class Game implements Serializable {
     public static ArrayList<Robot> robots; //list of robots
     public static ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     public static ArrayList<TransportGate> gates;
+    public static ArrayList<Player> players;
+
     public static int maxX;
     public static int maxY;
     public static int maxZ;
