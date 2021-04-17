@@ -63,11 +63,11 @@ public class Settler extends TravellerBase {
             // this.currentPosition.setLocation(myRobot);
             myRobot.setCurrentPosition(this.currentPosition);
             this.itsInventory.removeResources(new ResourceBase("Carbon"));
-            Asteroid destAsteroid = myRobot.getCurrentPosition().getNeighbors().get(0);
+           // Asteroid destAsteroid = myRobot.getCurrentPosition().getNeighbors().get(0);
 
             //After creation the Robot travels to the next Asteroid and drills
-            myRobot.travel(destAsteroid);
-            myRobot.drill(destAsteroid);
+            //myRobot.travel(destAsteroid);
+            //myRobot.drill(destAsteroid);
         }
     }
 

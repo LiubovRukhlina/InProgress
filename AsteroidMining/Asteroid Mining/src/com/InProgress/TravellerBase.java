@@ -34,7 +34,7 @@ public abstract class TravellerBase {
      * moves the object to the chosen Asteroid.
      * @param A destination Asteroid
      */
-    public void travel(Asteroid A) {
+   /* public void travel(Asteroid A) {
         System.out.println("travel()");
         if (!A.getNeighbors().contains(this.currentPosition))
         {
@@ -57,7 +57,7 @@ public abstract class TravellerBase {
         if (in.equals("yes")){
             this.hide(A);
         }
-    }
+    }*/
 
     /**
      * This method is used for travel by using a transport gate.
@@ -144,7 +144,7 @@ public abstract class TravellerBase {
         System.out.println("Settler" + this.getName() + " is dead");
 
         this.isAlive = false;
-        Game.active.remove(this);
+        Game.settlers.remove(this);
     }
 
     public boolean isHidden() {

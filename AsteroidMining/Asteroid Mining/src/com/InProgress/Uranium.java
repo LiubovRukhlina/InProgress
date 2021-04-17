@@ -38,7 +38,7 @@ public class Uranium extends ResourceBase{
             int rndX = ThreadLocalRandom.current().nextInt(0, 5)-2; // random number between -2 and 2
             int rndY = ThreadLocalRandom.current().nextInt(0, 5)-2; // random number between -2 and 2
             int rndZ = ThreadLocalRandom.current().nextInt(0, 5)-2; // random number between -2 and 2
-            A.getRobotsOnAsteroid().get(i).travel(Game.asteroids.get(A.getX()+rndX).get(A.getY()+rndY).get(A.getY()+rndZ)); // All robots on the Asteroid move to a random neighbor.
+           // A.getRobotsOnAsteroid().get(i).travel(Game.asteroids.get(A.getX()+rndX).get(A.getY()+rndY).get(A.getY()+rndZ)); // All robots on the Asteroid move to a random neighbor.
         }
     }
 

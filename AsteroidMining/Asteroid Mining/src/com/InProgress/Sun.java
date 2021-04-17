@@ -77,13 +77,13 @@ public class Sun {
             decreaseCountdown();
         }
         */
-        findTraveller();
+        //findTraveller();
     }
 
     /**
      *  checks the asteroids and if there are any unhidden settlers/robots on them
      */
-    private void findTraveller() {
+    /*private void findTraveller() {
         System.out.println("findSettlerRobot()");
 
         // checks all Asteroids
@@ -99,12 +99,12 @@ public class Sun {
                 {
                     Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
                 }
-                /*
+                *//*
                 if(Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).isHidden() == false)
                 {
                     Game.getAsteroids().get(i).getSettlersOnAsteroid().get(j).die();
                 }
-                */
+                *//*
             }
             
             // checks all Robots on the Asteroid
@@ -117,17 +117,17 @@ public class Sun {
                 {
                     Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
                 }
-                /*
+                *//*
                 if(Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).isHidden() == false)
                 {
                     Game.getAsteroids().get(i).getRobotsOnAsteroid().get(j).increaseDamage();
                 }
-                */
+                *//*
             }
-        }
+        }*/
 
-        this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
-    }
+        //this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
+    //}
 
     //</editor-fold>
 

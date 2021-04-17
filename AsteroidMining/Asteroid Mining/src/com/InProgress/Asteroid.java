@@ -2,6 +2,7 @@ package com.InProgress;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,35 +46,35 @@ public class Asteroid extends PlaceBase{
         this.y = y;
         this.z = z;
         this.name = "A" + x + y +z;
-        this.rockCover = ThreadLocalRandom.current().nextInt(0, 10); // random number 0=<rockCover<10
+        this.rockCover = new Random().nextInt(10); // random number 0=<rockCover<10
         this.isAtPerihelion = false;
         this.resourceOfAsteroid = new ArrayList<>();
 
         switch (rnd) { // TODO see Issue #13: Which resource do we assign?
-            case 1 -> { // Assigns Carbon to this Asteroid
+            case 1: { // Assigns Carbon to this Asteroid
                 this.resourceOfAsteroid.add(new Carbon("Carbon"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 2 -> { // Assigns Iron to this Asteroid
+            } break;
+            case 2: { // Assigns Iron to this Asteroid
                 this.resourceOfAsteroid.add(new Iron("Iron"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 3 -> { // Assigns Uranium to this Asteroid
+            }break;
+            case 3: { // Assigns Uranium to this Asteroid
                 this.resourceOfAsteroid.add(new Uranium("Uranium"));
                 this.isHollow = false;
                 this.isRadioactive = true;
-            }
-            case 4 -> { // Assigns WaterIce to this Asteroid
+            }break;
+            case 4: { // Assigns WaterIce to this Asteroid
                 this.resourceOfAsteroid.add(new WaterIce("WaterIce"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 5 -> { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
+            }break;
+            case 5: { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
                 this.isHollow = true;
                 this.isRadioactive = false;
-            }
+            }break;
         }
 
         this.hasGate = false; // initialized as false.
@@ -134,7 +135,7 @@ public class Asteroid extends PlaceBase{
         } else {
             // check number of setters on this Asteroid
             if (this.settlersOnAsteroid.size() < 3) {
-                for (var settler : settlersOnAsteroid) {
+                for (Settler settler : settlersOnAsteroid) {
                     // check if how many settlers of the same player are there
                     if (traveller.getPlayerID() == settler.getPlayerID()) {
                         settlerCounter++;
