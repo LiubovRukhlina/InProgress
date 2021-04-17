@@ -2,6 +2,7 @@ package com.InProgress;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,35 +46,35 @@ public class Asteroid extends PlaceBase{
         this.y = y;
         this.z = z;
         this.name = "A" + x + y +z;
-        this.rockCover = ThreadLocalRandom.current().nextInt(0, 10); // random number 0=<rockCover<10
+        this.rockCover = new Random().nextInt(10); // random number 0=<rockCover<10
         this.isAtPerihelion = false;
         this.resourceOfAsteroid = new ArrayList<>();
 
-        switch (rnd) {
-            case 1 -> { // Assigns Carbon to this Asteroid
+        switch (rnd) { // TODO see Issue #13: Which resource do we assign?
+            case 1: { // Assigns Carbon to this Asteroid
                 this.resourceOfAsteroid.add(new Carbon("Carbon"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 2 -> { // Assigns Iron to this Asteroid
+            } break;
+            case 2: { // Assigns Iron to this Asteroid
                 this.resourceOfAsteroid.add(new Iron("Iron"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 3 -> { // Assigns Uranium to this Asteroid
+            }break;
+            case 3: { // Assigns Uranium to this Asteroid
                 this.resourceOfAsteroid.add(new Uranium("Uranium"));
                 this.isHollow = false;
                 this.isRadioactive = true;
-            }
-            case 4 -> { // Assigns WaterIce to this Asteroid
+            }break;
+            case 4: { // Assigns WaterIce to this Asteroid
                 this.resourceOfAsteroid.add(new WaterIce("WaterIce"));
                 this.isHollow = false;
                 this.isRadioactive = false;
-            }
-            case 5 -> { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
+            }break;
+            case 5: { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
                 this.isHollow = true;
                 this.isRadioactive = false;
-            }
+            }break;
         }
 
         this.hasGate = false; // initialized as false.
@@ -134,7 +135,7 @@ public class Asteroid extends PlaceBase{
         } else {
             // check number of setters on this Asteroid
             if (this.settlersOnAsteroid.size() < 3) {
-                for (var settler : settlersOnAsteroid) {
+                for (Settler settler : settlersOnAsteroid) {
                     // check if how many settlers of the same player are there
                     if (traveller.getPlayerID() == settler.getPlayerID()) {
                         settlerCounter++;
@@ -150,24 +151,6 @@ public class Asteroid extends PlaceBase{
             } else {
                 return false; // in case there are already 3 settlers in total
             }
-        }
-    }
-
-    /**
-     * Changes the atPerihelion attribute of this asteroid.
-     * Checks whether Uranium or WaterIce is in the core and acts accordingly.
-     *
-     * @param atPerihelion new value of the atPerihelion attribute
-     */
-    public void setAtPerihelion(Boolean atPerihelion) {
-        isAtPerihelion = atPerihelion;
-        if(isAtPerihelion && isRadioactive && rockCover == 0)
-        {
-            this.resourceOfAsteroid.get(0).explode(this);
-        }
-        if(this.getResourceOfAsteroid().get(0).getResourceType()=="WaterIce" && rockCover == 0)
-        {
-            this.resourceOfAsteroid.get(0).sublime(this);
         }
     }
 
@@ -201,6 +184,14 @@ public class Asteroid extends PlaceBase{
     public void setRockCover(int rockCover) { this.rockCover = rockCover; }
 
     public Boolean getAtPerihelion() { return isAtPerihelion; }
+    public void setAtPerihelion(Boolean atPerihelion) {
+        isAtPerihelion = atPerihelion;
+        if(isAtPerihelion && isRadioactive && rockCover == 0)
+        {
+            // TODO explosion of uranium
+            // (Uranium) this.resourceOfAsteroid.get(0).explode();
+        }
+    }
 
     public Boolean getHollow() { return isHollow; }
     public void setHollow(Boolean hollow) { isHollow = hollow; }
