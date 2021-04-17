@@ -1,7 +1,5 @@
 package com.InProgress;
 
-import java.util.Scanner;
-
 
 public class Sun {
 
@@ -18,8 +16,8 @@ public class Sun {
 
     /**
      * constructor
-     * @param countDownOfSunStorm - time before the sun storm
-     *
+     * @param sunX x coordinate of the perihelion area
+     * @param countDownOfSunStorm time before the sun storm
      */
     public Sun(int sunX, int countDownOfSunStorm) {
         this.sunX = sunX;
@@ -34,13 +32,14 @@ public class Sun {
     /**
      * Increases the sunX value by one.
      * In case the sunX equals the upper boundary it is set back to 0.
+     * Calls the perihelionChanger to update the asteroids.
      */
-    private void changePerihelion() {
+    private void changeSunX() {
 
         // change atPerihelion to false for current sunX
-        for(int j = 0; j < 10; j++) {
-            for (int k = 0; k < 10; k++) {
-                Game.asteroids.get(sunX).get(j).get(k).setAtPerihelion(false);
+        for(int j = 0; j < Game.maxY; j++) {
+            for (int k = 0; k < Game.maxZ; k++) {
+                Game.getAsteroid(sunX, j, k).perihelionChanger(false);
             }
         }
 
@@ -52,9 +51,9 @@ public class Sun {
         }
 
         // change atPerihelion to true for current sunX
-        for(int j = 0; j < 10; j++) {
-            for (int k = 0; k < 10; k++) {
-                Game.asteroids.get(sunX).get(j).get(k).setAtPerihelion(true);
+        for(int j = 0; j < Game.maxY; j++) {
+            for (int k = 0; k < Game.maxZ; k++) {
+                Game.getAsteroid(sunX, j, k).perihelionChanger(true);
             }
         }
     }
@@ -76,25 +75,27 @@ public class Sun {
             decreaseCountdown();
         }
         */
+        Tester.generator(Tester.outputFile, "sunstorm occurred" ); // has to be printed before Travellers die
         findTraveller();
     }
 
     /**
-     *  checks the asteroids and if there are any unhidden settlers/robots on them
+     *  checks the asteroids and if there are any unhidden travellers on them.
+     *  Calls die() for unhidden travellers.
      */
     private void findTraveller() {
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                for (int k = 0; k < 10; k++) {
-                    for (int s = 0; s < Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().size(); s++) {
-                        if (Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().get(s).isHidden() == false) {
-                            Game.asteroids.get(i).get(j).get(k).getSettlersOnAsteroid().get(s).die();
+        for (int i = 0; i < Game.maxX; i++) {
+            for (int j = 0; j < Game.maxY; j++) {
+                for (int k = 0; k < Game.maxZ; k++) {
+                    for (int s = 0; s < Game.getAsteroid(i,j,k).getSettlersOnAsteroid().size(); s++) {
+                        if (Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).isHidden() == false) {
+                            Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).die();
                         }
                     }
-                    for (int r = 0; r < Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().size(); r++) {
-                        if (Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().get(r).isHidden() == false) {
-                            Game.asteroids.get(i).get(j).get(k).getRobotsOnAsteroid().get(r).die();
+                    for (int r = 0; r <Game.getAsteroid(i,j,k).getRobotsOnAsteroid().size(); r++) {
+                        if (Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).isHidden() == false) {
+                            Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).die();
                         }
                     }
                 }

@@ -25,9 +25,9 @@ public class ResourceBase {
 
     //<editor-fold desc="Methods">
 
-    public void explode(Asteroid A) { }
+    protected void explode(Asteroid A) { }
 
-    public void sublime(Asteroid A) { }
+    protected void sublime(Asteroid A) { }
 
     //</editor-fold>
 

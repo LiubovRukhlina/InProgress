@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Asteroid extends PlaceBase{
 
@@ -19,14 +18,13 @@ public class Asteroid extends PlaceBase{
     public TransportGate gate;
     private ArrayList<Settler> settlersOnAsteroid;
     private ArrayList<Robot> robotsOnAsteroid;
-    //private ArrayList<Settler> settlersInAsteroid;
-    //private ArrayList<Robot> robotsInAsteroid;
     private ArrayList<ResourceBase> resourceOfAsteroid;
     private ArrayList<ResourceBase> storedResourceOfAsteroid;
     private Boolean isAtPerihelion;
     private Boolean isHollow;
     private Boolean isRadioactive;
     private Boolean hasGate;
+    private Boolean isExploded;
 
     //</editor-fold>
 
@@ -50,7 +48,7 @@ public class Asteroid extends PlaceBase{
         this.isAtPerihelion = false;
         this.resourceOfAsteroid = new ArrayList<>();
 
-        switch (rnd) { // TODO see Issue #13: Which resource do we assign?
+        switch (rnd) {
             case 1: { // Assigns Carbon to this Asteroid
                 this.resourceOfAsteroid.add(new Carbon("Carbon"));
                 this.isHollow = false;
@@ -78,10 +76,9 @@ public class Asteroid extends PlaceBase{
         }
 
         this.hasGate = false; // initialized as false.
+        this.isExploded = false;
         this.settlersOnAsteroid = new ArrayList<>();
         this.robotsOnAsteroid = new ArrayList<>();
-        // this.settlersInAsteroid = new ArrayList<>();
-        // this.robotsInAsteroid = new ArrayList<>();
         this.storedResourceOfAsteroid = new ArrayList<>();
     }
 
@@ -127,30 +124,21 @@ public class Asteroid extends PlaceBase{
 
         int settlerCounter = 0;
 
-        // if the Traveller is a Robot it will be always accepted.
-        if (traveller instanceof Robot) {
-            this.robotsOnAsteroid.add((Robot) traveller); // add robot to this asteroid
-            return true;
-
-        } else {
-            // check number of setters on this Asteroid
-            if (this.settlersOnAsteroid.size() < 3) {
-                for (Settler settler : settlersOnAsteroid) {
-                    // check if how many settlers of the same player are there
-                    if (traveller.getPlayerID() == settler.getPlayerID()) {
-                        settlerCounter++;
-                    }
+        if (this.settlersOnAsteroid.size() < 3) {
+            for (Settler settler : settlersOnAsteroid) {
+                // check if how many settlers of the same player are there
+                if (traveller.getPlayerID() == settler.getPlayerID()) {
+                    settlerCounter++;
                 }
-                if(settlerCounter < 2) {
-                    this.settlersOnAsteroid.add((Settler) traveller); // add settler to this asteroid
-                    return true;
-                } else {
-                    return false; // in case there are already 2 settlers of the same player
-                }
-
-            } else {
-                return false; // in case there are already 3 settlers in total
             }
+            if(settlerCounter < 2) {
+                this.settlersOnAsteroid.add((Settler) traveller); // add settler to this asteroid
+                return true;
+            } else {
+                return false; // in case there are already 2 settlers of the same player
+            }
+        } else {
+                return false; // in case there are already 3 settlers in total
         }
     }
 
@@ -159,6 +147,24 @@ public class Asteroid extends PlaceBase{
      */
     public void decreaseStoredResource() {
         this.storedResourceOfAsteroid.remove(0);
+    }
+
+    /**
+     * Changes the atPerihelion attribute of this asteroid.
+     * Checks whether the Resource has to explode or sublime.
+     *
+     * @param atPerihelion new value of the atPerihelion attribute
+     */
+    public void perihelionChanger(Boolean atPerihelion) {
+        isAtPerihelion = atPerihelion;
+        if(isAtPerihelion && isRadioactive && rockCover == 0)
+        {
+            this.resourceOfAsteroid.get(0).explode(this);
+        }
+        if(isAtPerihelion && this.getResourceOfAsteroid().get(0).getResourceType() == "WaterIce")
+        {
+            this.resourceOfAsteroid.get(0).sublime(this);
+        }
     }
 
     //</editor-fold>
@@ -176,25 +182,35 @@ public class Asteroid extends PlaceBase{
     public void setZ(int z) { this.z = z; }
 
     public TransportGate getGate() { return gate; }
-    public void setGate(TransportGate gate) { this.gate = gate; }
+    public void setGate(TransportGate gate) {
+        this.gate = gate;
+        Tester.generator(Tester.outputFile, "created object TRANSPORTGATE at  " + this.getX() + " " +
+                this.getY() + " " + this.getZ());
+    }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public void setRockCover(int rockCover) { this.rockCover = rockCover; }
+    public void setRockCover(int rockCover) {
+        this.rockCover = rockCover;
+        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " ROCKCOVER to " + rockCover );
+    }
 
     public Boolean getAtPerihelion() { return isAtPerihelion; }
     public void setAtPerihelion(Boolean atPerihelion) {
         isAtPerihelion = atPerihelion;
-        if(isAtPerihelion && isRadioactive && rockCover == 0)
-        {
-            // TODO explosion of uranium
-            // (Uranium) this.resourceOfAsteroid.get(0).explode();
-        }
+        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " ISATPERIHELION to " + atPerihelion );
     }
 
+
     public Boolean getHollow() { return isHollow; }
-    public void setHollow(Boolean hollow) { isHollow = hollow; }
+    public void setHollow(Boolean hollow) {
+        isHollow = hollow;
+        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " ISHOLLOW to " + hollow );
+    }
 
     public Boolean getRadioactive() { return isRadioactive; }
     public void setRadioactive(Boolean radioactive) { isRadioactive = radioactive; }
@@ -208,18 +224,26 @@ public class Asteroid extends PlaceBase{
     public List<Robot> getRobotsOnAsteroid() { return this.robotsOnAsteroid; }
     public void setRobotsOnAsteroid(Robot newRobot) { this.robotsOnAsteroid.add(newRobot); }
 
-    //public List<Settler> getSettlersInAsteroid() { return this.settlersInAsteroid; }
-    //public void setSettlersInAsteroid(Settler newSettler) { this.settlersInAsteroid.add(newSettler); }
-
-    //public List<Robot> getRobotsInAsteroid() { return robotsInAsteroid; }
-    //public void setRobotsInAsteroid(Robot newRobot) { this.robotsInAsteroid.add(newRobot); }
-
     public List<ResourceBase> getStoredResourceOfAsteroid() { return storedResourceOfAsteroid; }
-    public void setStoredResourceOfAsteroid(ResourceBase newResource) { this.storedResourceOfAsteroid.add(newResource); }
-
+    public void setStoredResourceOfAsteroid(ResourceBase newResource) {
+        this.storedResourceOfAsteroid.add(newResource);
+        Tester.generator(Tester.outputFile, "added " +newResource.getResourceType().toUpperCase() + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " STOREDRESOURCES");
+    }
 
     public List<ResourceBase> getResourceOfAsteroid() { return resourceOfAsteroid; }
-    public void setResourceOfAsteroid(ResourceBase rb) { this.resourceOfAsteroid.add(rb); }
+    public void setResourceOfAsteroid(ResourceBase rb) {
+        this.resourceOfAsteroid.add(rb);
+        Tester.generator(Tester.outputFile, "added " + rb.getResourceType().toUpperCase() + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " RESOURCEOFASTEROID");
+    }
+
+    public Boolean getExploded() { return isExploded; }
+    public void setExploded(Boolean exploded) {
+        isExploded = exploded;
+        Tester.generator(Tester.outputFile, "exploded " + this.getX() + " " +
+                this.getY() + " " + this.getZ());
+    }
 
     //</editor-fold>
 }
