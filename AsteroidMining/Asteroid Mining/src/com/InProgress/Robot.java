@@ -18,8 +18,7 @@ public class Robot extends TravellerBase {
     //</editor-fold>
 
 
-    //<editor-fold desc="Constructor">
-
+    //<editor-fold desc="Constructor"
     /**
      * Constructor of the Robot class
      */
@@ -42,7 +41,7 @@ public class Robot extends TravellerBase {
         int DestZ = Dest.getZ();
 
         /**
-         * to check if the desired asteroid is a neighbout or not!
+         * According to the guidelines (check and revert)
          */
         if (!Dest.IsExplode) {
             if ((Math.abs(DestX - currentLocation.getX()) <= 2 || Math.abs(DestY - currentLocation.getY()) <= 2 || Math.abs(DestZ - currentLocation.getZ()) <= 2)) {
@@ -108,10 +107,15 @@ public class Robot extends TravellerBase {
         if (depth != 0) { // if it is not hollow, then we drill
             currentLocation.decreaseRockCover(); //drilling
         } else {
-            int rndX = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
-            int rndY = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
-            int rndZ = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
-            travel(Game.asteroids.get(currentLocation.getX() + rndX).get(currentLocation.getY() + rndY).get(currentLocation.getY() + rndZ));
+            if(currentLocation.getHasGate()) {
+                fastTravel();
+            }
+            else{
+                int rndX = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+                int rndY = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+                int rndZ = ThreadLocalRandom.current().nextInt(0, 5) - 2; // random number between -2 and 2
+                travel(Game.asteroids.get(currentLocation.getX() + rndX).get(currentLocation.getY() + rndY).get(currentLocation.getY() + rndZ));
+            }
         }
     }
 
@@ -119,24 +123,24 @@ public class Robot extends TravellerBase {
      * the robot hides to evade sunstorms and survive
      */
     public void hide() {
-        if (!isHidden) { //if the robot is already hidden
-            int cntRobots = 0;
-            int cntSettlers =0;
-            for (int i = 0; i < currentLocation.getRobotsOnAsteroid().size(); i++){
-                if(currentLocation.getRobotsOnAsteroid().get(i).isHidden) // to check if hidden
-                    cntRobots++;
-            }
-            for(int i = 0; i < currentLocation.getSettlersOnAsteroid().size(); i++ ){
-                if(currentLocation.getSettlersOnAsteroid().get(i).isHidden)   // to check if hidden
-                    cntSettlers++;
-            }
-            if(cntRobots<=2 && cntSettlers + cntRobots <= 2){ // 2 robots or 1 robot and 1 settler
-                if (currentLocation.IsHollow) { // if the asteroid is a hollow one
-                    isHidden = true;
-            }
+        if (currentLocation.getDepth() == 0 && currentLocation.getHollow()) {
+            if (!isHidden) { //if the robot is already hidden
+                int cntRobots = 0;
+                int cntSettlers = 0;
+                for (int i = 0; i < currentLocation.getRobotsOnAsteroid().size(); i++) {
+                    if (currentLocation.getRobotsOnAsteroid().get(i).isHidden) // to check if hidden
+                        cntRobots++;
+                }
+                for (int i = 0; i < currentLocation.getSettlersOnAsteroid().size(); i++) {
+                    if (currentLocation.getSettlersOnAsteroid().get(i).isHidden)   // to check if hidden
+                        cntSettlers++;
+                }
+                if (cntRobots <= 2 || cntSettlers + cntRobots <= 2) { // 2 robots or 1 robot and 1 settler
+                        isHidden = true;
+                    }
+                }
             }
         }
-    }
 
     //</editor-fold>
 
