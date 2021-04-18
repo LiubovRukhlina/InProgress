@@ -1,0 +1,4 @@
+set asteroidbelt 3 3 3
+create object SETTLER 0 0 0
+add CARBON S1 STOREDRESOURCES
+leave CARBON 0 0 0

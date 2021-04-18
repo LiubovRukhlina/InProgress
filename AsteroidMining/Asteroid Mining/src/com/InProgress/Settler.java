@@ -26,6 +26,9 @@ public class Settler extends TravellerBase {
         super(currentPosition);
         this.name = name;
         this.playerID = playerID;
+
+        Tester.generator(Tester.outputFile, "created object SETTLER at " + currentPosition.getX() + " "
+                + currentPosition.getY() + " " + currentPosition.getZ());
     }
 
 

@@ -1,0 +1,4 @@
+set asteroidbelt 3 3 3
+create object SETTLER 0 0 0
+add CARBON 0 0 0 STOREDRESOURCEOFASTEROID
+pick CARBON 0 0 0

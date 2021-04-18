@@ -1,5 +1,6 @@
 package com.InProgress;
 
+import java.io.FileNotFoundException;
 import  java.lang.String;
 
 
@@ -25,7 +26,7 @@ public class ResourceBase {
 
     //<editor-fold desc="Methods">
 
-    protected void explode(Asteroid A) { }
+    protected void explode(Asteroid A)  { }
 
     protected void sublime(Asteroid A) { }
 

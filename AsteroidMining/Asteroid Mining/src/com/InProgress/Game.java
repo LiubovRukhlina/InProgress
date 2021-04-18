@@ -37,10 +37,10 @@ public class Game implements Serializable {
         settlers = new ArrayList<>();
         robots = new ArrayList<>();
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
-        ArrayList list1 = new ArrayList();
+        /*ArrayList list1 = new ArrayList();
         ArrayList<Asteroid> list2 = new ArrayList();
         list1.add(list2);
-        asteroids.add(list1);
+        asteroids.add(list1);*/
     }
 
     /**
@@ -61,10 +61,18 @@ public class Game implements Serializable {
         maxX = x;
         maxY = y;
         maxZ = z;
+
+        asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>(maxX);
+        for (int i = 0; i < maxX; i++) {
+            asteroids.add(new ArrayList<ArrayList<Asteroid>>(maxY));
+            for (int j = 0; j < maxY; j++)
+                asteroids.get(i).add(new ArrayList<Asteroid>(maxZ));
+        }
+
         for (int i = 0; i < maxX; i++) {
             for(int j = 0; j < maxY; j++) {
                 for(int k = 0; k < maxZ; k++) {
-                    asteroids.get(i).get(j).add(k, new Asteroid(i, j, k, new Random().nextInt(6) + 1));
+                    asteroids.get(i).get(j).add(k, new Asteroid(i, j, k, new Random().nextInt(5) + 1));
                 }
             }
         }

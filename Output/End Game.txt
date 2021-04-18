@@ -1,0 +1,3 @@
+asteroidbelt with dimensions 3 3 3 has been set
+created object SETTLER 0 0 0
+The game ended

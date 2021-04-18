@@ -1,0 +1,2 @@
+asteroidbelt with dimensions 3 3 3 has been set
+created object SETTLER at 0 0 0

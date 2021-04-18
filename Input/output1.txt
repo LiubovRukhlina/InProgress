@@ -1,0 +1,1 @@
+asteroidbelt with dimensions 3 3 3 has been set
