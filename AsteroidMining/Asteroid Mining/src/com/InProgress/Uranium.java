@@ -34,6 +34,8 @@ public class Uranium extends ResourceBase{
 
         A.setExploded(true); // change isExploded attribute of Asteroid to true.
 
+        Tester.generator(Tester.outputFile, "exploded " + A.getX() + " " + A.getY() + " " + A.getZ());
+
         if(A.getHasGate() == true) // check for gates of the Asteroid
         {
             A.getGate().deactivateTransportGate(); // deactivates the TransportGate
