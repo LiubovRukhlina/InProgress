@@ -31,7 +31,7 @@ public class TransportGate extends PlaceBase{
      * deployed
      */
     public void activateTransportGate() {
-        System.out.println("activateTransportGate()");
+
         this.isActive = Boolean.TRUE;
         this.pair.isActive = Boolean.TRUE;
     }
@@ -41,7 +41,7 @@ public class TransportGate extends PlaceBase{
      * destroyed in an explosion
      */
     public void deactivateTransportGate() {
-        System.out.println("deactivateTransportGate");
+
         this.isActive = Boolean.FALSE;
     }
 
@@ -51,7 +51,7 @@ public class TransportGate extends PlaceBase{
      * @param tg2 the second Transport gate
      */
     public void makePair(TransportGate tg2) {
-        System.out.println("makePair()");
+
         this.pair= tg2;
         tg2.pair = this;
     }

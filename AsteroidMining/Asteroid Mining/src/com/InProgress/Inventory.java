@@ -3,8 +3,6 @@ package com.InProgress;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.InProgress.Settler.findByType;
-
 
 public class Inventory{
 
@@ -36,7 +34,8 @@ public class Inventory{
      * @param R Type of the Resource to be added
      */
     public void addResource(ResourceBase R) {
-       if (storedResources.size() == 10)
+       if (storedResources.size() == 10) // checks if this Inventory is full
+
         {
             System.out.println("The inventory is full");
         }
@@ -50,20 +49,16 @@ public class Inventory{
      * @param R Type of the Resource to be added
      */
     public void removeResources(ResourceBase R) {
-        System.out.println("removeResources()");
-
         storedResources.remove(R);
     }
 
     /**
-     * Adds the Transport Gates created by the Settler
-     * to the Inventory
+     * Adds the Transport Gates created by the Settler to this Inventory
      * @param tg1 First Transport Gate
      * @param tg2 Second Transport Gate
      */
     public void addGates(TransportGate tg1, TransportGate tg2) {
-        System.out.println("addGates()");
-        if (storedGates.size() == 0) {
+        if (storedGates.size() == 0) { // checks if this Inventory is full.
             storedGates.add(tg1);
             storedGates.add(tg2);
         }
@@ -79,127 +74,111 @@ public class Inventory{
      * @param tg Transport Gate
      */
     public void removeGate(TransportGate tg) {
-        System.out.println("removeGate()");
         storedGates.remove(tg);
     }
 
     /**
      * Determines whether we have sufficient resources to build an object
      * of different types
-     * @param type Instance of object to be built
+     * @param type Integer that determines what should be build
      * @return True if we have enough resources
      *         False if we do not have enough resources
-     *
      */
     public Boolean checkResources(int type) {
-        if (type == 1) {
-            Ucount = 0;
-            Icount = 0;
-            Ccount = 0;
+        int uCount = 0; // counts the number of units of Uranium
+        int iCount = 0; // counts the number of units of Iron
+        int cCount = 0; // counts the number of units of Carbon
+        int wCount = 0; // counts the number of units of WaterIce
+
+        if (type == 1) { // checks if a Robot should be build
+
             for (ResourceBase resource : storedResources) {
-                if (resource instanceof Uranium && Ucount == 0) {
-                    Ucount++;
-                    removeResources(resource);
+                if (resource instanceof Uranium && uCount == 0) { // checks if there is 1 unit of Uranium
+                    uCount++;
                 }
-                else if (resource instanceof Iron && Icount == 0) {
-                    Icount++;
-                    removeResources(resource);
+                else if (resource instanceof Iron && iCount == 0) { // checks if there is 1 unit of Iron
+                    iCount++;
                 }
-                else if (resource instanceof Carbon && Ccount == 0) {
-                    Ccount++;
-                    removeResources(resource);
+                else if (resource instanceof Carbon && cCount == 0) { // checks if there is 1 unit of Carbon
+                    cCount++;
                 }
 
             }
-            return Ucount == 1 && Icount == 1 && Ccount == 1;
+            return uCount == 1 && iCount == 1 && cCount == 1; // returns true if enough resources are available
         }
-        else if (type == 2) {
+        else if (type == 2) { // checks if Transport Gates should be build
 
-            Ucount = 0;
-            Icount = 0;
-            Wcount = 0;
             for (ResourceBase resource : storedResources) {
-                if (resource instanceof Uranium && Ucount == 0) {
-                    Ucount++;
-                    removeResources(resource);
+                if (resource instanceof Uranium && uCount == 0) { // checks if there is 1 unit of Uranium
+                    uCount++;
                 }
-                else if (resource instanceof Iron && Icount < 2) {
-                    Icount++;
-                    removeResources(resource);
+                else if (resource instanceof Iron && iCount < 2) { // checks if there is 2 unit of Iron
+                    iCount++;
                 }
-                else if (resource instanceof WaterIce && Wcount == 0) {
-                    Wcount++;
-                    removeResources(resource);
+                else if (resource instanceof WaterIce && wCount == 0) { // checks if there is 1 unit of WaterIce
+                    wCount++;
                 }
 
             }
-            return Ucount == 1 && Icount == 2 && Ccount == 1
+            return uCount == 1 && iCount == 2 && cCount == 1; // returns true if enough resources are available
         }
 
-        return false;
+        return false; // default return
     }
 
 
     /**
-     * Fucntion checks whether we have enough resources to build a space station
+     * Function checks whether we have enough resources to build a space station
      * @param A Asteroid where some of the resources are stored
      * @return True if we have enough resources
      *         False if we do not have enough resources
      */
-    public Boolean checkResources(Asteroid A)
-    {
-            Ucount = 0;
-            Icount = 0;
-            Wcount = 0;
-            Ccount = 0;
-            for(ResourceBase resource:storedResources)
-            {
-                if(resource instanceof Uranium && Ucount <3)
-                {
-                    Ucount++;
-                    removeResources(resource);
-                }
-                else if(resource instanceof Iron && Icount <3)
-                {
-                    Icount++;
-                    removeResources(resource);
-                }
-                else if(resource instanceof WaterIce && Wcount <3)
-                {
-                    Wcount++;
-                    removeResources(resource);
-                }
-                else if(resources instanceof Carbon && Ccount < 3)
-                {
-                    Ccount++;
-                    removeResources(resource);
-                }
+    public Boolean checkResources(Asteroid A) {
+        int uCount = 0; // counts the number of units of Uranium
+        int iCount = 0; // counts the number of units of Iron
+        int cCount = 0; // counts the number of units of Carbon
+        int wCount = 0; // counts the number of units of WaterIce
 
-        }
-            for(ResourceBase resource :A.storedResourceOfAsteroid )
+        for(ResourceBase resource:storedResources) // checks the Resource in this Inventory
+        {
+            if(resource instanceof Uranium && uCount < 3) // checks if there is 3 unit of Uranium
             {
-                if(resource instanceof Uranium && Ucount <3)
-                {
-                    Ucount++;
-                    removeResources(resource);
-                }
-                else if(resource instanceof Iron && Icount <3)
-                {
-                    Icount++;
-                    removeResources(resource);
-                }
-                else if(resource instanceof WaterIce && Wcount <3)
-                {
-                    Wcount++;
-                    removeResources(resource);
-                }
-                else if(resources instanceof Carbon && Ccount < 3)
-                {
-                    Ccount++;
-                    removeResources(resource);
-                }
+                uCount++;
             }
-            return Ucount == 3 && Icount == 3 && Ccount == 3 && Wcount ==3;
+            else if(resource instanceof Iron && iCount < 3) // checks if there is 3 unit of Iron
+            {
+                iCount++;
+            }
+            else if(resource instanceof WaterIce && wCount < 3) // checks if there is 3 unit of WaterIce
+            {
+                wCount++;
+            }
+            else if(resource instanceof Carbon && cCount < 3) // checks if there is 3 unit of Carbon
+            {
+                cCount++;
+            }
+        }
+
+        for(ResourceBase resource :A.getStoredResourceOfAsteroid() ) // checks the Resources stored on the Asteroid
+        {
+            if(resource instanceof Uranium && uCount < 3) // checks if there is 3 unit of Uranium
+            {
+                uCount++;
+            }
+            else if(resource instanceof Iron && iCount < 3) // checks if there is 3 unit of Iron
+            {
+                iCount++;
+            }
+            else if(resource instanceof WaterIce && wCount < 3) // checks if there is 3 unit of WaterIce
+            {
+                wCount++;
+            }
+            else if(resource instanceof Carbon && cCount < 3) // checks if there is 3 unit of Carbon
+            {
+                cCount++;
+            }
+        }
+        return uCount == 3 && iCount == 3 && cCount == 3 && wCount == 3; // returns true if enough resources are available
     }
 
     //</editor-fold>
@@ -212,27 +191,6 @@ public class Inventory{
 
     public List<TransportGate> getStoredGates() { return storedGates; }
     public void setStoredGates(List<TransportGate> storedGates) { this.storedGates = storedGates; }
-
-    public boolean checkResources(List<ResourceBase> requiredResources) {
-        List<ResourceBase> fakeStoredResources = storedResources;
-        for (int i = 0; i < requiredResources.size(); i++) {
-            ResourceBase r = findByType(storedResources, requiredResources.get(i).getResourceType());
-            if (r != null) // checks if there is resource in inventory
-            {
-                requiredResources.remove(i);
-                fakeStoredResources.remove(r);
-            }
-            else{
-                return false;
-            }
-        }
-        if (requiredResources.size() == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     //</editor-fold>
 }

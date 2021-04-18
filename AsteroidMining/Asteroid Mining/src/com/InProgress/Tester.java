@@ -24,7 +24,7 @@ public class Tester {
                     String line = scanner.nextLine();
                     System.out.println(line);
                     String[] parsedLine = line.split(" ");
-                    Game.setAsteroidField(Integer.parseInt(parsedLine[2]),
+                    Game.setAsteroidBelt(Integer.parseInt(parsedLine[2]),
                             Integer.parseInt(parsedLine[3]),
                             Integer.parseInt(parsedLine[4]));
                 }
@@ -39,7 +39,7 @@ public class Tester {
                     String[] parsedLine = line.split(" ");
 
                     if (parsedLine[0].equals("set"))
-                        Game.setAsteroidField(Integer.parseInt(parsedLine[2]),
+                        Game.setAsteroidBelt(Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4]));
                     else {
@@ -63,7 +63,7 @@ public class Tester {
                     String[] parsedLine = line.split(" ");
 
                     if (parsedLine[0].equals("set"))
-                        Game.setAsteroidField(
+                        Game.setAsteroidBelt(
                                 Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4])
@@ -95,7 +95,7 @@ public class Tester {
                     String[] parsedLine = line.split(" ");
 
                     if (parsedLine[0].equals("set"))
-                        Game.setAsteroidField(
+                        Game.setAsteroidBelt(
                                 Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4])
@@ -128,7 +128,7 @@ public class Tester {
 
                     switch (parsedLine[0]) {
                         case "set": {
-                            Game.setAsteroidField(
+                            Game.setAsteroidBelt(
                                     Integer.parseInt(parsedLine[2]),
                                     Integer.parseInt(parsedLine[3]),
                                     Integer.parseInt(parsedLine[4])
@@ -184,7 +184,7 @@ public class Tester {
 
                     switch (parsedLine[0]) {
                         case "set": {
-                            Game.setAsteroidField(
+                            Game.setAsteroidBelt(
                                     Integer.parseInt(parsedLine[2]),
                                     Integer.parseInt(parsedLine[3]),
                                     Integer.parseInt(parsedLine[4])
@@ -222,7 +222,7 @@ public class Tester {
 
                     switch (parsedLine[0]) {
                         case "set": {
-                            Game.setAsteroidField(
+                            Game.setAsteroidBelt(
                                     Integer.parseInt(parsedLine[2]),
                                     Integer.parseInt(parsedLine[3]),
                                     Integer.parseInt(parsedLine[4])
@@ -254,7 +254,7 @@ public class Tester {
 
                     switch (parsedLine[0]) {
                         case "set": {
-                            Game.setAsteroidField(
+                            Game.setAsteroidBelt(
                                     Integer.parseInt(parsedLine[2]),
                                     Integer.parseInt(parsedLine[3]),
                                     Integer.parseInt(parsedLine[4])
@@ -286,7 +286,7 @@ public class Tester {
 
                     switch (parsedLine[0]) {
                         case "set": {
-                            Game.setAsteroidField(
+                            Game.setAsteroidBelt(
                                     Integer.parseInt(parsedLine[2]),
                                     Integer.parseInt(parsedLine[3]),
                                     Integer.parseInt(parsedLine[4])
@@ -317,7 +317,7 @@ public class Tester {
                     String[] parsedLine = line.split(" ");
 
                     if (parsedLine[0].equalsIgnoreCase("set")){
-                        Game.setAsteroidField(
+                        Game.setAsteroidBelt(
                                 Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4])
@@ -366,7 +366,7 @@ public class Tester {
                     String[] parsedLine = line.split(" ");
 
                     if (parsedLine[0].equalsIgnoreCase("set")){
-                        Game.setAsteroidField(
+                        Game.setAsteroidBelt(
                                 Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4])
