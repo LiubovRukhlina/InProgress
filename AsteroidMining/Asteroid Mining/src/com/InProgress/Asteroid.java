@@ -3,20 +3,15 @@ package com.InProgress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class Asteroid extends PlaceBase{
-    public boolean IsExploded = false;
-
 
     //<editor-fold desc="Attributes">
 
     private int x;
     private int y;
     private int z;
-
-
-
     private int rockCover;
     private String name;
     public TransportGate gate;
@@ -52,7 +47,7 @@ public class Asteroid extends PlaceBase{
         this.isAtPerihelion = false;
         this.resourceOfAsteroid = new ArrayList<>();
 
-        switch (rnd) {
+        switch (rnd) { // switch case to determine which resource is assigned
             case 1: { // Assigns Carbon to this Asteroid
                 this.resourceOfAsteroid.add(new Carbon("Carbon"));
                 this.isHollow = false;
@@ -80,7 +75,7 @@ public class Asteroid extends PlaceBase{
         }
 
         this.hasGate = false; // initialized as false.
-        this.isExploded = false;
+        this.isExploded = false; // initialized as false.
         this.settlersOnAsteroid = new ArrayList<>();
         this.robotsOnAsteroid = new ArrayList<>();
         this.storedResourceOfAsteroid = new ArrayList<>();
@@ -109,8 +104,7 @@ public class Asteroid extends PlaceBase{
     }
 
     /**
-     * Removes the resource of this Asteroid and
-     * make this Asteroid hollow.
+     * Removes the resource of this Asteroid and make this Asteroid hollow.
      */
     public void emptyAsteroid() {
         this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
@@ -119,32 +113,29 @@ public class Asteroid extends PlaceBase{
     }
 
     /**
-     * Adds a new traveller to the traveller list of the asteroid.
-     * If the traveller is a settler it first only accepts this asteroid only accepts the settler
-     * if there are less then 3 settlers on it and at most 1 of them is from the same Player.
-     * @param traveller new traveller arriving at the asteroid
+     * Adds a new settler to the settler list of the asteroid.
+     * This asteroid only accepts the settler if there are less then 3 settlers on it
+     * and at most 1 of them is from the same Player.
+     * @param settler new settler arriving at the asteroid
      */
-    public boolean acceptTraveller(TravellerBase traveller) {
+    public boolean acceptTraveller(Settler settler) {
+        int settlerCounter = 0; // counter to check the number of Settlers of the same Player
 
-        int settlerCounter = 0;
-
-        if (this.settlersOnAsteroid.size() < 3) {
-            for (Settler settler : settlersOnAsteroid) {
+        if (this.settlersOnAsteroid.size() < 3) { // checks if there are less than 3 settlers on this Asteroid
+            for (Settler settlers : settlersOnAsteroid) {
                 // check if how many settlers of the same player are there
-                if (traveller.getPlayerID() == settler.getPlayerID()) {
-                    settlerCounter++; 
+                if (settlers.getPlayerID() == settler.getPlayerID()) {
+                    settlerCounter++;
+                }
             }
-            if(settlerCounter < 2) {
-                this.settlersOnAsteroid.add((Settler) traveller); // add settler to this asteroid
+            if (settlerCounter < 2) { // checks if there are less then 2 Settlers of the same Player
+                this.settlersOnAsteroid.add(settler); // add settler to this asteroid
                 return true;
             } else {
                 return false; // in case there are already 2 settlers of the same player
             }
         } else {
-                return false; // in case there are already 3 settlers in total
-        }
-        else{
-            return false;
+            return false; // in case there are already 3 settlers in total
         }
     }
 
@@ -163,11 +154,11 @@ public class Asteroid extends PlaceBase{
      */
     public void perihelionChanger(Boolean atPerihelion) {
         isAtPerihelion = atPerihelion;
-        if(isAtPerihelion && isRadioactive && rockCover == 0)
+        if(isAtPerihelion && isRadioactive && rockCover == 0) // checks if the Resource is Uranium and if it has to explode
         {
             this.resourceOfAsteroid.get(0).explode(this);
         }
-        if(isAtPerihelion && this.getResourceOfAsteroid().get(0).getResourceType() == "WaterIce")
+        if(isAtPerihelion && this.getResourceOfAsteroid().get(0) instanceof WaterIce) // checks if the resource is WaterIce and if it has to sublime
         {
             this.resourceOfAsteroid.get(0).sublime(this);
         }
@@ -249,14 +240,6 @@ public class Asteroid extends PlaceBase{
         isExploded = exploded;
         Tester.generator(Tester.outputFile, "exploded " + this.getX() + " " +
                 this.getY() + " " + this.getZ());
-    }
-
-    public boolean isExploded() {
-        return IsExploded;
-    }
-
-    public void setExploded(boolean exploded) {
-        IsExploded = exploded;
     }
     //</editor-fold>
 }

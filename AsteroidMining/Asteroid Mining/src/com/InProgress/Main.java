@@ -1,10 +1,8 @@
 package com.InProgress;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
 
 public class Main {
 
@@ -13,7 +11,7 @@ public class Main {
         game.startGame();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        //game.evaluator(new File("Output/Travelling to an Asteroid.txt"), new File("Output/Travelling to an Asteroid (Robot).txt"));
+
         while (true) {
             // prints out menu options
             System.out.println("Enter the number of the test case that should run.");

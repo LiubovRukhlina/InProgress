@@ -11,9 +11,11 @@ public class Game implements Serializable {
     public static ArrayList<Robot> robots; //list of robots
     public static ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     public static ArrayList<TransportGate> gates;
-    public static int maxX;
-    public static int maxY;
-    public static int maxZ;
+    public static ArrayList<Player> players; // list of players
+    public static int maxX; // x dimension of the asteroid belt
+    public static int maxY; // y dimension of the asteroid belt
+    public static int maxZ; // z dimension of the asteroid belt
+
     Sun sun; // in charge of sun storms
 
     //</editor-fold>
@@ -46,22 +48,17 @@ public class Game implements Serializable {
      * describes the end of the game
      */
     public static void endGame() {
-        System.out.println("endGame()");
-        System.out.println("Did the game end successful?");
-        Scanner scan = new Scanner(System.in);
-        String in = scan.next();
-        if (in.equals("yes")){
-            System.out.println("Congratulation! You colonized the Asteroid Belt!");
-        } else {
-            System.out.println("You lose!");
-        }
-        System.exit(0);
+        Tester.generator(Tester.outputFile, "The game ended");
     }
 
     /**
      * places asteroids in the 3D-list
+     *
+     * @param x x dimension of the asteroid belt
+     * @param y y dimension of the asteroid belt
+     * @param z z dimension of the asteroid belt
      */
-    static public void setAsteroidField(int x, int y, int z) { // see Issue #13: Which resource do we assign?
+    public static void setAsteroidBelt(int x, int y, int z) {
         maxX = x;
         maxY = y;
         maxZ = z;
@@ -84,7 +81,6 @@ public class Game implements Serializable {
     public static ArrayList<Robot> getRobots() { return robots; }
     //public static ArrayList<Asteroid> getAsteroids() { return asteroids; }
     public static Asteroid getAsteroid(int i, int j, int k) { return asteroids.get(i).get(j).get(k); }
-
 
     //</editor-fold>
 
