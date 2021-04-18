@@ -23,6 +23,13 @@ public class ResourceBase {
 
     //</editor-fold">
 
+    //<editor-fold desc="Methods">
+
+    protected void explode(Asteroid A) { }
+
+    protected void sublime(Asteroid A) { }
+
+    //</editor-fold>
 
     //<editor-fold desc="Getters and Setters">
 
