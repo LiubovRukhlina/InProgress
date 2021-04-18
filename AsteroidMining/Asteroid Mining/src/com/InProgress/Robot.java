@@ -13,6 +13,11 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Constructor"
 
+    public Robot() {
+        this.damageCount = 0;
+    }
+
+
     /**
      * Constructor of the Robot class
      *

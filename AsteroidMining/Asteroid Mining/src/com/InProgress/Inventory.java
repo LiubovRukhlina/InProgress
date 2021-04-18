@@ -120,7 +120,7 @@ public class Inventory{
                 }
 
             }
-            return uCount == 1 && iCount == 2 && cCount == 1; // returns true if enough resources are available
+            return uCount == 1 && iCount == 2 && wCount == 1; // returns true if enough resources are available
         }
 
         return false; // default return
