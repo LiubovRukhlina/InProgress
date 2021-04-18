@@ -22,6 +22,19 @@ public class TransportGate {
         this.isActive = Boolean.FALSE;
     }
 
+    public TransportGate(String name)
+    {
+        this.name = name;
+        this.isActive = Boolean.FALSE;
+    }
+
+    public TransportGate(String name, Asteroid A)
+    {
+        this.name = name;
+        this.currentPosition = A;
+        this.isActive = Boolean.FALSE;
+    }
+
     //</editor-fold>
 
 

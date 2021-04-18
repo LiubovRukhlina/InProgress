@@ -6,6 +6,7 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">
 
+    String name;
     private int damageCount;
 
     //</editor-fold>
@@ -23,6 +24,12 @@ public class Robot extends TravellerBase {
      *
      * @param currentPosition Position of the Robot
      */
+    public Robot(String name, Asteroid currentPosition) {
+        super(currentPosition);
+        this.name = name;
+        this.damageCount = 0;
+    }
+
     public Robot(Asteroid currentPosition) {
         super(currentPosition);
         this.damageCount = 0;
