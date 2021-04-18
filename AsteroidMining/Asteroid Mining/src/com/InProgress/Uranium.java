@@ -29,6 +29,7 @@ public class Uranium extends ResourceBase{
      * @param A Asteroid in which the Uranium is
      */
     public void explode(Asteroid A) {
+        A.setExploded(true);
         for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
             A.getSettlersOnAsteroid().get(i).die(); // All settler on the Asteroid die.
         }
