@@ -3,6 +3,8 @@ package com.InProgress;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.InProgress.Settler.findByType;
+
 
 public class Inventory{
 
@@ -93,6 +95,27 @@ public class Inventory{
 
     public List<TransportGate> getStoredGates() { return storedGates; }
     public void setStoredGates(List<TransportGate> storedGates) { this.storedGates = storedGates; }
+
+    public boolean checkResources(List<ResourceBase> requiredResources) {
+        List<ResourceBase> fakeStoredResources = storedResources;
+        for (int i = 0; i < requiredResources.size(); i++) {
+            ResourceBase r = findByType(storedResources, requiredResources.get(i).getResourceType());
+            if (r != null) // checks if there is resource in inventory
+            {
+                requiredResources.remove(i);
+                fakeStoredResources.remove(r);
+            }
+            else{
+                return false;
+            }
+        }
+        if (requiredResources.size() == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     //</editor-fold>
 }

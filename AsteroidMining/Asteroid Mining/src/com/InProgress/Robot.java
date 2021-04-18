@@ -42,13 +42,13 @@ public class Robot extends TravellerBase {
         /**
          * According to the guidelines (check and revert)
          */
-        if (!Dest.IsExplode) {
+        if (!Dest.IsExploded) {
             if ((Math.abs(DestX - currentPosition.getX()) <= 2 || Math.abs(DestY - currentPosition.getY()) <= 2 || Math.abs(DestZ - currentPosition.getZ()) <= 2)) {
                 currentPosition.getRobotsOnAsteroid().remove(this);  // robot is removed from the list
                 Dest.getRobotsOnAsteroid().add(this); // robot is added to the list
                 currentPosition = Dest;  // successful travel
                 isHidden = false;
-                hide(); // hides when successfully travels
+                hide(Dest); // hides when successfully travels
             }
         } else {
             System.out.println("Invalid destination! Enter a new destination");
@@ -60,7 +60,7 @@ public class Robot extends TravellerBase {
     /**
      * Allows users to fast travel
      */
-    public void fastTravel() {
+    public void fastTravel(Asteroid A) {
         if (currentPosition.getHasGate()) { // if the current asteroid has a transport gate
             TransportGate Gate1 = currentPosition.getGate();
 
@@ -70,7 +70,7 @@ public class Robot extends TravellerBase {
                 currentPosition = Gate2.getCurrentPosition();// we travel to the location of the pair.
                 currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list
                 isHidden = false;
-                hide();
+                hide(Gate2.getCurrentPosition());
             }
             else{
                 System.out.println("The other pair is not deployed yet!");
@@ -102,20 +102,21 @@ public class Robot extends TravellerBase {
     /**
      * the robot drills
      */
-    public void drill() {
+    public void drill(Asteroid A) {
 
         int depth = currentPosition.getDepth(); // gets the mantle length of the asteroid
         if (depth != 0) { // if it is not hollow, then we drill
             currentPosition.decreaseRockCover(); //drilling
         } else {
             if(currentPosition.getHasGate()) {
-                fastTravel();
+                fastTravel(A);
             }
             else{
                 int rndX = new Random().nextInt(5)-2; // random number between -2 and 2
                 int rndY = new Random().nextInt(5)-2; // random number between -2 and 2
                 int rndZ = new Random().nextInt(5)-2; // random number between -2 and 2
-                travel(Game.asteroids.get(currentPosition.getX() + rndX).get(currentPosition.getY() + rndY).get(currentPosition.getY() + rndZ));
+                travel(Game.asteroids.get(currentPosition.getX() + rndX).get(currentPosition.getY() + rndY).get(currentPosition.getY()
+                        + rndZ));
             }
         }
         Tester.generator(Tester.outputFile, "drilled A" + currentPosition.getX() + currentPosition.getY() + currentPosition.getZ());
@@ -124,7 +125,7 @@ public class Robot extends TravellerBase {
     /**
      * the robot hides to evade sunstorms and survive
      */
-    public void hide() {
+    public void hide(Asteroid A) {
         if (currentPosition.getDepth() == 0 && currentPosition.getHollow()) {
             if (!isHidden) { //if the robot is already hidden
                 int cntRobots = 0;

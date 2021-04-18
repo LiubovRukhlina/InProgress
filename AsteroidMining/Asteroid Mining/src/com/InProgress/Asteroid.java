@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Asteroid extends PlaceBase{
+    public boolean IsExploded = false;
 
 
     //<editor-fold desc="Attributes">
@@ -14,6 +15,9 @@ public class Asteroid extends PlaceBase{
     private int x;
     private int y;
     private int z;
+
+
+
     private int rockCover;
     private String name;
     public TransportGate gate;
@@ -132,12 +136,12 @@ public class Asteroid extends PlaceBase{
             this.robotsOnAsteroid.add((Robot) traveller); // add robot to this asteroid
             return true;
 
-        } else {
+        } else if (traveller instanceof Settler) {
             // check number of setters on this Asteroid
             if (this.settlersOnAsteroid.size() < 3) {
                 for (Settler settler : settlersOnAsteroid) {
                     // check if how many settlers of the same player are there
-                    if (traveller.getPlayerID() == settler.getPlayerID()) {
+                    if (((Settler) traveller).getPlayerID() == settler.getPlayerID()) {
                         settlerCounter++;
                     }
                 }
@@ -151,6 +155,9 @@ public class Asteroid extends PlaceBase{
             } else {
                 return false; // in case there are already 3 settlers in total
             }
+        }
+        else{
+            return false;
         }
     }
 
@@ -221,5 +228,12 @@ public class Asteroid extends PlaceBase{
     public List<ResourceBase> getResourceOfAsteroid() { return resourceOfAsteroid; }
     public void setResourceOfAsteroid(ResourceBase rb) { this.resourceOfAsteroid.add(rb); }
 
+    public boolean isExploded() {
+        return IsExploded;
+    }
+
+    public void setExploded(boolean exploded) {
+        IsExploded = exploded;
+    }
     //</editor-fold>
 }

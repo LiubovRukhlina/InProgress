@@ -7,7 +7,7 @@ public abstract class TravellerBase {
     //<editor-fold desc="Attributes">
 
     protected String name;
-    protected int playerID;
+    //protected int playerID;
     protected Asteroid currentPosition;
     protected boolean isAlive = true;
     protected boolean isHidden = false;
@@ -34,6 +34,7 @@ public abstract class TravellerBase {
      * moves the object to the chosen Asteroid.
      * @param A destination Asteroid
      */
+    public abstract void travel(Asteroid A);
    /* public void travel(Asteroid A) {
         System.out.println("travel()");
         if (!A.getNeighbors().contains(this.currentPosition))
@@ -63,7 +64,8 @@ public abstract class TravellerBase {
      * This method is used for travel by using a transport gate.
      * @param TG TransportGate that the Traveller is travelling through
      */
-    public void fastTravel(TransportGate TG) {
+    public abstract void fastTravel(Asteroid A);
+    /*{
         System.out.println("fastTravel()");
 
         if (TG.getPair().getActive() == false)
@@ -85,12 +87,15 @@ public abstract class TravellerBase {
             }
         }
     }
+    */
+
 
     /**
      * This method is used to hide the object in a hollow Asteroid. This will happen automatically when a traveller is on the hollow Astteroid.
      * @param A Asteroid that the Traveller is hiding on
      */
-    public void hide(Asteroid A) {
+    public abstract void hide(Asteroid A);
+    /*{
         System.out.println("hide()");
         System.out.println("Is there enough space available?"); // Asks the user for his input.
         Scanner scan = new Scanner(System.in);
@@ -106,13 +111,14 @@ public abstract class TravellerBase {
             }
             System.out.println(s1);
         }
-    }
+    }*/
 
     /**
      * This method is used to drill into an Asteroid.
      * @param A Asteroid that is being drilled
      */
-    public void drill(Asteroid A) {
+    public abstract void drill(Asteroid A);
+    /*{
         System.out.println("drill()");
         int depth = A.getDepth();
 
@@ -134,15 +140,12 @@ public abstract class TravellerBase {
         } else {
             A.decreaseRockCover();
         }
-    }
+    }*/
 
     /**
      * This method kills the object.
      */
     public void die() {
-        System.out.println("die()");
-        System.out.println("Settler" + this.getName() + " is dead");
-
         this.isAlive = false;
         Game.settlers.remove(this);
     }
@@ -162,8 +165,7 @@ public abstract class TravellerBase {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public int getPlayerID() { return playerID; }
-    public void setPlayerID(int playerID) { this.playerID = playerID; }
+
 
     public Asteroid getCurrentPosition() { return currentPosition; }
     public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
