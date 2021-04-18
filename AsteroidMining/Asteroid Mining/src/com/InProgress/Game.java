@@ -15,7 +15,6 @@ public class Game implements Serializable {
     public static int maxX; // x dimension of the asteroid belt
     public static int maxY; // y dimension of the asteroid belt
     public static int maxZ; // z dimension of the asteroid belt
-
     Sun sun; // in charge of sun storms
 
     //</editor-fold>
