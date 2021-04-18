@@ -202,7 +202,7 @@ public class Tester {
                         }break;
 
                         case "add": {
-                            Game.settlers.get(0).getItsInventory().addResource(new Carbon(parsedLine[1]));
+                            Game.settlers.get(0).getItsInventory().setStoredResources(new Carbon(parsedLine[1]));
                         }break;
 
                         case "leave": {
@@ -346,11 +346,11 @@ public class Tester {
                         case "add": {
                             String resource = parsedLine[1];
                             if (resource.equalsIgnoreCase("uranium"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Uranium(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Uranium(resource));
                             if (resource.equalsIgnoreCase("iron"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Iron(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Iron(resource));
                             if (resource.equalsIgnoreCase("waterice"))
-                                Game.settlers.get(0).getItsInventory().addResource(new WaterIce(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new WaterIce(resource));
                         } break;
 
                         case "build": {
@@ -499,11 +499,11 @@ public class Tester {
                         case "add": {
                             String resource = parsedLine[1];
                             if (resource.equalsIgnoreCase("uranium"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Uranium(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Uranium(resource));
                             if (resource.equalsIgnoreCase("iron"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Iron(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Iron(resource));
                             if (resource.equalsIgnoreCase("carbon"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Carbon(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Carbon(resource));
                         }
                         break;
 
@@ -611,13 +611,13 @@ public class Tester {
                         case "add": {
                             String resource = parsedLine[1];
                             if (resource.equalsIgnoreCase("uranium"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Uranium(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Uranium(resource));
                             if (resource.equalsIgnoreCase("iron"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Iron(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Iron(resource));
                             if (resource.equalsIgnoreCase("carbon"))
-                                Game.settlers.get(0).getItsInventory().addResource(new Carbon(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new Carbon(resource));
                             if (resource.equalsIgnoreCase("waterice"))
-                                Game.settlers.get(0).getItsInventory().addResource(new WaterIce(resource));
+                                Game.settlers.get(0).getItsInventory().setStoredResources(new WaterIce(resource));
                         }
                         break;
 

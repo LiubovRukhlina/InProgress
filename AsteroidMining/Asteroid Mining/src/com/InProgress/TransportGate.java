@@ -1,12 +1,13 @@
 package com.InProgress;
 
-public class TransportGate extends PlaceBase{
+public class TransportGate {
 
     //<editor-fold desc="Attributes">
 
-    public Boolean isActive;
-    public Asteroid currentPosition;
-    public TransportGate pair;
+    private String name;
+    private Boolean isActive;
+    private Asteroid currentPosition;
+    private TransportGate pair;
 
     //</editor-fold>
 
@@ -61,14 +62,27 @@ public class TransportGate extends PlaceBase{
 
     //<editor-fold desc="Getters and Setters">
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
     public Asteroid getCurrentPosition() { return currentPosition; }
-    public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
+    public void setCurrentPosition(Asteroid currentPosition) {
+        this.currentPosition = currentPosition;
+        Tester.generator(Tester.outputFile, "modified " + this.name  + " CURRENTPOSITION " + currentPosition.getX() + " " +
+                currentPosition.getY() + " " + currentPosition.getZ());
+    }
 
     public Boolean getActive() { return isActive; }
-    public void setActive(Boolean active) { isActive = active; }
+    public void setActive(Boolean active) {
+        isActive = active;
+        Tester.generator(Tester.outputFile, "modified " + this.name  + " ISACTIVE " + isActive );
+    }
 
     public TransportGate getPair() { return pair; }
-    public void setPair(TransportGate pair) { this.pair = pair; }
+    public void setPair(TransportGate pair) {
+        this.pair = pair;
+        Tester.generator(Tester.outputFile, "modified " + this.name  + " PAIR " + pair.getName() );
+    }
 
     //</editor-fold>
 

@@ -70,10 +70,28 @@ public abstract class TravellerBase {
     //<editor-fold desc="Getters and Setters">
 
     public Asteroid getCurrentPosition() { return currentPosition; }
-    public void setCurrentPosition(Asteroid currentPosition) { this.currentPosition = currentPosition; }
+    public void setCurrentPosition(Asteroid currentPosition) {
+        this.currentPosition = currentPosition;
+
+        if(this instanceof  Settler) {
+            Tester.generator(Tester.outputFile, "modified S1 CURRENTPOSITION " + currentPosition.getX() + " " +
+                    currentPosition.getY() + " " + currentPosition.getZ());
+        } else {
+            Tester.generator(Tester.outputFile, "modified R1 CURRENTPOSITION " + currentPosition.getX() + " " +
+                    currentPosition.getY() + " " + currentPosition.getZ());
+        }
+    }
 
     public boolean getHidden() { return isHidden; }
-    public void setHidden(boolean hidden) { isHidden = hidden; }
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
+
+        if(this instanceof  Settler) {
+            Tester.generator(Tester.outputFile, "modified S1 ISHIDDEN " + isHidden);
+        } else {
+            Tester.generator(Tester.outputFile, "modified R1 ISHIDDEN " + isHidden);
+        }
+    }
 
     public boolean getAlive() { return isAlive; }
     public void setAlive(boolean alive) { isAlive = alive; }
