@@ -1,0 +1,5 @@
+set asteroidbelt 5 5 5
+create object SETTLER 0 0 0
+create object TRANSPORTGATE 0 0 0
+create object TRANSPORTGATE 3 3 3
+fastTravel 0 0 0

@@ -1,0 +1,3 @@
+set asteroidbelt 3 3 3
+create object ROBOT 0 0 0
+travel 1 1 1

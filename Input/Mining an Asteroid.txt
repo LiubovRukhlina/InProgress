@@ -1,0 +1,5 @@
+set asteroidbelt 3 3 3
+create object SETTLER 0 0 0
+add CARBON 0 0 0 RESOURCEOFASTEROID
+modify 0 0 0 ROCKCOVER 0
+mine 0 0 0

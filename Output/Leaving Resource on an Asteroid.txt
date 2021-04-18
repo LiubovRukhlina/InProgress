@@ -1,0 +1,4 @@
+asteroidbelt with dimensions 3 3 3 has been set
+created object SETTLER 0 0 0
+added CARBON S1 STOREDRESOURCES
+left CARBON on 0 0 0

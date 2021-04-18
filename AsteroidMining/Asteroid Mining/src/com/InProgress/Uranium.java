@@ -1,6 +1,8 @@
 package com.InProgress;
 import com.InProgress.Asteroid;
 import com.InProgress.Settler;
+
+import java.io.FileNotFoundException;
 import java.lang.Boolean;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,7 +32,7 @@ public class Uranium extends ResourceBase{
      * @param A Asteroid in which the Uranium is
      */
     @Override
-    public void explode(Asteroid A) {
+    public void explode(Asteroid A)  {
 
         A.setExploded(true); // change isExploded attribute of Asteroid to true.
 

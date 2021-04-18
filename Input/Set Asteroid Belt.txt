@@ -1,0 +1,1 @@
+set asteroidbelt 3 3 3

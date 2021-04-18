@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tester {
+    public static FileWriter fileWriter = null;
     public static File outputFile;
-    public static int counter = 1;
 
     public static void parser(String input) throws IOException {
         Scanner scanner = null;
-        String outputFileName = "output" + counter + ".txt";
-        outputFile = new File("Input/" + outputFileName);
-        counter++;
+        String outputFileName = "output" + input + ".txt";
+        outputFile = new File("InProgress/Input/" + outputFileName);
+        outputFile.delete();
         switch (Integer.parseInt(input)) {
             case 1: {
                 try {
-                    scanner = new Scanner(new File("Input/Set Asteroid Belt.txt"));
+                    scanner = new Scanner(new File("InProgress/Input/Set Asteroid Belt.txt"));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -28,11 +28,11 @@ public class Tester {
                             Integer.parseInt(parsedLine[3]),
                             Integer.parseInt(parsedLine[4]));
                 }
-                evaluator(outputFile, new File("Output/Set Asteroid Belt.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Set Asteroid Belt.txt"));
             }break;
 
             case 2: {
-                scanner = new Scanner(new File("Input/Set Settler.txt"));
+                scanner = new Scanner(new File("InProgress/Input/Creating a Settler.txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -43,20 +43,21 @@ public class Tester {
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4]));
                     else {
-                        Settler settler = new Settler("S1");
-                        Game.settlers.add(settler);
-                        settler.setCurrentPosition(Game.getAsteroid(
+                        Asteroid asteroid = Game.getAsteroid(
                                 Integer.parseInt(parsedLine[3]),
                                 Integer.parseInt(parsedLine[4]),
                                 Integer.parseInt(parsedLine[5])
-                        ));
+                        );
+
+                        Settler settler = new Settler("S1", asteroid, 1);
+                        Game.settlers.add(settler);
                     }
                 }
-                evaluator(outputFile, new File("Output/Set Settler.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Creating a Settler.txt"));
             }break;
 
             case 3: {
-                scanner = new Scanner(new File("Input/Travelling to an Asteroid.txt"));
+                scanner = new Scanner(new File("InProgress/Input/Travelling to an Asteroid.txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -76,19 +77,19 @@ public class Tester {
                                 Integer.parseInt(parsedLine[4]),
                                 Integer.parseInt(parsedLine[5])
                         ));
-                    } /*else {
+                    } else {
                         Game.settlers.get(0).travel(Game.getAsteroid(
                                 Integer.parseInt(parsedLine[1]),
                                 Integer.parseInt(parsedLine[2]),
                                 Integer.parseInt(parsedLine[3])
                         ));
-                    }*/
+                    }
                 }
-                evaluator(outputFile, new File("Output/Travelling to an Asteroid.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Travelling to an Asteroid.txt"));
             }break;
 
             case 4: {
-                scanner = new Scanner(new File("Input/Drilling an Asteroid.txt"));
+                scanner = new Scanner(new File("InProgress/Input/Drilling an Asteroid.txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -116,11 +117,11 @@ public class Tester {
                         ));
                     }
                 }
-                evaluator(outputFile, new File("Output/Drilling an Asteroid.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Drilling an Asteroid.txt"));
             }break;
 
             case 5: {
-                scanner = new Scanner("Input/Mining an Asteroid.txt");
+                scanner = new Scanner("InProgress/Input/Mining an Asteroid.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -172,11 +173,11 @@ public class Tester {
                         }break;
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Mining an Asteroid.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Mining an Asteroid.txt"));
             }break;
 
             case 6: {
-                scanner = new Scanner("Input/Leaving Resource on an Asteroid.txt");
+                scanner = new Scanner("InProgress/Input/Leaving Resource on an Asteroid.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -215,11 +216,11 @@ public class Tester {
                         }
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Leaving Resource on an Asteroid.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Leaving Resource on an Asteroid.txt"));
             }break;
 
             case 7: {
-                scanner = new Scanner("Input/Pick up Resource.txt");
+                scanner = new Scanner("InProgress/Input/Pick up Resource.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -264,11 +265,11 @@ public class Tester {
                         }
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Pick up Resource.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Pick up Resource.txt"));
             }break;
 
             case 8: {
-                scanner = new Scanner("Input/Build Gate.txt");
+                scanner = new Scanner("InProgress/Input/Build Gate.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -313,11 +314,11 @@ public class Tester {
                         }
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Build Gate.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Build Gate.txt"));
             }break;
 
             case 9: {
-                scanner = new Scanner("Input/Deploy Gate.txt");
+                scanner = new Scanner("InProgress/Input/Deploy Gate.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -363,11 +364,11 @@ public class Tester {
 
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Deploy Gate.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Deploy Gate.txt"));
             }break;
 
             case 10: {
-                scanner = new Scanner("Input/Fast Travel.txt");
+                scanner = new Scanner("InProgress/Input/Fast Travel.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -412,7 +413,7 @@ public class Tester {
                         //settlers.get(0).fastTravel(settlers.get(0).getCurrentPosition()); //should be implemented later
                     }
                 }
-                evaluator(outputFile, new File("Output/Fast Travel.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Fast Travel.txt"));
             }
 
             case 11: {
@@ -465,11 +466,11 @@ public class Tester {
                         ));
                     }
                 }
-                evaluator(outputFile, new File("Output/Hide.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Hide.txt"));
             }break;
 
             case 12: {
-                scanner = new Scanner("Input/Build Robot.txt");
+                scanner = new Scanner("InProgress/Input/Build Robot.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -513,11 +514,11 @@ public class Tester {
                         break;
                     }
                 }
-                evaluator(outputFile, new File("Output/Build Robot.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Build Robot.txt"));
             }break;
 
             case 13: {
-                scanner = new Scanner(new File("Input/Travelling to an Asteroid (Robot).txt"));
+                scanner = new Scanner(new File("InProgress/Input/Travelling to an Asteroid (Robot).txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -545,11 +546,11 @@ public class Tester {
                         ));
                     }*/
                 }
-                evaluator(outputFile, new File("Output/Travelling to an Asteroid (Robot).txt"));
+                evaluator(outputFile, new File("InProgress/Output/Travelling to an Asteroid (Robot).txt"));
             }break;
 
             case 14: {
-                scanner = new Scanner(new File("Input/Drilling an Asteroid (Robot).txt"));
+                scanner = new Scanner(new File("InProgress/Input/Drilling an Asteroid (Robot).txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -577,11 +578,11 @@ public class Tester {
                         ));
                     }
                 }
-                evaluator(outputFile, new File("Output/Drilling an Asteroid(Robot).txt"));
+                evaluator(outputFile, new File("InProgress/Output/Drilling an Asteroid(Robot).txt"));
             }break;
 
             case 15: {
-                scanner = new Scanner("Input/Build Space Station.txt");
+                scanner = new Scanner("InProgress/Input/Build Space Station.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -627,11 +628,11 @@ public class Tester {
                         break;
                     }
                 }
-                evaluator(outputFile, new File("Output/Build Space Station.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Build Space Station.txt"));
             }break;
 
             case 16: {
-                scanner = new Scanner("Input/SunStorm.txt");
+                scanner = new Scanner("InProgress/Input/SunStorm.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -679,11 +680,11 @@ public class Tester {
                         }
                     }break;
                 }
-                evaluator(outputFile, new File("Output/SunStorm.txt"));
+                evaluator(outputFile, new File("InProgress/Output/SunStorm.txt"));
             }break;
 
             case 17: {
-                scanner = new Scanner("Input/Explode Asteroid.txt");
+                scanner = new Scanner("InProgress/Input/Explode Asteroid.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -734,11 +735,11 @@ public class Tester {
                         }break;
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Explode Asteroid.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Explode Asteroid.txt"));
             }break;
 
             case 18: {
-                scanner = new Scanner(new File("Input/End Game.txt"));
+                scanner = new Scanner(new File("InProgress/Input/End Game.txt"));
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -766,11 +767,11 @@ public class Tester {
                         }
                     }break;
                 }
-                evaluator(outputFile, new File("Output/End Game.txt"));
+                evaluator(outputFile, new File("InProgress/Output/End Game.txt"));
             }break;
 
             case 19: {
-                scanner = new Scanner("Input/Sublime.txt");
+                scanner = new Scanner("InProgress/Input/Sublime.txt");
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     System.out.println(line);
@@ -825,7 +826,7 @@ public class Tester {
                         }break;
                     }break;
                 }
-                evaluator(outputFile, new File("Output/Sublime.txt"));
+                evaluator(outputFile, new File("InProgress/Output/Sublime.txt"));
             }
         }
     }
@@ -835,16 +836,17 @@ public class Tester {
      * @param output - output of the testcases generated by methods
      * @param outputLine - the line that is written into the file
      */
-    public static void generator(File output, String outputLine)
-    {
-        PrintWriter printWriter = null;
+    public static void generator(File output, String outputLine)  {
+        //if (!output.exists())
         try {
-            printWriter = new PrintWriter(output);
-        } catch (FileNotFoundException e) {
+            fileWriter = new FileWriter(output, true);
+            BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
+            bufferWriter.write(outputLine);
+            bufferWriter.write("\n");
+            bufferWriter.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        printWriter.println(outputLine);
-        printWriter.close();
     }
 
     public static void evaluator(File actual, File expected) throws IOException {
@@ -874,17 +876,20 @@ public class Tester {
             expectedStrings.add(string2);
         }
 
+        System.out.println();
         System.out.println("Actual: ");
         printList(actualStrings);
 
         System.out.println("Expected: ");
         printList(expectedStrings);
 
-        if (areEqual)
+        if (areEqual) {
             System.out.println("Files are same! Successful test!");
-        else {
+            System.out.println();
+        } else {
             System.out.println("Files are not same at line number: " + lineNumber);
             System.out.println("Test Failed!");
+            System.out.println();
         }
 
     }

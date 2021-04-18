@@ -1,0 +1,5 @@
+asteroidbelt with dimensions 5 5 5 has been set
+created object SETTLER 0 0 0
+created object TRANSPORTGATE at 0 0 0
+created object TRANSPORTGATE at 3 3 3
+travelled through the gate at 0 0 0
