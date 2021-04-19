@@ -20,8 +20,13 @@ public class Tester {
 
         Scanner scanner = null;
         String outputFileName = "output" + input + ".txt";
-        outputFile = new File("InProgress/Input/" + outputFileName);
-        outputFile.delete();
+        outputFile = new File("InProgress/Output/" + outputFileName);
+        PrintWriter pw = new PrintWriter(outputFile); //clear the file
+        pw.close(); //clear the file
+        Game.asteroids.clear();
+        Game.robots.clear();
+        Game.settlers.clear();
+
 
         switch (Integer.parseInt(input)) { // read in test case and input file
             case 1: {
@@ -49,49 +54,49 @@ public class Tester {
             break;
 
             case 5: {
-                scanner = new Scanner("InProgress/Input/Mining an Asteroid.txt");
+                scanner = new Scanner(new File("InProgress/Input/Mining an Asteroid.txt"));
                 benchmarkFile = new File("InProgress/Output/Mining an Asteroid.txt");
             }
             break;
 
             case 6: {
-                scanner = new Scanner("InProgress/Input/Leaving Resource on an Asteroid.txt");
+                scanner = new Scanner(new File("InProgress/Input/Leaving Resource on an Asteroid.txt"));
                 benchmarkFile = new File("InProgress/Output/Leaving Resource on an Asteroid.txt");
             }
             break;
 
             case 7: {
-                scanner = new Scanner("InProgress/Input/Pick up Resource.txt");
+                scanner = new Scanner(new File("InProgress/Input/Pick up Resource.txt"));
                 benchmarkFile = new File("InProgress/Output/Pick up Resource.txt");
             }
             break;
 
             case 8: {
-                scanner = new Scanner("InProgress/Input/Build Gate.txt");
+                scanner = new Scanner(new File("InProgress/Input/Build Gate.txt"));
                 benchmarkFile = new File("InProgress/Output/Build Gate.txt");
             }
             break;
 
             case 9: {
-                scanner = new Scanner("InProgress/Input/Deploy Gate.txt");
+                scanner = new Scanner(new File("InProgress/Input/Deploy Gate.txt"));
                 benchmarkFile = new File("InProgress/Output/Deploy Gate.txt");
             }
             break;
 
             case 10: {
-                scanner = new Scanner("InProgress/Input/Fast Travel.txt");
+                scanner = new Scanner(new File("InProgress/Input/Fast Travel.txt"));
                 benchmarkFile = new File("InProgress/Output/Fast Travel.txt");
             }
             break;
 
             case 11: {
-                scanner = new Scanner("Input/Hide.txt");
+                scanner = new Scanner(new File("InProgress/Input/Hide.txt"));
                 benchmarkFile = new File("InProgress/Output/Hide.txt");
             }
             break;
 
             case 12: {
-                scanner = new Scanner("InProgress/Input/Build Robot.txt");
+                scanner = new Scanner(new File("InProgress/Input/Build Robot.txt"));
                 benchmarkFile = new File("InProgress/Output/Build Robot.txt");
             }
             break;
@@ -109,19 +114,19 @@ public class Tester {
             break;
 
             case 15: {
-                scanner = new Scanner("InProgress/Input/Build Space Station.txt");
+                scanner = new Scanner(new File("InProgress/Input/Build Space Station.txt"));
                 benchmarkFile = new File("InProgress/Output/Build Space Station.txt");
             }
             break;
 
             case 16: {
-                scanner = new Scanner("InProgress/Input/SunStorm.txt");
+                scanner = new Scanner(new File("InProgress/Input/SunStorm.txt"));
                 benchmarkFile = new File("InProgress/Output/SunStorm.txt");
             }
             break;
 
             case 17: {
-                scanner = new Scanner("InProgress/Input/Explode Asteroid.txt");
+                scanner = new Scanner(new File("InProgress/Input/Explode Asteroid.txt"));
                 benchmarkFile = new File("InProgress/Output/Explode Asteroid.txt");
             }
             break;
@@ -133,12 +138,12 @@ public class Tester {
             break;
 
             case 19: {
-                scanner = new Scanner("InProgress/Input/Sublime.txt");
+                scanner = new Scanner(new File("InProgress/Input/Sublime.txt"));
                 benchmarkFile = new File("InProgress/Output/Sublime.txt");
             }
             break;
             case 20: {
-                scanner = new Scanner("InProgress/Input/Example.txt");
+                scanner = new Scanner(new File("InProgress/Input/Example.txt"));
                 benchmarkFile = new File("InProgress/Output/Example.txt");
             }
             break;
@@ -168,10 +173,12 @@ public class Tester {
                     }
                     else if (parsedLine[2].equals("TRANSPORTGATE")) {
                         String name = "TG " + gateCounter++;
-                        Game.gates.add(new TransportGate(name, Game.getAsteroid(Integer.parseInt(parsedLine[3]), Integer.parseInt(parsedLine[4]), Integer.parseInt(parsedLine[5]))));
+                        TransportGate tempGate = new TransportGate(name, Game.getAsteroid(Integer.parseInt(parsedLine[3]), Integer.parseInt(parsedLine[4]), Integer.parseInt(parsedLine[5])));
+                        Game.gates.add(tempGate);
+                        Game.getAsteroid(Integer.parseInt(parsedLine[3]), Integer.parseInt(parsedLine[4]), Integer.parseInt(parsedLine[5])).setGate(tempGate);
                     }
-                    break;
-                }
+
+                }break;
                 case "modify": {
                     if (parsedLine[1].equals("S")) {
                         boolean value = false;
@@ -189,6 +196,8 @@ public class Tester {
                             Game.gates.get(Integer.parseInt(parsedLine[2]) - 1).setActive(value);
                         }
                         if (parsedLine[3].equals("PAIR")) {
+                            TransportGate t1 = Game.gates.get(Integer.parseInt(parsedLine[2]) - 1);
+                            TransportGate t2 =Game.gates.get(Integer.parseInt(parsedLine[5]) - 1);
                             Game.gates.get(Integer.parseInt(parsedLine[2]) - 1).setPair(Game.gates.get(Integer.parseInt(parsedLine[5]) - 1));
                         }
                     }
@@ -207,6 +216,12 @@ public class Tester {
                                 value = true;
                             }
                             Game.getAsteroid(Integer.parseInt(parsedLine[1]), Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[3])).setAtPerihelion(value);
+                        } else if (parsedLine[4].equals("HASGATE")) {
+                            boolean value = false;
+                            if (parsedLine[5].equals("TRUE")) {
+                                value = true;
+                            }
+                            Game.getAsteroid(Integer.parseInt(parsedLine[1]), Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[3])).setHasGate(value);
                         }
                     }
                     break;
@@ -214,8 +229,10 @@ public class Tester {
                 case "add": {
                     if (parsedLine[2].equals("S")) {
                         if (parsedLine[1].equals("TRANSPORTGATE")) {
-                            String name = "TG" + gateCounter;
-                            Game.settlers.get(Integer.parseInt(parsedLine[5]) - 1).getItsInventory().setStoredGates(new TransportGate(name));
+                            String name = "TG " + gateCounter++;
+                            TransportGate tempGate = new TransportGate(name);
+                            Game.settlers.get(Integer.parseInt(parsedLine[3]) - 1).getItsInventory().setStoredGates(tempGate);
+                            Game.gates.add(tempGate);
                         } else {
                             switch (parsedLine[1]) {
                                 case "IRON": {
@@ -344,8 +361,8 @@ public class Tester {
                     break;
                 }
             }
-            evaluator(outputFile, benchmarkFile);
         }
+        evaluator(outputFile, benchmarkFile);
     }
 
 

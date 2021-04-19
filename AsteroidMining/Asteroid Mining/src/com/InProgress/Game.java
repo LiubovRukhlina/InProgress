@@ -37,6 +37,7 @@ public class Game implements Serializable {
         settlers = new ArrayList<>();
         robots = new ArrayList<>();
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
+        gates = new ArrayList<>();
         /*ArrayList list1 = new ArrayList();
         ArrayList<Asteroid> list2 = new ArrayList();
         list1.add(list2);

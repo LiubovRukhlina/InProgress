@@ -36,7 +36,7 @@ public class Uranium extends ResourceBase{
 
         A.setExploded(true); // change isExploded attribute of Asteroid to true.
 
-        Tester.generator(Tester.outputFile, "exploded " + A.getX() + " " + A.getY() + " " + A.getZ());
+        //Tester.generator(Tester.outputFile, "exploded " + A.getX() + " " + A.getY() + " " + A.getZ());
 
         if(A.getHasGate() == true) // check for gates of the Asteroid
         {
@@ -56,7 +56,8 @@ public class Uranium extends ResourceBase{
             int rndY = new Random().nextInt(5) -2;; // random number between -2 and 2
             int rndZ = new Random().nextInt(5) -2;; // random number between -2 and 2
 
-            A.getRobotsOnAsteroid().get(i).travel(Game.getAsteroid(A.getX()+rndX, A.getY()+rndY, A.getZ()+rndZ)); // All robots on the Asteroid move to a random neighbor.
+            //A.getRobotsOnAsteroid().get(i).travel(Game.getAsteroid(A.getX()+rndX, A.getY()+rndY, A.getZ()+rndZ));// All robots on the Asteroid move to a random neighbor.
+            A.getRobotsOnAsteroid().get(i).travel(Game.getAsteroid(0, 0, 2));
         }
     }
 

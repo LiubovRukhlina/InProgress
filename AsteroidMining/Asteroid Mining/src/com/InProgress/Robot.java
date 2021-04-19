@@ -6,7 +6,10 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">
 
-    String name;
+    private String name;
+
+
+
     private int damageCount;
 
     //</editor-fold>
@@ -28,11 +31,18 @@ public class Robot extends TravellerBase {
         super(currentPosition);
         this.name = name;
         this.damageCount = 0;
+        currentPosition.setRobotsOnAsteroid(this);
+
+        Tester.generator(Tester.outputFile, "created object ROBOT at " + currentPosition.getX() + " "
+                + currentPosition.getY() + " " + currentPosition.getZ());
     }
 
     public Robot(Asteroid currentPosition) {
         super(currentPosition);
         this.damageCount = 0;
+
+        /*Tester.generator(Tester.outputFile, "created object ROBOT at " + currentPosition.getX() + " "
+                + currentPosition.getY() + " " + currentPosition.getZ());*/
     }
     
     //</editor-fold>
@@ -61,7 +71,7 @@ public class Robot extends TravellerBase {
         } else {
             //System.out.println("Invalid destination! Enter a new destination");
         }
-        Tester.generator(Tester.outputFile, "Travelled to A" + currentPosition.getX() + currentPosition.getY() + currentPosition.getZ());
+        Tester.generator(Tester.outputFile, "travelled to " + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
 
     }
 
@@ -180,6 +190,9 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Getters and Setters">
 
+    public String getName() {
+        return name;
+    }
     public int getDamageCount() {
         return damageCount;
     }

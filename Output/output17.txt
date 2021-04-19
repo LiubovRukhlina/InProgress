@@ -1,0 +1,9 @@
+asteroidbelt with dimensions 3 3 3 has been set
+created object SETTLER at 0 0 0
+created object SETTLER at 1 1 1
+added URANIUM 0 0 0 RESOURCEOFASTEROID
+modified 0 0 0 ROCKCOVER to 1
+modified 0 0 0 ISATPERIHELION to true
+drilled 0 0 0
+exploded 0 0 0
+died SETTLER 0 0 0

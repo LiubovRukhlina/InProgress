@@ -1,7 +1,7 @@
 asteroidbelt with dimensions 3 3 3 has been set
-created object SETTLER 0 0 0
-modified S1 ISHIDDEN to TRUE
-created object SETTLER 1 1 1
-modified S2 ISHIDDEN to FALSE
+created object SETTLER at 0 0 0
+modified S 1 ISHIDDEN to true
+created object SETTLER at 1 1 1
+modified S 2 ISHIDDEN to false
 sunstorm occurred
 died SETTLER 1 1 1

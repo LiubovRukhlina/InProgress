@@ -109,8 +109,8 @@ public class Asteroid {
      */
     public void emptyAsteroid() {
         this.resourceOfAsteroid.clear(); // Removes the resource of this Asteroid.
-        this.setHollow(true); // This Asteroid is hollow.
-        this.setRadioactive(false); // A hollow Asteroid cannot be radioactive.
+        this.isHollow = true; // This Asteroid is hollow.
+        this.isRadioactive = false; // A hollow Asteroid cannot be radioactive.
     }
 
     /**
@@ -182,8 +182,8 @@ public class Asteroid {
     public TransportGate getGate() { return gate; }
     public void setGate(TransportGate gate) {
         this.gate = gate;
-        Tester.generator(Tester.outputFile, "created object TRANSPORTGATE at  " + this.getX() + " " +
-                this.getY() + " " + this.getZ());
+        /*Tester.generator(Tester.outputFile, "created object TRANSPORTGATE at  " + this.getX() + " " +
+                this.getY() + " " + this.getZ());*/
     }
 
     public String getName() { return name; }
@@ -214,7 +214,11 @@ public class Asteroid {
     public void setRadioactive(Boolean radioactive) { isRadioactive = radioactive; }
 
     public Boolean getHasGate() { return hasGate; }
-    public void setHasGate(Boolean hasGate) { this.hasGate = hasGate; }
+    public void setHasGate(Boolean hasGate) {
+        this.hasGate = hasGate;
+        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " HASGATE to " + hasGate);
+    }
 
     public List<Settler> getSettlersOnAsteroid() { return this.settlersOnAsteroid; }
     public void setSettlersOnAsteroid(Settler newSettler) { this.settlersOnAsteroid.add(newSettler); }
@@ -225,14 +229,15 @@ public class Asteroid {
     public List<ResourceBase> getStoredResourceOfAsteroid() { return storedResourceOfAsteroid; }
     public void setStoredResourceOfAsteroid(ResourceBase newResource) {
         this.storedResourceOfAsteroid.add(newResource);
-        Tester.generator(Tester.outputFile, "added " +newResource.getResourceType().toUpperCase() + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " STOREDRESOURCES");
+        Tester.generator(Tester.outputFile, "added " + newResource.getResourceType().toUpperCase() + " " + this.getX() + " " +
+                this.getY() + " " + this.getZ() + " STOREDRESOURCEOFASTEROID");
     }
 
     public List<ResourceBase> getResourceOfAsteroid() { return resourceOfAsteroid; }
     public void setResourceOfAsteroid(ResourceBase rb) {
+        this.resourceOfAsteroid.clear();
         this.resourceOfAsteroid.add(rb);
-        Tester.generator(Tester.outputFile, "added " + rb.getResourceType().toUpperCase() + this.getX() + " " +
+        Tester.generator(Tester.outputFile, "added " + rb.getResourceType().toUpperCase() + " " + this.getX() + " " +
                 this.getY() + " " + this.getZ() + " RESOURCEOFASTEROID");
     }
 
