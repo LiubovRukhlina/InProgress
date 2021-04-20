@@ -32,6 +32,7 @@ public class Player {
 
     //<editor-fold desc="Methods">
 
+    // TODO implementation of all required methods
     /**
      * Decreases the number of moves of this Player after each action.
      */

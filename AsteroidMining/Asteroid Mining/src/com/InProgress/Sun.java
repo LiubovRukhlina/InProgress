@@ -68,7 +68,7 @@ public class Sun {
     /**
      * launches the sun storm
      */
-    public void startSunStorm() {
+    public void startSunStorm() { // TODO Final implementation
         /* No countdown for the prototype
         while (countDownOfSunStorm >= 0)
         {

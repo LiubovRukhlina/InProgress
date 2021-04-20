@@ -7,6 +7,7 @@ public class Game implements Serializable {
 
     //<editor-fold desc="Attributes">
 
+    // TODO reconsider the all public / static approach for attributes and methods.
     public static ArrayList<Settler> settlers; //list of settlers
     public static ArrayList<Robot> robots; //list of robots
     public static ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
@@ -29,6 +30,7 @@ public class Game implements Serializable {
 
     //<editor-fold desc="Methods">
 
+    // TODO Implementation of Player list
     /**
      *  Instantiates all the main parts of the skeleton
      */
@@ -43,6 +45,12 @@ public class Game implements Serializable {
         list1.add(list2);
         asteroids.add(list1);*/
     }
+
+    // TODO implementation
+    public void nextRound() {
+
+    }
+
 
     /**
      * describes the end of the game
