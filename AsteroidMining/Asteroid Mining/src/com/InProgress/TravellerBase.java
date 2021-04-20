@@ -60,7 +60,7 @@ public abstract class TravellerBase {
      */
     public void die() {
         this.isAlive = false;
-        Game.settlers.remove(this);
+        //Game.settlers.remove(this);
 
         if (this instanceof  Settler) {
             Tester.generator(Tester.outputFile, "died SETTLER " + currentPosition.getX() + " " +

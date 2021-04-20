@@ -362,6 +362,56 @@ public class Tester {
                 }
             }
         }
+        if(true) { // set to true if status should be printed
+            System.out.println();
+            System.out.println();
+            System.out.println("Asteroids:");
+            for (int i = 0; i < Game.maxX; i++) { // status of asteroids
+                for (int j = 0; j < Game.maxY; j++) {
+                    for (int k = 0; k < Game.maxZ; k++) {
+                        if (Game.getAsteroid(i, j, k).getExploded()) {
+                            System.out.println(Game.getAsteroid(i, j, k).getName() + " is exploded.");
+                        }
+                        else {
+                            System.out.println(Game.getAsteroid(i, j, k).getName() + " is intact.");
+                        }
+                    }
+                }
+            }
+            System.out.println();
+            System.out.println("Settlers:");
+            for (Settler s : Game.settlers ) { // status of settlers
+                if(s.getAlive()) {
+                    System.out.println(s.getName() + " is on " + s.getCurrentPosition().getName() + ".");
+                }
+                else {
+                    System.out.println(s.getName() + " is dead.");
+                }
+            }
+            System.out.println();
+            System.out.println("Robots:");
+            for (Robot r : Game.robots ) { // status of robots
+                if(r.getAlive()) {
+                    System.out.println(r.getName() + " is on " + r.getCurrentPosition().getName() + ".");
+                }
+                else {
+                    System.out.println(r.getName() + " is dead.");
+                }
+            }
+            System.out.println();
+            System.out.println("Gates:");
+            for (TransportGate t : Game.gates ) { // status of gates
+                if(t.getActive()) {
+                    System.out.println(t.getName() + " is active at " + t.getCurrentPosition().getName() + ".");
+                }
+                else {
+                    System.out.println(t.getName() + " is not active.");
+                }
+            }
+            System.out.println();
+            System.out.println();
+        }
+
         evaluator(outputFile, benchmarkFile);
     }
 
