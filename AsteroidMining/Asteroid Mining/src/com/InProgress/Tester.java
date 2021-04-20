@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Tester {
+public class Tester { // TODO we don't need it any longer
     public static FileWriter fileWriter = null;
     public static File outputFile;
     public static File benchmarkFile;
