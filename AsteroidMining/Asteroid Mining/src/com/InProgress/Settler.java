@@ -53,7 +53,8 @@ public class Settler extends TravellerBase {
     @Override
     public void travel(Asteroid Destination) {
         if (!Destination.getExploded()) { // checks if Asteroid is not exploded.
-            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2
+            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2 // TODO this condition is not correct. we could travel from 000 to 055 with this, which is not allowed.
+                                                                            // It also doesn't cover the possible travel from 000 to 900
                     || Math.abs(Destination.getY() - currentPosition.getY()) <= 2
                     || Math.abs(Destination.getZ() - currentPosition.getZ()) <= 2)) { // checks if asteroid is in the neighbourhood.
 
@@ -114,7 +115,7 @@ public class Settler extends TravellerBase {
      * @param A Asteroid this Settler hides in
      */
     @Override
-    public void hide(Asteroid A) {
+    public void hide(Asteroid A) { // TODO check if hide of ROBOT and SETTLER are equal. If so, move it to TravellerBase.
         if (A.getDepth() == 0 && A.getHollow()) {
             if (!isHidden) { //if the robot is already hidden
                 int cntRobots = 0;
@@ -184,7 +185,7 @@ public class Settler extends TravellerBase {
     /**
      * This method is used to build a robot.
      */
-    public void buildRobot() {
+    public void buildRobot() { // TODO Resources are currently not removed from the Inventory list, they are just set to null
         int uCount = 0; // counts the number of units of Uranium
         int iCount = 0; // counts the number of units of Iron
         int cCount = 0; // counts the number of units of Carbon
@@ -236,7 +237,7 @@ public class Settler extends TravellerBase {
     /**
      * This method is used to build a transportation-gate and store it in the settler’s inventory.
      */
-    public void buildTransportGate() {
+    public void buildTransportGate() { // TODO Resources are currently not removed from the Inventory list, they are just set to null
         if (itsInventory.checkResources(2)) { // checks if there are enough resources
             int uCount = 0; // counts the number of units of Uranium
             int iCount = 0; // counts the number of units of Iron
@@ -260,7 +261,6 @@ public class Settler extends TravellerBase {
 
                 }
             }
-
 
             TransportGate tg1 = new TransportGate();
             TransportGate tg2 = new TransportGate();

@@ -26,8 +26,16 @@ public class ResourceBase {
 
     //<editor-fold desc="Methods">
 
+    /**
+     * Virtual method. Implementation is in Uranium class.
+     * @param A Asteroid that has this Resource
+     */
     protected void explode(Asteroid A)  { }
 
+    /**
+     * Virtual method. Implementation is in WaterIce class.
+     * @param A Asteroid that has this Resource
+     */
     protected void sublime(Asteroid A) { }
 
     //</editor-fold>
