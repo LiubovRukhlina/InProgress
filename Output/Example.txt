@@ -24,5 +24,6 @@ mined 0 0 0
 travelled through the gate at 0 0 0
 drilled 0 0 3
 exploded 0 0 3
+modified TG 3 ISACTIVE to false
 died SETTLER 0 0 3
 travelled to 0 0 2
