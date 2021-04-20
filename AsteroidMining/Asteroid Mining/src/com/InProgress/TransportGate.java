@@ -56,8 +56,8 @@ public class TransportGate {
      * destroyed in an explosion
      */
     public void deactivateTransportGate() {
-
         this.isActive = Boolean.FALSE;
+        this.getPair().setActive(false);
     }
 
     /**

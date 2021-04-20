@@ -1,3 +1,0 @@
-asteroidbelt with dimensions 3 3 3 has been set
-created object ROBOT at 0 0 0
-drilled 0 0 0
