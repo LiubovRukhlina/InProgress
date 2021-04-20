@@ -7,9 +7,6 @@ public class Robot extends TravellerBase {
     //<editor-fold desc="Attributes">
 
     private String name;
-
-
-
     private int damageCount;
 
     //</editor-fold>
@@ -59,7 +56,7 @@ public class Robot extends TravellerBase {
     public void travel(Asteroid Destination) {
 
         if (!Destination.getExploded()) { // checks if the Asteroid is not exploded
-            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2 ||
+            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2 || // TODO this condition is not correct. See also Settler
                     Math.abs(Destination.getY() - currentPosition.getY()) <= 2 ||
                     Math.abs(Destination.getZ() - currentPosition.getZ()) <= 2)) { // checks if the Asteroid is in the neighbourhood.
                 currentPosition.getRobotsOnAsteroid().remove(this);  // Robot is removed from the list of the current Asteroid
@@ -109,7 +106,7 @@ public class Robot extends TravellerBase {
      *
      * @param A Asteroid this Robot hides in
      */
-    public void hide(Asteroid A) {
+    public void hide(Asteroid A) { // TODO check if hide of ROBOT and SETTLER are equal. If so, move it to TravellerBase.
         if (A.getDepth() == 0 && A.getHollow()) {
             if (!isHidden) { //if the robot is already hidden
                 int cntRobots = 0;
@@ -141,7 +138,7 @@ public class Robot extends TravellerBase {
      * @param A Asteroid which is drilled
      */
     public void drill(Asteroid A) {
-        if (A.getDepth() != 0) { // if it is not hollow, then we drill
+        if (A.getDepth() != 0) { // if the Asteroid is not drilled through, then the robot drills
             A.decreaseRockCover(); //drilling
 
             Tester.generator(Tester.outputFile, "drilled " + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
@@ -157,16 +154,35 @@ public class Robot extends TravellerBase {
                     A.getResourceOfAsteroid().get(0).sublime(A); // WaterIce sublimes
                 }
             }
-        } else {
-            if(A.getHasGate()) {
-                fastTravel(A);
+        } else if (A.getHasGate()) { // if it cannot drill and the Asteroid has a Gate, the Robots fastTravels
+            fastTravel(A);
+        } else {  // if it cannot drill and the Asteroid has no Gate, the Robots randomly travels
+
+            // TODO We need this kind of random generation and checking also in the explode function of Uranium. Maybe it is worth to implement it in a method in the robot class
+            int rndX = A.getX() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current X coordinate
+            int rndY = A.getY() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Y coordinate
+            int rndZ = A.getZ() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Z coordinate
+
+            // checks if rndX is out of bound and adjusts it
+            if(rndX < 0 ) {
+                rndX = Game.maxX - rndX;
+            } else if( rndX > Game.maxX) {
+                rndX = rndX - A.getX();
             }
-            else{
-                int rndX = new Random().nextInt(5)-2; // random number between -2 and 2
-                int rndY = new Random().nextInt(5)-2; // random number between -2 and 2
-                int rndZ = new Random().nextInt(5)-2; // random number between -2 and 2
-                travel(Game.asteroids.get(A.getX() + rndX).get(A.getY() + rndY).get(A.getY() + rndZ));
+            // checks if rndY is out of bound and adjusts it
+            if(rndY < 0 ) {
+                rndY = 0;
+            } else if( rndY > Game.maxX) {
+                rndX = A.getY();
             }
+            // checks if rndZ is out of bound and adjusts it
+            if(rndZ < 0 ) {
+                rndZ = 0;
+            } else if( rndZ > Game.maxX) {
+                rndZ = A.getZ();
+            }
+
+            travel(Game.getAsteroid(rndX, rndY, rndZ));
         }
     }
 

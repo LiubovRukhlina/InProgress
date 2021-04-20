@@ -20,7 +20,7 @@ public class WaterIce extends ResourceBase{
 
     /**
      * Removes the WaterIce from the Asteroid when it is
-     * drilled through
+     * drilled through at perihelion.
      * @param A Asteroid of this WaterIce Resource
      */
     @Override

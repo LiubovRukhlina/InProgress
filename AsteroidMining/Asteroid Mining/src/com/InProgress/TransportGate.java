@@ -58,6 +58,7 @@ public class TransportGate {
     public void deactivateTransportGate() {
 
         this.isActive = Boolean.FALSE;
+
     }
 
     /**
