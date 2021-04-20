@@ -15,7 +15,7 @@ public class Game implements Serializable {
     public static int maxX; // x dimension of the asteroid belt
     public static int maxY; // y dimension of the asteroid belt
     public static int maxZ; // z dimension of the asteroid belt
-    Sun sun; // in charge of sun storms
+    public static Sun sun; // in charge of sun storms
 
     //</editor-fold>
 
@@ -37,6 +37,7 @@ public class Game implements Serializable {
         settlers = new ArrayList<>();
         robots = new ArrayList<>();
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
+        gates = new ArrayList<>();
         /*ArrayList list1 = new ArrayList();
         ArrayList<Asteroid> list2 = new ArrayList();
         list1.add(list2);

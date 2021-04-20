@@ -1,4 +1,4 @@
 asteroidbelt with dimensions 3 3 3 has been set
-created object SETTLER 0 0 0
+created object SETTLER at 0 0 0
 added CARBON 0 0 0 STOREDRESOURCEOFASTEROID
 picked up CARBON from 0 0 0

@@ -1,0 +1,28 @@
+asteroidbelt with dimensions 1 1 6 has been set
+created object SETTLER at 0 0 0
+added TRANSPORTGATE TG 1 S1 STOREDGATES
+created object TRANSPORTGATE at 0 0 1
+modified 0 0 1 HASGATE to true
+modified TG 1 PAIR TG 2
+modified TG 2 PAIR TG 1
+created object TRANSPORTGATE at 0 0 0
+modified 0 0 0 HASGATE to true
+created object TRANSPORTGATE at 0 0 3
+modified 0 0 3 HASGATE to true
+modified TG 3 ISACTIVE to true
+modified TG 4 ISACTIVE to true
+modified TG 3 PAIR TG 4
+modified TG 4 PAIR TG 3
+created object ROBOT at 0 0 3
+modified 0 0 0 ROCKCOVER to 0
+modified 0 0 0 ISATPERIHELION to false
+added URANIUM 0 0 0 RESOURCEOFASTEROID
+modified 0 0 3 ROCKCOVER to 1
+modified 0 0 3 ISATPERIHELION to true
+added URANIUM 0 0 3 RESOURCEOFASTEROID
+mined 0 0 0
+travelled through the gate at 0 0 0
+drilled 0 0 3
+exploded 0 0 3
+died SETTLER 0 0 3
+travelled to 0 0 2

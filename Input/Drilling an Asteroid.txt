@@ -1,3 +1,3 @@
 set asteroidbelt 3 3 3
 create object SETTLER 0 0 0
-drill 0 0 0
+drill S 1 0 0 0

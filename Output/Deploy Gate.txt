@@ -1,8 +1,9 @@
 asteroidbelt with dimensions 3 3 3 has been set
-created object SETTLER 0 0 0
+created object SETTLER at 0 0 0
 added IRON S1 STOREDRESOURCES
 added IRON S1 STOREDRESOURCES
 added URANIUM S1 STOREDRESOURCES
 added WATERICE S1 STOREDRESOURCES
 built TRANSPORTGATES
-deployed TG1
+modified null CURRENTPOSITION 0 0 0
+deployed TRANSPORTGATE at 0 0 0

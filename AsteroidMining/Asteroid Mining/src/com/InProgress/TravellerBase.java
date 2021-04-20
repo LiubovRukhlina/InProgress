@@ -61,6 +61,15 @@ public abstract class TravellerBase {
     public void die() {
         this.isAlive = false;
         Game.settlers.remove(this);
+
+        if (this instanceof  Settler) {
+            Tester.generator(Tester.outputFile, "died SETTLER " + currentPosition.getX() + " " +
+                    currentPosition.getY() + " " + currentPosition.getZ());
+        } else {
+            Tester.generator(Tester.outputFile, "died ROBOT " + currentPosition.getX() + " " +
+                    currentPosition.getY() + " " + currentPosition.getZ());
+        }
+
     }
 
 
@@ -87,9 +96,9 @@ public abstract class TravellerBase {
         isHidden = hidden;
 
         if(this instanceof  Settler) {
-            Tester.generator(Tester.outputFile, "modified S1 ISHIDDEN " + isHidden);
+            Tester.generator(Tester.outputFile, "modified " + ((Settler) this).getName() + " ISHIDDEN to " + isHidden);
         } else {
-            Tester.generator(Tester.outputFile, "modified R1 ISHIDDEN " + isHidden);
+            Tester.generator(Tester.outputFile, "modified " + ((Robot) this).getName() + " ISHIDDEN to " + isHidden);
         }
     }
 

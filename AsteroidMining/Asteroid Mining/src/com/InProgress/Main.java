@@ -33,7 +33,7 @@ public class Main {
             System.out.println("Test case 11: Hide");
             System.out.println("Test case 12: Build Robot");
             System.out.println("Test case 13: Travelling to an Asteroid (Robot)");
-            System.out.println("Test case 14: Drilling an Asteroid (Robot");
+            System.out.println("Test case 14: Drilling an Asteroid (Robot)");
             System.out.println("Test case 15: Build SpaceStation");
             System.out.println();
             System.out.println("Test case 16: SunStorm");

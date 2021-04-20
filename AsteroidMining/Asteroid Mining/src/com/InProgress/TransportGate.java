@@ -22,6 +22,20 @@ public class TransportGate {
         this.isActive = Boolean.FALSE;
     }
 
+    public TransportGate(String name)
+    {
+        this.name = name;
+        this.isActive = Boolean.FALSE;
+    }
+
+    public TransportGate(String name, Asteroid A)
+    {
+        this.name = name;
+        this.currentPosition = A;
+        this.isActive = Boolean.FALSE;
+        Tester.generator(Tester.outputFile, "created object TRANSPORTGATE at " + A.getX() + " " + A.getY() + " " + A.getZ());
+    }
+
     //</editor-fold>
 
 
@@ -75,13 +89,13 @@ public class TransportGate {
     public Boolean getActive() { return isActive; }
     public void setActive(Boolean active) {
         isActive = active;
-        Tester.generator(Tester.outputFile, "modified " + this.name  + " ISACTIVE " + isActive );
+        Tester.generator(Tester.outputFile, "modified " + this.name  + " ISACTIVE to " + isActive);
     }
 
     public TransportGate getPair() { return pair; }
     public void setPair(TransportGate pair) {
         this.pair = pair;
-        Tester.generator(Tester.outputFile, "modified " + this.name  + " PAIR " + pair.getName() );
+        Tester.generator(Tester.outputFile, "modified " + this.name  + " PAIR " + pair.getName());
     }
 
     //</editor-fold>
