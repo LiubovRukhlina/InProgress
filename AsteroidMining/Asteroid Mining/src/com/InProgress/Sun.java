@@ -1,6 +1,8 @@
 package com.InProgress;
 
 
+import java.util.Random;
+
 public class Sun {
 
     //<editor-fold desc="Attributes">
@@ -12,18 +14,11 @@ public class Sun {
 
 
     //<editor-fold desc="Constructor">
-    public Sun() { }
 
-    /**
-     * constructor
-     * @param sunX x coordinate of the perihelion area
-     * @param countDownOfSunStorm time before the sun storm
-     */
-    public Sun(int sunX, int countDownOfSunStorm) {
-        this.sunX = sunX;
-        this.countDownOfSunStorm = countDownOfSunStorm;
+    public Sun() {
+        sunX = new Random().nextInt(Game.getMaxX());
+        countDownOfSunStorm = new Random().nextInt(5) + 5;
     }
-
     //</editor-fold>
 
 
@@ -34,11 +29,11 @@ public class Sun {
      * In case the sunX equals the upper boundary it is set back to 0.
      * Calls the perihelionChanger to update the asteroids.
      */
-    private void changeSunX() {
+    public void changeSunX() {
 
         // change atPerihelion to false for current sunX
-        for(int j = 0; j < Game.maxY; j++) {
-            for (int k = 0; k < Game.maxZ; k++) {
+        for(int j = 0; j < Game.getMaxY(); j++) {
+            for (int k = 0; k < Game.getMaxZ(); k++) {
                 Game.getAsteroid(sunX, j, k).perihelionChanger(false);
             }
         }
@@ -51,8 +46,8 @@ public class Sun {
         }
 
         // change atPerihelion to true for current sunX
-        for(int j = 0; j < Game.maxY; j++) {
-            for (int k = 0; k < Game.maxZ; k++) {
+        for(int j = 0; j < Game.getMaxY(); j++) {
+            for (int k = 0; k < Game.getMaxZ(); k++) {
                 Game.getAsteroid(sunX, j, k).perihelionChanger(true);
             }
         }
@@ -61,33 +56,27 @@ public class Sun {
     /**
      *  Decreases the countdown of this sun by 1 after each round.
      */
-    private void decreaseCountdown() {
+    public void decreaseCountdown() {
         countDownOfSunStorm--;
     }
 
     /**
      * launches the sun storm
      */
-    public void startSunStorm() { // TODO Final implementation
-        /* No countdown for the prototype
-        while (countDownOfSunStorm >= 0)
-        {
-            decreaseCountdown();
-        }
-        */
-        Tester.generator(Tester.outputFile, "sunstorm occurred" ); // has to be printed before Travellers die
+    public void startSunStorm() {
         findTraveller();
+        setCountDownOfSunStorm(new Random().nextInt(5) + 5); // new countdown between 5 and 9
     }
 
     /**
      *  checks the asteroids and if there are any unhidden travellers on them.
      *  Calls die() for unhidden travellers.
      */
-    private void findTraveller() {
+    public void findTraveller() {
 
-        for (int i = 0; i < Game.maxX; i++) {
-            for (int j = 0; j < Game.maxY; j++) {
-                for (int k = 0; k < Game.maxZ; k++) {
+        for (int i = 0; i < Game.getMaxX(); i++) {
+            for (int j = 0; j < Game.getMaxY(); j++) {
+                for (int k = 0; k < Game.getMaxZ(); k++) {
                     for (int s = 0; s < Game.getAsteroid(i,j,k).getSettlersOnAsteroid().size(); s++) {
                         if (!Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).getHidden()) {
                             Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).die();
@@ -101,8 +90,6 @@ public class Sun {
                 }
             }
         }
-
-        //this.setCountDownOfSunStorm(5); // 5 is just a placeholder countdown should be assigned randomly.
     }
 
     //</editor-fold>

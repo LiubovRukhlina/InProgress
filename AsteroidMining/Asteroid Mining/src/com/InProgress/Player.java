@@ -21,9 +21,9 @@ public class Player {
     public Player(int playerID) {
         this.playerID = playerID;
         this.numberOfMoves = 5;
-        this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.maxX), new Random().nextInt(Game.maxY), new Random().nextInt(Game.maxZ)), this.playerID));
-        this.settlers.add( new Settler("Settler2", Game.getAsteroid(new Random().nextInt(Game.maxX), new Random().nextInt(Game.maxY), new Random().nextInt(Game.maxZ)), this.playerID));
-        this.settlers.add( new Settler("Settler3", Game.getAsteroid(new Random().nextInt(Game.maxX), new Random().nextInt(Game.maxY), new Random().nextInt(Game.maxZ)), this.playerID));
+        this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
+        this.settlers.add( new Settler("Settler2", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
+        this.settlers.add( new Settler("Settler3", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.isPlaying = true;
     }
 

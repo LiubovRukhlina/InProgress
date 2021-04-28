@@ -1,6 +1,5 @@
 package com.InProgress;
 
-import java.io.FileNotFoundException;
 import  java.lang.String;
 
 
@@ -19,8 +18,7 @@ public class ResourceBase {
      * constructor for ResourceBase
      * @param resourceType Name of the resource
      */
-    public ResourceBase(String resourceType) {
-        this.resourceType = resourceType; }
+    public ResourceBase(String resourceType) { this.resourceType = resourceType; }
 
     //</editor-fold">
 

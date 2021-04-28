@@ -6,7 +6,6 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">
 
-    private String name;
     private int damageCount;
 
     //</editor-fold>
@@ -14,32 +13,15 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Constructor"
 
-    public Robot() {
-        this.damageCount = 0;
-    }
-
-
     /**
      * Constructor of the Robot class
      *
      * @param currentPosition Position of the Robot
      */
-    public Robot(String name, Asteroid currentPosition) {
-        super(currentPosition);
-        this.name = name;
-        this.damageCount = 0;
-        currentPosition.setRobotsOnAsteroid(this);
-
-        Tester.generator(Tester.outputFile, "created object ROBOT at " + currentPosition.getX() + " "
-                + currentPosition.getY() + " " + currentPosition.getZ());
-    }
-
     public Robot(Asteroid currentPosition) {
         super(currentPosition);
         this.damageCount = 0;
-
-        /*Tester.generator(Tester.outputFile, "created object ROBOT at " + currentPosition.getX() + " "
-                + currentPosition.getY() + " " + currentPosition.getZ());*/
+        currentPosition.setRobotsOnAsteroid(this);
     }
     
     //</editor-fold>
@@ -54,22 +36,16 @@ public class Robot extends TravellerBase {
      * @param Destination destination Asteroid
      */
     public void travel(Asteroid Destination) {
-
-        if (!Destination.getExploded()) { // checks if the Asteroid is not exploded
-            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2 || // TODO this condition is not correct. See also Settler
-                    Math.abs(Destination.getY() - currentPosition.getY()) <= 2 ||
-                    Math.abs(Destination.getZ() - currentPosition.getZ()) <= 2)) { // checks if the Asteroid is in the neighbourhood.
-                currentPosition.getRobotsOnAsteroid().remove(this);  // Robot is removed from the list of the current Asteroid
-                currentPosition = Destination;  // successful travel
-                currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list of the new Asteroid
-                isHidden = false; // Robot is unhidden after travel
-                hide(currentPosition); // tires to hide
-            }
+        if (checkDestination(Destination)) { // checks if the Asteroid is in the neighbourhood.
+            currentPosition.getRobotsOnAsteroid().remove(this);  // Robot is removed from the list of the current Asteroid
+            isHidden = false; // Robot is unhidden after travel
+            currentPosition.hideMyTravellers();
+            currentPosition = Destination;  // successful travel
+            currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list of the new Asteroid
+            hide(currentPosition); // tires to hide
         } else {
-            //System.out.println("Invalid destination! Enter a new destination");
+            randomTravel(this.getCurrentPosition());
         }
-        Tester.generator(Tester.outputFile, "travelled to " + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
-
     }
 
     /**
@@ -78,55 +54,17 @@ public class Robot extends TravellerBase {
      * @param A Asteroid to which the gate belongs
      */
     public void fastTravel(Asteroid A) {
-        if (A.getHasGate()) { // if the current asteroid has a transport gate
-            TransportGate Gate1 = A.getGate();
+        TransportGate destGate = A.getGate().getPair();
 
-            if (Gate1.getActive()) {    // if the gate is active (means if the pair is also deployed)
-                TransportGate Gate2 = Gate1.getPair();
-                A.getRobotsOnAsteroid().remove(this); // Robot is removed from the list of the current Asteroid
-                currentPosition = Gate2.getCurrentPosition();// we travel to the location of the pair.
-                currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list of the new Asteroid
-                isHidden = false; // Robot is unhidden after travel
-                hide(currentPosition); // tires to hide
-            }
-            else{
-                //System.out.println("The other pair is not deployed yet!");
-            }
-        }
-        else {
-            //System.out.println("This asteroid does not have a transport gate.");
-        }
-        Tester.generator(Tester.outputFile, "travelled through the gate at " + A.getX() + " " + A.getY() + " " + A.getZ());
+        A.getRobotsOnAsteroid().remove(this); // Robot is removed from the list of the current Asteroid
+        isHidden = false; // Robot is unhidden after travel
+        currentPosition.hideMyTravellers();
+        currentPosition = destGate.getCurrentPosition();// we travel to the location of the pair.
+        currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list of the new Asteroid
+        hide(currentPosition); // tires to hide
     }
 
-    /**
-     * The robot hides inside the Asteroid.
-     * Hiding is only possible if the Asteroid is drilled through, hollow and
-     * has enough space for the robot.
-     *
-     * @param A Asteroid this Robot hides in
-     */
-    public void hide(Asteroid A) { // TODO check if hide of ROBOT and SETTLER are equal. If so, move it to TravellerBase.
-        if (A.getDepth() == 0 && A.getHollow()) {
-            if (!isHidden) { //if the robot is already hidden
-                int cntRobots = 0;
-                int cntSettlers = 0;
-                for (int i = 0; i < A.getRobotsOnAsteroid().size(); i++) {
-                    if (A.getRobotsOnAsteroid().get(i).getHidden()) // to check if hidden
-                        cntRobots++; // number of hidden robots on this asteroid
-                }
-                for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
-                    if (A.getSettlersOnAsteroid().get(i).getHidden())   // to check if hidden
-                        cntSettlers++; // number of hidden settlers on this asteroid
-                }
-                if ((cntRobots == 1 && cntSettlers == 0) || (cntSettlers == 1 && cntRobots == 0) || (cntRobots ==0 && cntSettlers == 0)) { // 2 robots or 1 robot and 1 settler
-                    isHidden = true;
 
-                    Tester.generator(Tester.outputFile, "hidden inside " + A.getX() + " " + A.getY() + " " + A.getZ());
-                }
-            }
-        }
-    }
 
     /**
      * The Robot drills the Asteroid and the rockCover is reduced.
@@ -141,8 +79,6 @@ public class Robot extends TravellerBase {
         if (A.getDepth() != 0) { // if the Asteroid is not drilled through, then the robot drills
             A.decreaseRockCover(); //drilling
 
-            Tester.generator(Tester.outputFile, "drilled " + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
-
             if(A.getDepth() ==0 && A.getAtPerihelion() ) { // checks if the remaining rockCover equals 0 and if the Asteroid is at perihelion
 
                 if (A.getResourceOfAsteroid().get(0) instanceof Uranium) // checks if the Asteroid has Uranium in his core
@@ -154,36 +90,38 @@ public class Robot extends TravellerBase {
                     A.getResourceOfAsteroid().get(0).sublime(A); // WaterIce sublimes
                 }
             }
-        } else if (A.getHasGate()) { // if it cannot drill and the Asteroid has a Gate, the Robots fastTravels
+        } else if (A.getHasGate() && A.getGate().getActive()) { // if it cannot drill and the Asteroid has a Gate, the Robots fastTravels
             fastTravel(A);
         } else {  // if it cannot drill and the Asteroid has no Gate, the Robots randomly travels
-
-            // TODO We need this kind of random generation and checking also in the explode function of Uranium. Maybe it is worth to implement it in a method in the robot class
-            int rndX = A.getX() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current X coordinate
-            int rndY = A.getY() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Y coordinate
-            int rndZ = A.getZ() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Z coordinate
-
-            // checks if rndX is out of bound and adjusts it
-            if(rndX < 0 ) {
-                rndX = Game.maxX - rndX;
-            } else if( rndX > Game.maxX) {
-                rndX = rndX - A.getX();
-            }
-            // checks if rndY is out of bound and adjusts it
-            if(rndY < 0 ) {
-                rndY = 0;
-            } else if( rndY > Game.maxX) {
-                rndX = A.getY();
-            }
-            // checks if rndZ is out of bound and adjusts it
-            if(rndZ < 0 ) {
-                rndZ = 0;
-            } else if( rndZ > Game.maxX) {
-                rndZ = A.getZ();
-            }
-
-            travel(Game.getAsteroid(rndX, rndY, rndZ));
+            randomTravel(A);
         }
+    }
+
+    public void randomTravel(Asteroid A) {
+        int rndX = A.getX() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current X coordinate
+        int rndY = A.getY() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Y coordinate
+        int rndZ = A.getZ() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Z coordinate
+
+        // checks if rndX is out of bound and adjusts it
+        if(rndX < 0 ) {
+            rndX = Game.getMaxX() + rndX;
+        } else if( rndX > Game.getMaxX()) {
+            rndX = rndX - A.getX();
+        }
+        // checks if rndY is out of bound and adjusts it
+        if(rndY < 0 ) {
+            rndY = 0;
+        } else if( rndY > Game.getMaxY()) {
+            rndX = Game.getMaxY();
+        }
+        // checks if rndZ is out of bound and adjusts it
+        if(rndZ < 0 ) {
+            rndZ = 0;
+        } else if( rndZ > Game.getMaxZ()) {
+            rndZ = Game.getMaxZ();
+        }
+
+        travel(Game.getAsteroid(rndX, rndY, rndZ));
     }
 
     /**
@@ -196,9 +134,6 @@ public class Robot extends TravellerBase {
         if (this.damageCount == 2) {
             this.die();
         }
-
-        // commented the output out. I think right now it is not in the skeleton. (Yves)
-        //System.out.println("Robot has been damaged.");
     }
 
     //</editor-fold>
@@ -206,9 +141,6 @@ public class Robot extends TravellerBase {
 
     //<editor-fold desc="Getters and Setters">
 
-    public String getName() {
-        return name;
-    }
     public int getDamageCount() {
         return damageCount;
     }

@@ -7,48 +7,65 @@ public class Game implements Serializable {
 
     //<editor-fold desc="Attributes">
 
-    // TODO reconsider the all public / static approach for attributes and methods.
-    public static ArrayList<Settler> settlers; //list of settlers
-    public static ArrayList<Robot> robots; //list of robots
-    public static ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
-    public static ArrayList<TransportGate> gates;
-    public static ArrayList<Player> players; // list of players
-    public static int maxX; // x dimension of the asteroid belt
-    public static int maxY; // y dimension of the asteroid belt
-    public static int maxZ; // z dimension of the asteroid belt
-    public static Sun sun; // in charge of sun storms
+    private static int maxX; // x dimension of the asteroid belt
+    private static int maxY; // y dimension of the asteroid belt
+    private static int maxZ; // z dimension of the asteroid belt
+    private static int roundCounter = 0;
+    private static  Sun sun; // in charge of sun storms
+    private static ArrayList<Player> players; //list of players
+    private static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
+    private static  ArrayList<Robot> robots; //list of robots
 
     //</editor-fold>
 
 
     //<editor-fold desc="Constructor">
 
-    public Game() { }
+    //public Game() { }
 
     //</editor-fold">
 
 
     //<editor-fold desc="Methods">
 
-    // TODO Implementation of Player list
     /**
      *  Instantiates all the main parts of the skeleton
      */
-    void startGame() {
+    public static void startGame(int numberOfPlayers, int x, int y, int z) {
         sun = new Sun();
-        settlers = new ArrayList<>();
         robots = new ArrayList<>();
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
-        gates = new ArrayList<>();
-        /*ArrayList list1 = new ArrayList();
-        ArrayList<Asteroid> list2 = new ArrayList();
-        list1.add(list2);
-        asteroids.add(list1);*/
+
+        players = new ArrayList<>();
+        for(int i = 0; i < numberOfPlayers; i++) { players.add(new Player(i)); }
+
+        setAsteroidBelt(x,y,z);
     }
 
-    // TODO implementation
-    public void nextRound() {
+    /**
+     *  Before each round starts the system checks whether a sunstorm has to occur
+     *  and if the perihelion state of the asteroids changes.
+     *  The number of moves of the Players is restored and all robots start a drilling action.
+     */
+    public static void nextRound() {
 
+        roundCounter++;
+        sun.decreaseCountdown();
+        if(sun.getCountdownOfSunStorm() == 0) { // checks if sunstorm occurs in this round
+            sun.startSunStorm();
+        }
+
+        if(roundCounter%5 == 0) { // perihelion state changes every 5 rounds
+            sun.changeSunX();
+        }
+
+        for (Player p : players ) { // restore number of moves of all Players
+            p.setNumberOfMoves(5);
+        }
+
+        for (Robot r : robots ) { // all robots drill on their current asteroid
+            r.drill(r.getCurrentPosition());
+        }
     }
 
 
@@ -56,7 +73,7 @@ public class Game implements Serializable {
      * describes the end of the game
      */
     public static void endGame() {
-        Tester.generator(Tester.outputFile, "The game ended");
+        // TODO Winning Window (Controller)
     }
 
     /**
@@ -85,7 +102,6 @@ public class Game implements Serializable {
                 }
             }
         }
-        Tester.generator(Tester.outputFile, "asteroidbelt with dimensions " + maxX + " " + maxY + " " + maxZ + " has been set");
     }
 
     //</editor-fold>
@@ -93,9 +109,19 @@ public class Game implements Serializable {
 
     //<editor-fold desc="Getters and Setters">
 
-    public static ArrayList<Settler> getSettlers() { return settlers; }
+
+    public static ArrayList<Player> getPlayers() { return players; }
+
+    public static int getMaxX() { return maxX; }
+
+    public static int getMaxY() { return maxY; }
+
+    public static int getMaxZ() { return maxZ; }
+
+    public static Sun getSun() { return sun; }
+
     public static ArrayList<Robot> getRobots() { return robots; }
-    //public static ArrayList<Asteroid> getAsteroids() { return asteroids; }
+
     public static Asteroid getAsteroid(int i, int j, int k) { return asteroids.get(i).get(j).get(k); }
 
     //</editor-fold>

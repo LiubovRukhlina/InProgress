@@ -26,10 +26,8 @@ public class WaterIce extends ResourceBase{
     @Override
     public void sublime(Asteroid A) {
 
-        A.getResourceOfAsteroid().remove(0); // Removes the resource form the asteroid
+        A.getResourceOfAsteroid().clear(); // Removes the resource form the asteroid
         A.setHollow(true); // Asteroid is hollow now
-
-        Tester.generator(Tester.outputFile, "waterice sublimed " + A.getX() + " " + A.getY() + " " + A.getZ());
     }
 
     //</editor-fold>
