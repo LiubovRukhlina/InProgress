@@ -165,6 +165,19 @@ public class Asteroid {
         }
     }
 
+    public void hideMyTravellers() {
+        for (Settler s : settlersOnAsteroid ) {
+            if(!s.getHidden()) {
+                s.hide(this);
+            }
+        }
+        for (Robot r : robotsOnAsteroid ) {
+            if(!r.getHidden()) {
+                r.hide(this);
+            }
+        }
+    }
+
     //</editor-fold>
 
 
@@ -180,45 +193,29 @@ public class Asteroid {
     public void setZ(int z) { this.z = z; }
 
     public TransportGate getGate() { return gate; }
-    public void setGate(TransportGate gate) {
-        this.gate = gate;
-        /*Tester.generator(Tester.outputFile, "created object TRANSPORTGATE at  " + this.getX() + " " +
-                this.getY() + " " + this.getZ());*/
-    }
+    public void setGate(TransportGate gate) { this.gate = gate; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public void setRockCover(int rockCover) {
-        this.rockCover = rockCover;
-        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " ROCKCOVER to " + rockCover );
-    }
+    public void setRockCover(int rockCover) { this.rockCover = rockCover; }
 
     public Boolean getAtPerihelion() { return isAtPerihelion; }
     public void setAtPerihelion(Boolean atPerihelion) {
         isAtPerihelion = atPerihelion;
-        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " ISATPERIHELION to " + atPerihelion );
     }
 
 
     public Boolean getHollow() { return isHollow; }
     public void setHollow(Boolean hollow) {
         isHollow = hollow;
-        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " ISHOLLOW to " + hollow );
     }
 
     public Boolean getRadioactive() { return isRadioactive; }
     public void setRadioactive(Boolean radioactive) { isRadioactive = radioactive; }
 
     public Boolean getHasGate() { return hasGate; }
-    public void setHasGate(Boolean hasGate) {
-        this.hasGate = hasGate;
-        Tester.generator(Tester.outputFile, "modified " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " HASGATE to " + hasGate);
-    }
+    public void setHasGate(Boolean hasGate) { this.hasGate = hasGate; }
 
     public List<Settler> getSettlersOnAsteroid() { return this.settlersOnAsteroid; }
     public void setSettlersOnAsteroid(Settler newSettler) { this.settlersOnAsteroid.add(newSettler); }
@@ -227,25 +224,15 @@ public class Asteroid {
     public void setRobotsOnAsteroid(Robot newRobot) { this.robotsOnAsteroid.add(newRobot); }
 
     public List<ResourceBase> getStoredResourceOfAsteroid() { return storedResourceOfAsteroid; }
-    public void setStoredResourceOfAsteroid(ResourceBase newResource) {
-        this.storedResourceOfAsteroid.add(newResource);
-        Tester.generator(Tester.outputFile, "added " + newResource.getResourceType().toUpperCase() + " " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " STOREDRESOURCEOFASTEROID");
-    }
+    public void setStoredResourceOfAsteroid(ResourceBase newResource) { this.storedResourceOfAsteroid.add(newResource); }
 
     public List<ResourceBase> getResourceOfAsteroid() { return resourceOfAsteroid; }
     public void setResourceOfAsteroid(ResourceBase rb) {
         this.resourceOfAsteroid.clear();
         this.resourceOfAsteroid.add(rb);
-        Tester.generator(Tester.outputFile, "added " + rb.getResourceType().toUpperCase() + " " + this.getX() + " " +
-                this.getY() + " " + this.getZ() + " RESOURCEOFASTEROID");
     }
 
     public Boolean getExploded() { return isExploded; }
-    public void setExploded(Boolean exploded) {
-        isExploded = exploded;
-        Tester.generator(Tester.outputFile, "exploded " + this.getX() + " " +
-                this.getY() + " " + this.getZ());
-    }
+    public void setExploded(Boolean exploded) { isExploded = exploded; }
     //</editor-fold>
 }

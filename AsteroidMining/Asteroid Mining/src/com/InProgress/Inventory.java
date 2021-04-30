@@ -36,11 +36,9 @@ public class Inventory{
     public void addResource(ResourceBase R) {
 
         if (storedResources.size() == 10) { // checks if this Inventory is full
-            //System.out.println("The inventory is full");
+
         } else {
            storedResources.add(R);
-
-           //Tester.generator(Tester.outputFile, "added " + R.getResourceType().toUpperCase() + " S1 STOREDRESOURCES" );
        }
     }
 
@@ -65,7 +63,6 @@ public class Inventory{
         }
         else
         {
-            //System.out.println("Inventory Full,deploy previous Gates");
         }
     }
 
@@ -190,14 +187,10 @@ public class Inventory{
     public List<ResourceBase> getStoredResources() { return storedResources; }
     public void setStoredResources(ResourceBase rb) {
         this.storedResources.add(rb);
-        Tester.generator(Tester.outputFile, "added " + rb.getResourceType().toUpperCase() + " S1 STOREDRESOURCES");
     }
 
     public List<TransportGate> getStoredGates() { return storedGates; }
-    public void setStoredGates(TransportGate tg) {
-        this.storedGates.add(tg);
-        Tester.generator(Tester.outputFile, "added TRANSPORTGATE " + tg.getName().toUpperCase() + " S1 STOREDGATES");
-    }
+    public void setStoredGates(TransportGate tg) { this.storedGates.add(tg); }
 
     //</editor-fold>
 }

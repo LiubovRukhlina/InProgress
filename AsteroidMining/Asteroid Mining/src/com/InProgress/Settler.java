@@ -1,7 +1,5 @@
 package com.InProgress;
 
-import java.util.*;
-
 public class Settler extends TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -27,14 +25,6 @@ public class Settler extends TravellerBase {
         this.name = name;
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
-
-        Tester.generator(Tester.outputFile, "created object SETTLER at " + currentPosition.getX() + " "
-                + currentPosition.getY() + " " + currentPosition.getZ());
-    }
-
-
-    public Settler(String name) {
-        this.name = name;
     }
 
     //</editor-fold>
@@ -48,30 +38,22 @@ public class Settler extends TravellerBase {
      * Then it checks if the Asteroid accepts the Settler on it.
      * After a successful travel the Settler tries to hide inside the Asteroid.
      *
-     * @param Destination destination Asteroid
+     * @param destination destination Asteroid
      */
     @Override
-    public void travel(Asteroid Destination) {
-        if (!Destination.getExploded()) { // checks if Asteroid is not exploded.
-            if ((Math.abs(Destination.getX() - currentPosition.getX()) <= 2 // TODO this condition is not correct. we could travel from 000 to 055 with this, which is not allowed.
-                                                                            // It also doesn't cover the possible travel from 000 to 900
-                    || Math.abs(Destination.getY() - currentPosition.getY()) <= 2
-                    || Math.abs(Destination.getZ() - currentPosition.getZ()) <= 2)) { // checks if asteroid is in the neighbourhood.
-
-                if (Destination.acceptTraveller(this)) { // checks if there is enough space for the settler on the destination.
-                    currentPosition.getSettlersOnAsteroid().remove(this);  // settler is removed from the list of the current asteroid
-                    currentPosition = Destination;  // successful travel
-                    isHidden = false; // settler is not hidden after travel
-                    hide(currentPosition); // settler tries to hide
-
-                } else {
-                    //System.out.println("Destination does not have free space");
-                }
+    public void travel(Asteroid destination) {
+        if (checkDestination(destination)) { // checks if destination is a valid.
+            if (destination.acceptTraveller(this)) { // checks if there is enough space for the settler on the destination.
+                currentPosition.getSettlersOnAsteroid().remove(this);  // settler is removed from the list of the current asteroid
+                isHidden = false; // settler is not hidden after travel
+                currentPosition.hideMyTravellers();
+                currentPosition = destination;  // successful travel
+                hide(currentPosition); // settler tries to hide
             } else {
-                //System.out.println("Invalid destination! Enter a new destination");
+                // TODO No Space Window (Controller)
             }
-            Tester.generator(Tester.outputFile, "travelled to " + currentPosition.getX() + " "
-                    + currentPosition.getY() + " " + currentPosition.getZ());
+        } else {
+            // TODO Invalid Destination Window (Controller)
         }
     }
 
@@ -80,60 +62,29 @@ public class Settler extends TravellerBase {
      * This method is used for travel by using a transport gate.
      * It first checks if there is a gate available and if it is active.
      *
-     * @param A asteroid that the Traveller is travelling through
+     * @param a asteroid that the Traveller is travelling through
      */
     @Override
-    public void fastTravel(Asteroid A) {
-        if (A.getHasGate()) { // if the current asteroid has a transport gate
-            TransportGate Gate1 = A.getGate();
+    public void fastTravel(Asteroid a) {
+        if (a.getHasGate()) { // if the current asteroid has a transport gate
+            TransportGate Gate1 = a.getGate();
 
             if (Gate1.getActive()) {    // if the gate is active (means if the pair is also deployed)
                 TransportGate Gate2 = Gate1.getPair();
                 if (Gate2.getCurrentPosition().acceptTraveller(this)) {
-                    A.getSettlersOnAsteroid().remove(this);  // settler is removed from the list
-                    currentPosition = Gate2.getCurrentPosition();  // successful travel
+                    a.getSettlersOnAsteroid().remove(this);  // settler is removed from the list
                     isHidden = false;
-                    Tester.generator(Tester.outputFile, "travelled through the gate at " + A.getX() + " " + A.getY() + " " + A.getZ());
+                    currentPosition.hideMyTravellers();
+                    currentPosition = Gate2.getCurrentPosition();  // successful travel
                     hide(currentPosition); // hides when successfully travels}
                 } else {
-                    //System.out.println("Destination does not have free space");
+                    // TODO No Space Window (Controller)
                 }
             } else {
-                //System.out.println("The other pair is not deployed yet!");
+                // TODO Inactive Gate Window (Controller)
             }
         } else {
-            //System.out.println("This asteroid does not have a transport gate.");
-        }
-        //Tester.generator(Tester.outputFile, "travelled through the gate at " + A.getX() + " " + A.getY() + " " + A.getZ());
-    }
-
-    /**
-     * The Settler hides inside the Asteroid.
-     * Hiding is only possible if the Asteroid is drilled through, hollow and
-     * has enough space for the Settler.
-     *
-     * @param A Asteroid this Settler hides in
-     */
-    @Override
-    public void hide(Asteroid A) { // TODO check if hide of ROBOT and SETTLER are equal. If so, move it to TravellerBase.
-        if (A.getDepth() == 0 && A.getHollow()) {
-            if (!isHidden) { //if the robot is already hidden
-                int cntRobots = 0;
-                int cntSettlers = 0;
-                for (int i = 0; i < A.getRobotsOnAsteroid().size(); i++) {
-                    if (A.getRobotsOnAsteroid().get(i).getHidden()) // to check if hidden
-                        cntRobots++; // number of hidden robots on this asteroid
-                }
-                for (int i = 0; i < A.getSettlersOnAsteroid().size(); i++) {
-                    if (A.getSettlersOnAsteroid().get(i).getHidden())   // to check if hidden
-                        cntSettlers++; // number of hidden settlers on this asteroid
-                }
-                if ((cntRobots == 1 && cntSettlers == 0) || (cntSettlers == 1 && cntRobots == 0) || (cntRobots ==0 && cntSettlers == 0)) { // 2 robots or 1 robot and 1 settler
-                    isHidden = true;
-
-                    Tester.generator(Tester.outputFile, "hidden inside " + A.getX() + " " + A.getY() + " " + A.getZ());
-                }
-            }
+            // TODO No Gate Window (Controller)
         }
     }
 
@@ -149,8 +100,6 @@ public class Settler extends TravellerBase {
         if (A.getDepth() != 0) { // if it is not drilled through, then we drill
             A.decreaseRockCover(); //drilling
 
-            Tester.generator(Tester.outputFile, "drilled " + A.getX() + " " + A.getY() + " " + A.getZ());
-
             if(A.getDepth() == 0 && A.getAtPerihelion()) { // checks if the remaining rockCover equals 0 and if the Asteroid is at perihelion
                 if(A.getResourceOfAsteroid().get(0) instanceof Uranium) // checks if the Asteroid has Uranium in his core
                 {
@@ -162,7 +111,7 @@ public class Settler extends TravellerBase {
                 }
             }
         } else {
-            //System.out.println("The Asteroid is completely drilled through");
+            // TODO Cannot Drill Window (Controller)
         }
     }
 
@@ -174,18 +123,17 @@ public class Settler extends TravellerBase {
      */
     public void mine(Asteroid A) {
         if(A.getDepth() == 0 && !A.getHollow()) {
-            Tester.generator(Tester.outputFile, "mined " + A.getX() + " " + A.getY() + " " + A.getZ());
             this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
             A.emptyAsteroid(); // removes the Resource from the Asteroid
         } else {
-            //System.out.println("You cannot mine");
+            // TODO Cannot Mine Window (Controller)
         }
     }
 
     /**
      * This method is used to build a robot.
      */
-    public void buildRobot() { // TODO Resources are currently not removed from the Inventory list, they are just set to null
+    public void buildRobot() { // TODO Check if removing is working
         int uCount = 0; // counts the number of units of Uranium
         int iCount = 0; // counts the number of units of Iron
         int cCount = 0; // counts the number of units of Carbon
@@ -208,15 +156,15 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            Robot myRobot = new Robot(currentPosition); // creates a new Robot
-            Game.robots.add(myRobot); // adds the Robot to the list of Robots
+            itsInventory.getStoredResources().remove(null);
+            itsInventory.getStoredResources().remove(null);
+            itsInventory.getStoredResources().remove(null);
 
-            int rndX = new Random().nextInt(5) - 2; // random number between -2 and 2
-            int rndY = new Random().nextInt(5) - 2; // random number between -2 and 2
-            int rndZ = new Random().nextInt(5) - 2; // random number between -2 and 2
-            //myRobot.travel(Game.getAsteroid(currentPosition.getX() + rndX, currentPosition.getY() + rndY, currentPosition.getZ() + rndZ));
-
-            Tester.generator(Tester.outputFile, "built ROBOT");
+            Robot newRobot = new Robot(currentPosition); // create new Robot
+            Game.getRobots().add(newRobot); // adds the Robot to the list of Robots
+            newRobot.randomTravel(this.getCurrentPosition()); // robot immediately travels to a different Asteroid
+        } else {
+            // TODO Cannot Build Window (Controller)
         }
     }
 
@@ -229,15 +177,16 @@ public class Settler extends TravellerBase {
     public void buildSpaceStation(Asteroid A) {
 
         if (itsInventory.checkResources(A)) { // checks if there are enough resources
-            Tester.generator(Tester.outputFile, "built SPACESTATION");
             Game.endGame();
+        } else {
+            // TODO Cannot Build Window (Controller)
         }
     }
 
     /**
      * This method is used to build a transportation-gate and store it in the settler’s inventory.
      */
-    public void buildTransportGate() { // TODO Resources are currently not removed from the Inventory list, they are just set to null
+    public void buildTransportGate() { // TODO Check if removing is working
         if (itsInventory.checkResources(2)) { // checks if there are enough resources
             int uCount = 0; // counts the number of units of Uranium
             int iCount = 0; // counts the number of units of Iron
@@ -262,6 +211,11 @@ public class Settler extends TravellerBase {
                 }
             }
 
+            itsInventory.getStoredResources().remove(null);
+            itsInventory.getStoredResources().remove(null);
+            itsInventory.getStoredResources().remove(null);
+            itsInventory.getStoredResources().remove(null);
+
             TransportGate tg1 = new TransportGate();
             TransportGate tg2 = new TransportGate();
 
@@ -270,8 +224,8 @@ public class Settler extends TravellerBase {
             tg2.makePair(tg1);
 
             this.itsInventory.addGates(tg1, tg2);
-
-            Tester.generator(Tester.outputFile, "built TRANSPORTGATES");
+        } else {
+            // TODO Cannot Build Window (Controller)
         }
     }
 
@@ -282,17 +236,19 @@ public class Settler extends TravellerBase {
      */
     public void deployTransportGate(Asteroid A) {
 
-        if (!itsInventory.getStoredGates().isEmpty()) {
+        if (!itsInventory.getStoredGates().isEmpty() && !A.getHasGate()) {
 
             TransportGate tg = this.itsInventory.getStoredGates().get(0);
             tg.setCurrentPosition(A); // places the gate at the current Asteroid
             this.itsInventory.removeGate(tg);
+            A.setGate(tg);
 
             if (tg.getPair().getCurrentPosition() != null) { // checks if the paired gate is already deployed
                 tg.activateTransportGate();
                 tg.getPair().activateTransportGate();
             }
-            Tester.generator(Tester.outputFile, "deployed TRANSPORTGATE at " + A.getX() + " " + A.getY() + " " + A.getZ());
+        } else {
+            // TODO Cannot Deploy Window (Controller)
         }
     }
 
@@ -304,23 +260,21 @@ public class Settler extends TravellerBase {
      *
      * @param index Index of the Resource that is stored.
      */
-    public void storeResources(int index) {
+    public void leaveResource(int index) {
         if(currentPosition.getHollow()) { // checks if the Asteroid is hollow
 
             if (currentPosition.getStoredResourceOfAsteroid().isEmpty()) { // checks if there are already
                 currentPosition.getStoredResourceOfAsteroid().add(itsInventory.getStoredResources().get(index));
                 itsInventory.getStoredResources().remove(index);
-                Tester.generator(Tester.outputFile, "left " + currentPosition.getStoredResourceOfAsteroid().get(currentPosition.getStoredResourceOfAsteroid().size() - 1).getResourceType().toUpperCase() + " on "
-                        + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
 
             } else if (currentPosition.getStoredResourceOfAsteroid().size() < 3) { // checks if there is space to store a Resource
                 if (itsInventory.getStoredResources().get(index).getResourceType().equals(currentPosition.getStoredResourceOfAsteroid().get(0).getResourceType())) { // checks if the Resource is the same as the stored ones
                     currentPosition.getStoredResourceOfAsteroid().add(itsInventory.getStoredResources().get(index));
                     itsInventory.getStoredResources().remove(index);
-                    Tester.generator(Tester.outputFile, "left " + currentPosition.getStoredResourceOfAsteroid().get(currentPosition.getStoredResourceOfAsteroid().size() - 1).getResourceType().toUpperCase() + " on "
-                            + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
                 }
             }
+        } else {
+            // TODO Cannot Leave Window (Controller)
         }
     }
 
@@ -335,9 +289,8 @@ public class Settler extends TravellerBase {
 
             itsInventory.addResource(currentPosition.getStoredResourceOfAsteroid().get(index));
             currentPosition.getStoredResourceOfAsteroid().remove(index);
-
-            Tester.generator(Tester.outputFile, "picked up " + itsInventory.getStoredResources().get( itsInventory.getStoredResources().size()-1).getResourceType().toUpperCase() +
-                    " from " + currentPosition.getX() + " " + currentPosition.getY() + " " + currentPosition.getZ());
+        } else {
+            // TODO Cannot PickUp Window (Controller)
         }
     }
 
