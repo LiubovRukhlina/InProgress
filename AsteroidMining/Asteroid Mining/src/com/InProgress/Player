@@ -1,1 +1,84 @@
 
+package com.InProgress;
+
+import java.util.ArrayList;
+
+public class Player {
+
+    //<editor-fold desc="Attributes">
+    private int playerID;
+    private int numberOfMoves;
+    private ArrayList<Settler> settlers;
+    private Boolean isPlaying;
+
+    //<editor-fold desc="Constructor"
+
+    /**
+     * Constructor of the Player class
+     */
+
+    public Player(int playerID) {
+        this.playerID = playerID;
+    }
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Methods">
+
+    //returns true if the player has alive settlers.
+    // returns false if all the settlers of the player are dead.
+    public boolean checkSettlers() {
+        if (!settlers.isEmpty())
+            return true;
+        else {
+            endRound();
+            return false;
+        }
+    }
+
+    public void endRound() {
+        if(settlers.isEmpty()) // to avoid a recursion ( if it is called when number of moves = 0, it should check the number of settlers too)
+            isPlaying = false;
+        else{
+            isPlaying = true;
+            Game.nextRound();
+        }
+    }
+
+    public void decreaseNumberOfMoves() {
+        numberOfMoves--;
+        if (numberOfMoves == 0)
+            endRound();
+    }
+
+    //</editor-fold>
+
+
+    //<editor-fold desc="Getters and Setters">
+
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public void setNumberOfMoves(int numberOfMoves) {
+        this.numberOfMoves = numberOfMoves;
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
+
+    public ArrayList<Settler> getSettlers() {
+        return settlers;
+    }
+
+    public void setSettlers(ArrayList<Settler> settlers) {
+        this.settlers = settlers;
+    }
+}
