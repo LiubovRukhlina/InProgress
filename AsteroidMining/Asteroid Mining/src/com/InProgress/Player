@@ -1,4 +1,3 @@
-
 package com.InProgress;
 
 import java.util.ArrayList;
@@ -26,30 +25,55 @@ public class Player {
 
     //<editor-fold desc="Methods">
 
-    //returns true if the player has alive settlers.
-    // returns false if all the settlers of the player are dead.
+    /**
+     * checkSettlers()
+     * returns true if the player has alive settlers.
+     * returns false if all the settlers of the player are dead.
+     */
+
+
     public boolean checkSettlers() {
-        if (!settlers.isEmpty())
-            return true;
-        else {
-            endRound();
+        int cnt = settlers.size();
+        for (int i = 0; i < settlers.size(); i++) {
+            if (!settlers.get(i).getAlive())
+                cnt--;
+        }
+        if (cnt == 0) {
+            endMyTurn();
             return false;
+        } else {
+            return true;
         }
     }
 
-    public void endRound() {
-        if(settlers.isEmpty()) // to avoid a recursion ( if it is called when number of moves = 0, it should check the number of settlers too)
+    /**
+     * to end a players turn.
+     * can be called if
+     * 1. all the settlers of this player die
+     * 2. runs out of moves.
+     */
+    public void endMyTurn() {
+        int cnt = settlers.size(); // to avoid a recursion ( if it is called when number of moves = 0, it should check the number of settlers too)
+        for (int i = 0; i < settlers.size(); i++) { // as inside checkSettlers() endMyTurn() is called.
+            if (!settlers.get(i).getAlive())
+                cnt--;
+        }
+        if (cnt == 0)
             isPlaying = false;
-        else{
+        else {
             isPlaying = true;
-            Game.nextRound();
         }
+        Game.nextRound();
     }
 
+    /**
+     * decreases the number pf moves of the player.
+     * if the player runs out of moves then the turn ends.
+     */
     public void decreaseNumberOfMoves() {
         numberOfMoves--;
         if (numberOfMoves == 0)
-            endRound();
+            endMyTurn();
     }
 
     //</editor-fold>
