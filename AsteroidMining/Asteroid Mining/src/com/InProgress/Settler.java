@@ -49,6 +49,8 @@ public class Settler extends TravellerBase {
                 currentPosition.hideMyTravellers();
                 currentPosition = destination;  // successful travel
                 hide(currentPosition); // settler tries to hide
+
+                Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
             } else {
                 // TODO No Space Window (Controller)
             }
@@ -76,7 +78,9 @@ public class Settler extends TravellerBase {
                     isHidden = false;
                     currentPosition.hideMyTravellers();
                     currentPosition = Gate2.getCurrentPosition();  // successful travel
-                    hide(currentPosition); // hides when successfully travels}
+                    hide(currentPosition); // hides when successfully travels
+
+                    Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
                 } else {
                     // TODO No Space Window (Controller)
                 }
@@ -110,6 +114,8 @@ public class Settler extends TravellerBase {
                     A.getResourceOfAsteroid().get(0).sublime(A); // WaterIce sublimes
                 }
             }
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Drill Window (Controller)
         }
@@ -125,6 +131,8 @@ public class Settler extends TravellerBase {
         if(A.getDepth() == 0 && !A.getHollow()) {
             this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
             A.emptyAsteroid(); // removes the Resource from the Asteroid
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Mine Window (Controller)
         }
@@ -156,13 +164,13 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            itsInventory.getStoredResources().remove(null);
-            itsInventory.getStoredResources().remove(null);
-            itsInventory.getStoredResources().remove(null);
+            while (itsInventory.getStoredResources().remove(null));
 
             Robot newRobot = new Robot(currentPosition); // create new Robot
             Game.getRobots().add(newRobot); // adds the Robot to the list of Robots
             newRobot.randomTravel(this.getCurrentPosition()); // robot immediately travels to a different Asteroid
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Build Window (Controller)
         }
@@ -211,10 +219,7 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            itsInventory.getStoredResources().remove(null);
-            itsInventory.getStoredResources().remove(null);
-            itsInventory.getStoredResources().remove(null);
-            itsInventory.getStoredResources().remove(null);
+            while (itsInventory.getStoredResources().remove(null));
 
             TransportGate tg1 = new TransportGate();
             TransportGate tg2 = new TransportGate();
@@ -224,6 +229,8 @@ public class Settler extends TravellerBase {
             tg2.makePair(tg1);
 
             this.itsInventory.addGates(tg1, tg2);
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Build Window (Controller)
         }
@@ -247,6 +254,8 @@ public class Settler extends TravellerBase {
                 tg.activateTransportGate();
                 tg.getPair().activateTransportGate();
             }
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Deploy Window (Controller)
         }
@@ -273,6 +282,8 @@ public class Settler extends TravellerBase {
                     itsInventory.getStoredResources().remove(index);
                 }
             }
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot Leave Window (Controller)
         }
@@ -289,6 +300,8 @@ public class Settler extends TravellerBase {
 
             itsInventory.addResource(currentPosition.getStoredResourceOfAsteroid().get(index));
             currentPosition.getStoredResourceOfAsteroid().remove(index);
+
+            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
             // TODO Cannot PickUp Window (Controller)
         }

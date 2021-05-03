@@ -13,6 +13,8 @@ public class Game implements Serializable {
     private static int roundCounter = 0;
     private static  Sun sun; // in charge of sun storms
     private static ArrayList<Player> players; //list of players
+    private static Player currentPlayer; // the Player who is currently playing
+    private static Settler activeSettler; // the Settler the currentPlayer is controlling
     private static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     private static  ArrayList<Robot> robots; //list of robots
 
@@ -51,22 +53,43 @@ public class Game implements Serializable {
 
         roundCounter++;
         sun.decreaseCountdown();
+
         if(sun.getCountdownOfSunStorm() == 0) { // checks if sunstorm occurs in this round
-            sun.startSunStorm();
+            sun.startSunStorm(); // the sunstrom might kills Settlers or Robots
         }
 
         if(roundCounter%5 == 0) { // perihelion state changes every 5 rounds
-            sun.changeSunX();
-        }
-
-        for (Player p : players ) { // restore number of moves of all Players
-            p.setNumberOfMoves(5);
+            sun.changeSunX(); // due to the change of the sunX attribute asteroids might explode and kill Settlers or Robots
         }
 
         for (Robot r : robots ) { // all robots drill on their current asteroid
-            r.drill(r.getCurrentPosition());
+            r.drill(r.getCurrentPosition()); // drilling might cause an explosion that kills Settlers or Robots
+        }
+
+        //-----------------------------------------------------------------------------------
+        // the previous 3 checks could kill all remaining settlers.
+        // It must be checked if the Players still can play, before the Game can proceed
+        boolean isThereStillSomeone = false;
+        for (Player p : players ) { // restore number of moves of all Players
+           if(p.checkSettlers()) {
+              isThereStillSomeone = true; // if at least one Player remains in the Game
+           }
+        }
+        if(!isThereStillSomeone) {
+            Game.endGame();
+        }
+        if(!currentPlayer.getPlaying()) { // if the currentPlayer died during the previous actions we assign a new one
+            currentPlayer = currentPlayer.getNextPlayer();
+        }
+        //-----------------------------------------------------------------------------------
+
+        for (Player p : players ) { // restore number of moves of all active Players
+            if(p.getPlaying()) {
+                p.setNumberOfMoves(5);
+            }
         }
     }
+
 
 
     /**
@@ -123,6 +146,12 @@ public class Game implements Serializable {
     public static ArrayList<Robot> getRobots() { return robots; }
 
     public static Asteroid getAsteroid(int i, int j, int k) { return asteroids.get(i).get(j).get(k); }
+
+    public static Player getCurrentPlayer() { return currentPlayer; }
+    public static void setCurrentPlayer(Player currentPlayer) { Game.currentPlayer = currentPlayer; }
+
+    public static Settler getActiveSettler() { return activeSettler; }
+    public static void setActiveSettler(Settler activeSettler) { Game.activeSettler = activeSettler; }
 
     //</editor-fold>
 
