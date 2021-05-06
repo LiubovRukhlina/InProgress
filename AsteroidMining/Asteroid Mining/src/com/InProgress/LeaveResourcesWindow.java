@@ -30,12 +30,12 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Which Resource should be left on the Asteroid?");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(51, 204, 0));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Iron");
@@ -45,7 +45,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,7 +53,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
             }
         });
 
-        okButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        okButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         okButton1.setText("OK");
         okButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

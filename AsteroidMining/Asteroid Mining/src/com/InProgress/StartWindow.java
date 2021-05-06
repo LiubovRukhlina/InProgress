@@ -46,7 +46,7 @@ public class StartWindow extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        readyButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        readyButton.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         readyButton.setText("Ready to Play");
         readyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,14 +54,14 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 204, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Enter the Dimensions of the Belt:");
 
         jRadioButton3.setBackground(new java.awt.Color(102, 102, 102));
         numberOfPlayersButtonGroup.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jRadioButton3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jRadioButton3.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton3.setText("3");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -70,14 +70,14 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reay to explore the Asteroid Belt?");
 
         jRadioButton2.setBackground(new java.awt.Color(102, 102, 102));
         numberOfPlayersButtonGroup.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jRadioButton2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton2.setText("2");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +88,7 @@ public class StartWindow extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        xTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        xTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         xTextField.setText("10");
         xTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -97,11 +97,11 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 204, 0));
         jLabel5.setText("Z:");
 
-        yTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        yTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         yTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         yTextField.setText("10");
         yTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -110,11 +110,11 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 204, 0));
         jLabel3.setText("X:");
 
-        zTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        zTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         zTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         zTextField.setText("10");
         zTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +123,7 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 204, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Y:");
@@ -161,13 +161,13 @@ public class StartWindow extends javax.swing.JFrame {
                                 .addContainerGap())
         );
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 204, 0));
         jLabel6.setText("Choose number of Players:");
 
         jRadioButton1.setBackground(new java.awt.Color(102, 102, 102));
         numberOfPlayersButtonGroup.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jRadioButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton1.setText("1");
         jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -195,7 +195,7 @@ public class StartWindow extends javax.swing.JFrame {
                                         .addComponent(jRadioButton3)
                                         .addComponent(jRadioButton2)
                                         .addComponent(jRadioButton1))
-                                .addGap(0, 57, Short.MAX_VALUE))
+                                .addGap(0, 52, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(readyButton)
@@ -212,7 +212,7 @@ public class StartWindow extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                                 .addComponent(readyButton)
                                 .addGap(24, 24, 24))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -228,11 +228,11 @@ public class StartWindow extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
 
         menuMenu.setText("Menu");
-        menuMenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        menuMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jMenuBar1.add(menuMenu);
 
         helpMenu.setText("Help");
-        helpMenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        helpMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jMenuBar1.add(helpMenu);
 
         setJMenuBar(jMenuBar1);

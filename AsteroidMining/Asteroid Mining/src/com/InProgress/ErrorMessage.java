@@ -1,6 +1,7 @@
 package com.InProgress;
 
 
+
 public class ErrorMessage extends javax.swing.JFrame {
 
     /**
@@ -29,11 +30,11 @@ public class ErrorMessage extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setText("You cannot mine here!");
 
-        okButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        okButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,7 +47,7 @@ public class ErrorMessage extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(107, Short.MAX_VALUE)
+                                .addContainerGap(103, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel1)

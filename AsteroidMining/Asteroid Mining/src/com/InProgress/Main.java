@@ -30,6 +30,9 @@ public class Main {
 //        LeaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
 //        leaveResourcesWindow.initialize();
 
+//        PickUpMessage pickUpMessage = new PickUpMessage();
+//        pickUpMessage.initialize();
+
         while (true) {
 
 
