@@ -1,4 +1,4 @@
-package com.InProgress;
+package com.InProgress.Model;
 
 // TODO are we ever gonna use this?
 public enum GameState {

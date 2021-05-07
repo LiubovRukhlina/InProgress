@@ -1,4 +1,4 @@
-package com.InProgress;
+package com.InProgress.Model;
 
 
 import java.util.Random;

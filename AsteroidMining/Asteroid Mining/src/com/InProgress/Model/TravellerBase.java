@@ -1,6 +1,4 @@
-package com.InProgress;
-
-import java.util.Scanner;
+package com.InProgress.Model;
 
 public abstract class TravellerBase {
 

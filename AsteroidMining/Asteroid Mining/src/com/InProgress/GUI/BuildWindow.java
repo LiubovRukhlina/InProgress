@@ -1,4 +1,4 @@
-package com.InProgress;
+package com.InProgress.GUI;
 
 public class BuildWindow extends javax.swing.JFrame {
 

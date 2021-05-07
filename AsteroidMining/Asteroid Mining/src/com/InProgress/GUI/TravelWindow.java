@@ -1,4 +1,4 @@
-package com.InProgress;
+package com.InProgress.GUI;
 public class TravelWindow extends javax.swing.JFrame {
 
     /**

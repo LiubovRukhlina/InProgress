@@ -1,4 +1,4 @@
-package com.InProgress;
+package com.InProgress.Model;
 
 public class Iron extends ResourceBase {
 

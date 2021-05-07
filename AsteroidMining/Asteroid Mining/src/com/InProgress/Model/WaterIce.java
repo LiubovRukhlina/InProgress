@@ -1,5 +1,4 @@
-package com.InProgress;
-import com.InProgress.Asteroid;
+package com.InProgress.Model;
 
 public class WaterIce extends ResourceBase{
 
