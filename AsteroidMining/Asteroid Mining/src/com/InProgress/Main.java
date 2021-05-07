@@ -11,27 +11,9 @@ public class Main {
     // TODO Final implementation
     public static void main(String[] args) throws IOException {
 
-       // GameWindow gameWindow = new GameWindow();
-//        BuildWindow buildWindow = new BuildWindow();
-//        buildWindow.initialize();
 
-//        StartWindow startWindow = new StartWindow();
-//        startWindow.initialize();
-//
-//        TravelWindow travelWindow = new TravelWindow();
-//        travelWindow.initialize();
-//
-//        ErrorMessage errorMessage = new ErrorMessage();
-//        errorMessage.initialize();
-//
-//        MineMessage mineMessage = new MineMessage();
-//        mineMessage.initialize();
-//
-//        LeaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
-//        leaveResourcesWindow.initialize();
-
-//        PickUpMessage pickUpMessage = new PickUpMessage();
-//        pickUpMessage.initialize();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
 
         while (true) {
 
