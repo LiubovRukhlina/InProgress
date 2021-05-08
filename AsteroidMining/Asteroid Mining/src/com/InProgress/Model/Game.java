@@ -15,7 +15,7 @@ public class Game implements Serializable {
     private static ArrayList<Player> players; //list of players
     private static Player currentPlayer; // the Player who is currently playing
     private static Settler activeSettler; // the Settler the currentPlayer is controlling
-    private static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
+    public static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     private static  ArrayList<Robot> robots; //list of robots
 
     //</editor-fold>
@@ -34,15 +34,22 @@ public class Game implements Serializable {
      *  Instantiates all the main parts of the skeleton
      */
     public static void startGame(int numberOfPlayers, int x, int y, int z) {
+
+
+        asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
+        setAsteroidBelt(x,y,z);//needs to be called before sun
+
         sun = new Sun();
         robots = new ArrayList<>();
-        asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
+
 
         players = new ArrayList<>();
-        for(int i = 0; i < numberOfPlayers; i++) { players.add(new Player(i)); }
-
-        setAsteroidBelt(x,y,z);
+        for(int i = 1; i <= numberOfPlayers; i++) { players.add(new Player(i)); }//Loop changed starts with 1
+        currentPlayer = players.get(0);
+        activeSettler = currentPlayer.getSettlers().get(0);
     }
+
+
 
     /**
      *  Before each round starts the system checks whether a sunstorm has to occur
@@ -71,9 +78,9 @@ public class Game implements Serializable {
         // It must be checked if the Players still can play, before the Game can proceed
         boolean isThereStillSomeone = false;
         for (Player p : players ) { // restore number of moves of all Players
-           if(p.checkSettlers()) {
-              isThereStillSomeone = true; // if at least one Player remains in the Game
-           }
+            if(p.checkSettlers()) {
+                isThereStillSomeone = true; // if at least one Player remains in the Game
+            }
         }
         if(!isThereStillSomeone) {
             Game.endGame();
@@ -90,7 +97,17 @@ public class Game implements Serializable {
         }
     }
 
-
+    public static int getNumberofSettlers()
+    {
+        int sum = 0;
+        for(Player i:players)
+        {
+            for(int j=0;j<i.getSettlers().size();j++)
+                if(i.getSettlers().get(j).getAlive())
+                    sum++;
+        }
+        return sum;
+    }
 
     /**
      * describes the end of the game

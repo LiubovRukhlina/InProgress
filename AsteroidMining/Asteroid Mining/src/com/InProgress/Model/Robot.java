@@ -23,7 +23,7 @@ public class Robot extends TravellerBase {
         this.damageCount = 0;
         currentPosition.setRobotsOnAsteroid(this);
     }
-    
+
     //</editor-fold>
 
 

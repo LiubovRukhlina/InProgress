@@ -10,7 +10,7 @@ public class Main {
     // TODO Final implementation
     public static void main(String[] args) throws IOException {
 
-        int n = 0;
+        int n = 6;
 
         switch (n) {
             case 0:

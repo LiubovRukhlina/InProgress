@@ -8,7 +8,7 @@ public class Player {
     //<editor-fold desc="Attributes">
     private int playerID;
     private int numberOfMoves;
-    private ArrayList<Settler> settlers;
+    private ArrayList<Settler> settlers = new ArrayList<Settler>();//added
     private Boolean isPlaying;
 
     //<editor-fold desc="Constructor"
@@ -21,10 +21,12 @@ public class Player {
     public Player(int playerID) {
         this.playerID = playerID;
         this.numberOfMoves = 5;
+
+
         this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler2", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler3", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
-        this.isPlaying = true;
+        //this.isPlaying = true; makes all the players as true, only 1 can be playing at a time
     }
 
     //</editor-fold>
@@ -36,6 +38,7 @@ public class Player {
      * Decreases the number of moves of this Player after each successful action.
      */
     public void decreaseNumberOfMoves(){
+
         numberOfMoves--;
     }
 

@@ -234,4 +234,9 @@ public class Asteroid {
     public Boolean getExploded() { return isExploded; }
     public void setExploded(Boolean exploded) { isExploded = exploded; }
     //</editor-fold>
+    @Override
+    public String toString()
+    {
+        return String.format("A"+String.valueOf(x)+String.valueOf(y)+String.valueOf(z));
+    }
 }

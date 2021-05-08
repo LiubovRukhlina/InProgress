@@ -1,4 +1,12 @@
 package com.InProgress.GUI;
+
+import com.InProgress.Model.Game;
+import com.InProgress.Model.Player;
+import com.InProgress.Model.Settler;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 public class TravelWindow extends javax.swing.JFrame {
 
     /**
@@ -69,6 +77,12 @@ public class TravelWindow extends javax.swing.JFrame {
 
         okButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
 
         cancelButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         cancelButton.setText("Cancel");
@@ -147,13 +161,36 @@ public class TravelWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    private void okButtonActionPerformed(ActionEvent evt) {
+        int x = Integer.parseInt(xTextField.getText());
+        int y = Integer.parseInt(yTextField.getText());
+        int z = Integer.parseInt(zTextField.getText());
+        if(x> Game.getMaxX() || y>Game.getMaxY() || z > Game.getMaxZ())
+        {
+            infobox("Location out of  Asteroid Belt","Incorrect Input");
+        }
+        else
+        {
+            Game.getActiveSettler().travel(Game.getAsteroid(x,y,z));
+        }
+
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindowe = new GameWindow();
+        gameWindowe.initialize();
+    }
+
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
+    }
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
         // TODO add your handling code here:
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
