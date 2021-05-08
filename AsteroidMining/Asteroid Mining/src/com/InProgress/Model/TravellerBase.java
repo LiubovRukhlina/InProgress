@@ -72,7 +72,7 @@ public abstract class TravellerBase {
     public abstract void drill(Asteroid A);
 
     public boolean checkDestination(Asteroid Destination) {
-        if (!Destination.getExploded()) {
+        if (Destination.getExploded()) {
             return false;
         }
 
@@ -122,6 +122,8 @@ public abstract class TravellerBase {
 
     public boolean getAlive() { return isAlive; }
     public void setAlive(boolean alive) { isAlive = alive; }
+
+
 
     //</editor-fold>
 }

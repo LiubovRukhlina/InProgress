@@ -38,8 +38,8 @@ public class Inventory{
         if (storedResources.size() == 10) { // checks if this Inventory is full
 
         } else {
-           storedResources.add(R);
-       }
+            storedResources.add(R);
+        }
     }
 
     /**

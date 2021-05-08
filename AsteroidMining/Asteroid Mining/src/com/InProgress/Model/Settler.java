@@ -1,5 +1,7 @@
 package com.InProgress.Model;
 
+import com.InProgress.GUI.TravelWindow;
+
 public class Settler extends TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -52,10 +54,11 @@ public class Settler extends TravellerBase {
 
                 Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
             } else {
-                // TODO No Space Window (Controller)
+
+                TravelWindow.infobox("Not Enough place on the Asteroid","Error");
             }
         } else {
-            // TODO Invalid Destination Window (Controller)
+            TravelWindow.infobox("Asteroid not in Neighborhood or exploded","Error");
         }
     }
 

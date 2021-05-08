@@ -17,6 +17,7 @@ public class Sun {
 
     public Sun() {
         sunX = new Random().nextInt(Game.getMaxX());
+
         countDownOfSunStorm = new Random().nextInt(5) + 5;
     }
     //</editor-fold>

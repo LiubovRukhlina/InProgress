@@ -46,6 +46,6 @@ public class Uranium extends ResourceBase{
     }
 }
 
-    //</editor-fold>
+//</editor-fold>
 
 

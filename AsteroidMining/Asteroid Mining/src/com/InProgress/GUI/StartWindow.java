@@ -1,5 +1,9 @@
 package com.InProgress.GUI;
 
+import com.InProgress.Model.Game;
+
+import javax.swing.*;
+
 public class StartWindow extends javax.swing.JFrame {
 
     /**
@@ -91,11 +95,14 @@ public class StartWindow extends javax.swing.JFrame {
         xTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         xTextField.setText("10");
+        /*
         xTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xTextFieldActionPerformed(evt);
             }
         });
+        */
+
 
         jLabel5.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 204, 0));
@@ -250,10 +257,12 @@ public class StartWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-
+/*
     private void xTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
+    */
+
 
     private void yTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -276,12 +285,40 @@ public class StartWindow extends javax.swing.JFrame {
     }
 
     private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        int x = Integer.parseInt(xTextField.getText());
+        int y = Integer.parseInt(yTextField.getText());
+        int z = Integer.parseInt(zTextField.getText());
+        if(jRadioButton1.isSelected()) {
+            Game.startGame(1, x, y, z);
+            System.out.println("Game created");
+        }
+
+        else if(jRadioButton2.isSelected())
+            Game.startGame(2,x,y,z);
+        else if(jRadioButton3.isSelected())
+            Game.startGame(3,x,y,z);
+        else {
+            infobox("Please select number of players", "Insufficient Input");
+            return;
+        }
+
+        setVisible(false);
+        dispose();
+        GameWindow game = new GameWindow();
+        game.initialize();
+
+
+
         // TODO add your handling code here:
+
+    }
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
