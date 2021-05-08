@@ -5,13 +5,21 @@ import com.InProgress.Model.Game;
 import com.InProgress.Model.ResourceBase;
 import com.InProgress.Model.Settler;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class GameWindow extends javax.swing.JFrame {
 
+    ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
+    ImageIcon imageGateActive = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Gate_Active.png");
+    //ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
     /**
      * Creates new form MainWindow
      */
     public GameWindow() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        labelPic.setText("");
     }
 
     /**
@@ -23,8 +31,15 @@ public class GameWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         Asteroid asteroid = Game.getActiveSettler().getCurrentPosition();
-        jPanel1 = new javax.swing.JPanel();
-        CurrentPlayerLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage((Image) imageAsteroid.getImage(), 1 * 50, 1 * 50, this);
+                g.drawImage((Image) imageGateActive.getImage(), 5 * 50, 5 * 50, this);
+            }
+        };
+        CurrentPlayer = new javax.swing.JLabel();
         TravelButton = new javax.swing.JButton();
         CurrentAsteroidLabel = new javax.swing.JLabel();
         HollowLabel = new javax.swing.JLabel();
@@ -56,8 +71,12 @@ public class GameWindow extends javax.swing.JFrame {
         PickupButton = new javax.swing.JButton();
         BuildButton = new javax.swing.JButton();
         FinishButton = new javax.swing.JButton();
+        labelPic = new javax.swing.JLabel();
+        SettlersListLabel = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        Start = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,10 +87,9 @@ public class GameWindow extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
-        CurrentPlayerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        CurrentPlayerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        CurrentPlayerLabel.setText("Player:"+ Game.getCurrentPlayer().getPlayerID());
-
+        CurrentPlayer.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        CurrentPlayer.setForeground(new java.awt.Color(51, 204, 0));
+        CurrentPlayer.setText("Player 1:");
 
         TravelButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         TravelButton.setText("Travel");
@@ -112,7 +130,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         ActiveSettlerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         ActiveSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        ActiveSettlerLabel.setText(Game.getActiveSettler().getName());//changed
+        ActiveSettlerLabel.setText("Settler1");
 
         DeathLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         DeathLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -173,11 +191,11 @@ public class GameWindow extends javax.swing.JFrame {
 
         NumSettlerLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumSettlerLabel.setText("Settler:"+ Game.getNumberofSettlers());
+        NumSettlerLabel.setText("Settler:");
 
         NumRobotLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumRobotLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumRobotLabel.setText("Robot: "+Game.getRobots().size());
+        NumRobotLabel.setText("Robot: ");
 
         NumGatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumGatesLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -189,7 +207,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         SunStormLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         SunStormLabel.setForeground(new java.awt.Color(51, 204, 0));
-        SunStormLabel.setText("SunStorm:"+Game.getSun().getCountdownOfSunStorm());
+        SunStormLabel.setText("SunStorm:");
 
         ResourcesListLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         ResourcesListLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -255,148 +273,158 @@ public class GameWindow extends javax.swing.JFrame {
             }
         });
 
+        labelPic.setText("Hello!");
+        labelPic.setMaximumSize(new java.awt.Dimension(46, 46));
+        labelPic.setMinimumSize(new java.awt.Dimension(46, 46));
+        labelPic.setName("labelPic"); // NOI18N
+
+        SettlersListLabel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CurrentPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(TravelButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(FastTravelButton)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(ActiveSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(StatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(DeathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(HiddenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(69, 69, 69))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addComponent(DrillButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(MineButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(LeaveButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(PickupButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(BuildButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(FinishButton)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(96, 96, 96)
-                                                .addComponent(MiningStatusLabel)
-                                                .addContainerGap())
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(TravelButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(FastTravelButton))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(CurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(ActiveSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(HollowLabel)
-                                                                .addGap(183, 183, 183))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(PerihelionLabel)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addComponent(GateLabel)
-                                                                                .addGap(55, 55, 55))
-                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(NumSettlerLabel)
-                                                                                        .addComponent(NumRobotLabel)
-                                                                                        .addComponent(NumGatesLabel)
-                                                                                        .addComponent(NumAsteroidsLabel)
-                                                                                        .addComponent(SunStormLabel))
-                                                                                .addGap(152, 152, 152)))
-                                                                .addComponent(ResourceLabel))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                        .addComponent(DestinationLabel)
-                                                                        .addComponent(AsteroidBeltLabel))
-                                                                .addGap(23, 23, 23))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(ResourcesListLabel)
-                                                                .addGap(57, 57, 57)
-                                                                .addComponent(GatesLabel)
-                                                                .addGap(55, 55, 55))))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(SettlersListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(StatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(DeathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(HiddenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(68, 68, 68))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(DrillButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(MineButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(LeaveButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(PickupButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(BuildButton)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(FinishButton))))
+                                        .addComponent(labelPic, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(81, 102, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(89, 89, 89)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(63, 63, 63))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(CurrentAsteroidLabel)
-                                                .addGap(79, 79, 79))))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(106, 106, 106)
+                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(GateLabel)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(DestinationLabel)))
+                                                .addGap(141, 141, 141))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(PerihelionLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(NumSettlerLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(NumRobotLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(NumGatesLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(NumAsteroidsLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(SunStormLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(CurrentAsteroidLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(MiningStatusLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(AsteroidBeltLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(ResourceLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(HollowLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(ResourcesListLabel)
+                                                                .addGap(105, 105, 105)
+                                                                .addComponent(GatesLabel)))
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(CurrentPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(CurrentAsteroidLabel)
                                         .addComponent(StatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ActiveSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(DeathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(HiddenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MiningStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(HollowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(GateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(DestinationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(9, 9, 9)
-                                .addComponent(PerihelionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(ResourceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(AsteroidBeltLabel)
-                                .addGap(20, 20, 20)
-                                .addComponent(NumSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(NumRobotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(NumGatesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(NumAsteroidsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(SunStormLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(ResourcesListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(GatesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(TravelButton)
-                                                .addComponent(FastTravelButton)
-                                                .addComponent(DrillButton)
-                                                .addComponent(MineButton)
-                                                .addComponent(LeaveButton)
-                                                .addComponent(PickupButton)
-                                                .addComponent(BuildButton)
-                                                .addComponent(FinishButton))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(29, Short.MAX_VALUE))
+                                        .addComponent(HiddenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(SettlersListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(50, 50, 50)
+                                                .addComponent(labelPic, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(50, 50, 50)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(TravelButton)
+                                                        .addComponent(FastTravelButton)
+                                                        .addComponent(DrillButton)
+                                                        .addComponent(MineButton)
+                                                        .addComponent(LeaveButton)
+                                                        .addComponent(PickupButton)
+                                                        .addComponent(BuildButton)
+                                                        .addComponent(FinishButton)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(MiningStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(HollowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(GateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(DestinationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(11, 11, 11)
+                                                .addComponent(PerihelionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(27, 27, 27)
+                                                .addComponent(ResourceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(AsteroidBeltLabel)
+                                                .addGap(20, 20, 20)
+                                                .addComponent(NumSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(14, 14, 14)
+                                                .addComponent(NumRobotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(14, 14, 14)
+                                                .addComponent(NumGatesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(20, 20, 20)
+                                                .addComponent(NumAsteroidsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(SunStormLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(40, 40, 40)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(ResourcesListLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(GatesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
 
         jMenu1.setText("Menu");
+
+        Start.setText("Start New Game");
+        jMenu1.add(Start);
+
+        Exit.setText("Exit");
+        jMenu1.add(Exit);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Help");
@@ -408,11 +436,17 @@ public class GameWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 35))
         );
 
         pack();
@@ -420,8 +454,10 @@ public class GameWindow extends javax.swing.JFrame {
 
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
-        TravelWindow travelWindow = new TravelWindow();
-        travelWindow.initialize();
+        labelPic.setIcon(imageAsteroid);
+        /*TravelWindow travelWindow = new TravelWindow();
+        travelWindow.initialize();*/
+
         /*
         Asteroid asteroid = settler.getCurrentPosition();
         CurrentAsteroidLabel.setText(settler.getCurrentPosition().toString());
@@ -517,34 +553,37 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JButton TravelButton;
-    private javax.swing.JButton DrillButton;
-    private javax.swing.JButton MineButton;
-    private javax.swing.JButton LeaveButton;
-    private javax.swing.JButton PickupButton;
-    private javax.swing.JButton BuildButton;
-    private javax.swing.JButton FinishButton;
-    private javax.swing.JButton FastTravelButton;
-    private javax.swing.JLabel CurrentPlayerLabel;
-    private javax.swing.JLabel AsteroidBeltLabel;
-    private javax.swing.JLabel GateLabel;
-    private javax.swing.JLabel PerihelionLabel;
-    private javax.swing.JLabel CurrentAsteroidLabel;
-    private javax.swing.JLabel DestinationLabel;
-    private javax.swing.JLabel StatusLabel;
     private javax.swing.JLabel ActiveSettlerLabel;
+    private javax.swing.JLabel AsteroidBeltLabel;
+    private javax.swing.JButton BuildButton;
+    private javax.swing.JLabel CurrentAsteroidLabel;
+    private javax.swing.JLabel CurrentPlayer;
     private javax.swing.JLabel DeathLabel;
-    private javax.swing.JLabel HiddenLabel;
-    private javax.swing.JLabel ResourceLabel;
-    private javax.swing.JLabel NumSettlerLabel;
-    private javax.swing.JLabel NumRobotLabel;
-    private javax.swing.JLabel NumGatesLabel;
-    private javax.swing.JLabel NumAsteroidsLabel;
-    private javax.swing.JLabel HollowLabel;
-    private javax.swing.JLabel SunStormLabel;
-    private javax.swing.JLabel ResourcesListLabel;
+    private javax.swing.JLabel DestinationLabel;
+    private javax.swing.JButton DrillButton;
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JButton FastTravelButton;
+    private javax.swing.JButton FinishButton;
+    private javax.swing.JLabel GateLabel;
     private javax.swing.JLabel GatesLabel;
+    private javax.swing.JLabel HiddenLabel;
+    private javax.swing.JLabel HollowLabel;
+    private javax.swing.JButton LeaveButton;
+    private javax.swing.JButton MineButton;
     private javax.swing.JLabel MiningStatusLabel;
+    private javax.swing.JLabel NumAsteroidsLabel;
+    private javax.swing.JLabel NumGatesLabel;
+    private javax.swing.JLabel NumRobotLabel;
+    private javax.swing.JLabel NumSettlerLabel;
+    private javax.swing.JLabel PerihelionLabel;
+    private javax.swing.JButton PickupButton;
+    private javax.swing.JLabel ResourceLabel;
+    private javax.swing.JLabel ResourcesListLabel;
+    private javax.swing.JComboBox<String> SettlersListLabel;
+    private javax.swing.JMenuItem Start;
+    private javax.swing.JLabel StatusLabel;
+    private javax.swing.JLabel SunStormLabel;
+    private javax.swing.JButton TravelButton;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JMenu jMenu1;
@@ -553,5 +592,6 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelPic;
     // End of variables declaration
 }
