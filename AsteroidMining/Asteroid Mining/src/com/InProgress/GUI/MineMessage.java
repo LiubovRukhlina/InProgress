@@ -91,10 +91,10 @@ public class MineMessage extends javax.swing.JFrame {
 
     private void okActionPerformed(ActionEvent evt) {
         setVisible(false);
-        dispose();
         Game.Controller();
         GameWindow game = new GameWindow();
         game.initialize();
+        dispose();
     }
 
 

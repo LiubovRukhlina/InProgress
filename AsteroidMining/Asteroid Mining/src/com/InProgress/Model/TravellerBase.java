@@ -98,7 +98,7 @@ public abstract class TravellerBase {
 
         if((Math.abs(this.currentPosition.getX() - Destination.getX()) < 3)) {
             xFlag = true;
-        } else if((Math.abs(this.currentPosition.getX() - Destination.getX() + Game.getMaxX()) < 3)) {
+        } else if((Math.abs(this.currentPosition.getX() + Destination.getX() - Game.getMaxX()) < 3)) { // check in case travel goes over the boundary, e.g. from 9 to 0
             xFlag = true;
         }
 

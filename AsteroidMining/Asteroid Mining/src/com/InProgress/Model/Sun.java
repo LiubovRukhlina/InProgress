@@ -20,6 +20,7 @@ public class Sun {
     /**
      * Constructor of the Sun class.
      * It sets a random value for the sunX value between 0 and the maximum x-dimension of the asteroid belt.
+     * Changes the perihelion status of the asteroids.
      * It sets the countdown to a random value between 5 and 9.
      */
     public Sun() {

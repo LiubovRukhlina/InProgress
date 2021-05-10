@@ -54,7 +54,7 @@ public class TravelWindow extends javax.swing.JFrame {
         xTextField.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         xTextField.setForeground(new java.awt.Color(51, 204, 0));
         xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        xTextField.setText("1");
+        xTextField.setText("");
 
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 204, 0));
@@ -67,7 +67,7 @@ public class TravelWindow extends javax.swing.JFrame {
         yTextField.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         yTextField.setForeground(new java.awt.Color(51, 204, 0));
         yTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        yTextField.setText("1");
+        yTextField.setText("");
 
         jLabel4.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 204, 0));
@@ -76,7 +76,7 @@ public class TravelWindow extends javax.swing.JFrame {
         zTextField.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         zTextField.setForeground(new java.awt.Color(51, 204, 0));
         zTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        zTextField.setText("1");
+        zTextField.setText("");
 
         okButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         okButton.setText("OK");

@@ -12,7 +12,9 @@ public class Game implements Serializable {
     private static int maxX; // x dimension of the asteroid belt
     private static int maxY; // y dimension of the asteroid belt
     private static int maxZ; // z dimension of the asteroid belt
-    private static int roundCounter = 0;
+    private static int roundCounter;
+    private static int numberOfAsteroids; // counts the number of active asteroids
+    private static int numberOfGates;
     private static  Sun sun; // in charge of sun storms
     private static ArrayList<Player> players; //list of players
     private static Player currentPlayer; // the Player who is currently playing
@@ -45,6 +47,9 @@ public class Game implements Serializable {
     public static void startGame(int numberOfPlayers, int x, int y, int z) {
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
         setAsteroidBelt(x,y,z);//needs to be called before sun
+        roundCounter = 0;
+        numberOfAsteroids = x*y*z;
+        numberOfGates = 0;
 
         sun = new Sun();
         robots = new ArrayList<>();
@@ -55,6 +60,8 @@ public class Game implements Serializable {
         }
         currentPlayer = players.get(0);                     // first player is starts
         activeSettler = currentPlayer.getSettlers().get(0); // with its first Settler
+
+        sun = new Sun();
     }
 
 
@@ -147,10 +154,10 @@ public class Game implements Serializable {
      */
     public static void endGame(int num) {
         if(num == 1)
-            GameWindow.infobox("You have won the Game","Duh");
+            GameWindow.infobox("Detim imim finyish du wa ting, im ye fo sémpere.","Beltalowda");
 
         else
-            GameWindow.infobox("Loser","HEHEHE");
+            GameWindow.infobox("Setara imalowda mogut nawit milowda.","Inyalowda ");
     }
 
     /**
@@ -206,6 +213,12 @@ public class Game implements Serializable {
 
     public static Settler getActiveSettler() { return activeSettler; }
     public static void setActiveSettler(Settler activeSettler) { Game.activeSettler = activeSettler; }
+
+    public static int getNumberOfAsteroids() { return numberOfAsteroids; }
+    public static void setNumberOfAsteroids(int numberOfAsteroids) { Game.numberOfAsteroids = numberOfAsteroids; }
+
+    public static int getNumberOfGates() { return numberOfGates; }
+    public static void setNumberOfGates(int numberOfGates) { Game.numberOfGates = numberOfGates; }
 
     //</editor-fold>
 

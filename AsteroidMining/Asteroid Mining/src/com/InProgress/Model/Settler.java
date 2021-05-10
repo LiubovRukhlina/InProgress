@@ -63,7 +63,7 @@ public class Settler extends TravellerBase {
                 Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
             } else {
 
-                TravelWindow.infobox("Not Enough place on the Asteroid","Error");
+                TravelWindow.infobox("There is not enough Space on the Asteroid","Error");
             }
         } else {
             TravelWindow.infobox("Asteroid not in Neighborhood or exploded","Error");
@@ -93,13 +93,13 @@ public class Settler extends TravellerBase {
 
                     Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
                 } else {
-                    // TODO No Space Window (Controller)
+                    GameWindow.infobox("There is not enough Space on the Asteroid","Travel Error");
                 }
             } else {
-                // TODO Inactive Gate Window (Controller)
+                GameWindow.infobox("The Gate is not activated.","Travel Error");
             }
         } else {
-            // TODO No Gate Window (Controller)
+            GameWindow.infobox("There is no Gate at the Asteroid","Travel Error");
         }
     }
 
@@ -269,6 +269,7 @@ public class Settler extends TravellerBase {
             tg.setCurrentPosition(A); // places the gate at the current Asteroid
             this.itsInventory.removeGate(tg);
             A.setGate(tg);
+            Game.setNumberOfGates(Game.getNumberOfGates()+1);
 
             if (tg.getPair().getCurrentPosition() != null) { // checks if the paired gate is already deployed
                 tg.activateTransportGate();

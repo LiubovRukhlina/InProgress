@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 
 public class GameWindow extends javax.swing.JFrame {
@@ -327,23 +328,23 @@ public class GameWindow extends javax.swing.JFrame {
 
         NumSettlerLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumSettlerLabel.setText("Settler:");
+        NumSettlerLabel.setText("Settler: " + Game.getNumberOfSettlers());
 
         NumRobotLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumRobotLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumRobotLabel.setText("Robot: ");
+        NumRobotLabel.setText("Robot: " + Game.getRobots().size());
 
         NumGatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumGatesLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumGatesLabel.setText("Gates:");
+        NumGatesLabel.setText("Gates: " + Game.getNumberOfGates());
 
         NumAsteroidsLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         NumAsteroidsLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumAsteroidsLabel.setText("Asteroids:");
+        NumAsteroidsLabel.setText("Asteroids: " + Game.getNumberOfAsteroids());
 
         SunStormLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         SunStormLabel.setForeground(new java.awt.Color(51, 204, 0));
-        SunStormLabel.setText("SunStorm:");
+        SunStormLabel.setText("SunStorm: " + Game.getSun().getCountdownOfSunStorm());
 
         ResourcesListLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         ResourcesListLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -565,6 +566,11 @@ public class GameWindow extends javax.swing.JFrame {
 
         jMenu2.setText("Help");
         jMenuBar1.add(jMenu2);
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
 
         setJMenuBar(jMenuBar1);
 
@@ -591,12 +597,19 @@ public class GameWindow extends javax.swing.JFrame {
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
+        Game.Controller();
 
        
     }
 
     private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        Game.getActiveSettler().fastTravel(Game.getActiveSettler().getCurrentPosition());
+        setVisible(false);
+        dispose();
+        Game.Controller();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
     }
 
     private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -614,6 +627,7 @@ public class GameWindow extends javax.swing.JFrame {
         MineMessage message = new MineMessage();
         setVisible(false);
         dispose();
+        Game.Controller();
         message.initialize();
 
 
@@ -640,6 +654,12 @@ public class GameWindow extends javax.swing.JFrame {
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        Game.getCurrentPlayer().endMyTurn();
+
+    }
+
+    private void helpActionPerformed(ActionEvent evt) {
+        GameWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
 
 
@@ -678,6 +698,7 @@ public class GameWindow extends javax.swing.JFrame {
     {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
+
     // Variables declaration - do not modify
     private javax.swing.JLabel ActiveSettlerLabel;
     private javax.swing.JLabel AsteroidBeltLabel;
