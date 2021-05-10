@@ -7,6 +7,8 @@ public class Sun {
 
     //<editor-fold desc="Attributes">
 
+
+
     private int sunX;
     private int countDownOfSunStorm;
 
@@ -105,6 +107,9 @@ public class Sun {
 
     public int getCountdownOfSunStorm() { return countDownOfSunStorm; }
     public void setCountDownOfSunStorm(int countDownOfSunStorm) { this.countDownOfSunStorm = countDownOfSunStorm; }
+    public int getSunX() {
+        return sunX;
+    }
 
     //</editor-fold>
 }

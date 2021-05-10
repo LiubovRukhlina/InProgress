@@ -9,12 +9,7 @@ import java.awt.*;
 import java.net.URL;
 
 public class GameWindow extends javax.swing.JFrame {
-    public static  String resource;
-
-
-    ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
-    ImageIcon imageGateActive = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Gate_Active.png");
-    //ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
+    public static String resource;
 
     /**
      * Creates new form MainWindow
@@ -50,7 +45,105 @@ public class GameWindow extends javax.swing.JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(getImage("Asteroid"), 1 * 50, 1 * 50, this);
+
+                if (!asteroid.getExploded())
+                    g.drawImage(getImage("Asteroid"), 100, 150, this); //draw asteroid
+                else {
+                    g.drawImage(getImage("asteroid_exploded"), 100, 150, this);
+                }
+
+                switch (asteroid.getSettlersOnAsteroid().size())
+                {
+                    case 1:  g.drawImage(getImage("settler"), 300, 150, this); break;
+                    case 2:  {
+                        g.drawImage(getImage("settler"), 300, 150, this);
+                        g.drawImage(getImage("settler"), 350, 150, this);
+                    } break;
+                    case 3: {
+                        g.drawImage(getImage("settler"), 350, 150, this);
+                        g.drawImage(getImage("settler"), 250, 150, this);
+                        g.drawImage(getImage("settler"), 300, 150, this);
+
+                    }break;
+                }
+
+                if (Game.getSun().getSunX() == asteroid.getX()) {
+                    g.drawImage(getImage("sun"), 150, 50, this);
+                }
+
+                //System.out.println(asteroid.getRobotsOnAsteroid().size());
+                switch (asteroid.getRobotsOnAsteroid().size())
+                {
+                    case 1:  g.drawImage(getImage("robot"), 150, 150, this); break;
+                    case 2:  {
+                        g.drawImage(getImage("robot"), 150, 150, this);
+                        g.drawImage(getImage("robot"), 100, 150, this);
+                    } break;
+                    case 3: {
+                        g.drawImage(getImage("robot"), 200, 150, this);
+                        g.drawImage(getImage("robot"), 150, 150, this);
+                        g.drawImage(getImage("robot"), 100, 150, this);
+
+                    }break;
+
+                    default: break;
+                }
+
+                if (asteroid.getHasGate() && asteroid.getGate().getActive()) {
+                    g.drawImage(getImage("gate_active"), 500, 150, this);
+                }
+
+                if (asteroid.getHasGate() && !asteroid.getGate().getActive()) {
+                    g.drawImage(getImage("gate_inactive"), 500, 150, this);
+                }
+
+
+                if (asteroid.getDepth() == 0) {
+                    if (asteroid.getHollow()) {
+                        g.drawImage(getImage("res_hollow"), 300, 360, this);
+                    }
+                    else {
+                        switch (asteroid.getResourceOfAsteroid().get(0).getResourceType()) {
+                            case "Iron":  {
+                                g.drawImage(getImage("res_iron"), 300, 360, this);
+                            }break;
+                            case "WaterIce": {
+                                g.drawImage(getImage("res_waterIce"), 300, 360, this);
+                            }break;
+                            case "Uranium": {
+                                g.drawImage(getImage("res_uranium"), 300, 360, this);
+                            }break;
+                            case "Carbon":
+                            {
+                                g.drawImage(getImage("res_carbon"), 300, 360, this);
+                            }break;
+                        }
+                    }
+                }
+
+                int counter = 100;
+                for (ResourceBase res : asteroid.getStoredResourceOfAsteroid()
+                     ) {
+                    switch (res.getResourceType()) {
+                        case "Iron":  {
+                            g.drawImage(getImage("res_iron"), counter, 500, this);
+                            counter += 50;
+                        }break;
+                        case "WaterIce": {
+                            g.drawImage(getImage("res_waterIce"), counter, 360, this);
+                            counter += 50;
+                        }break;
+                        case "Uranium": {
+                            g.drawImage(getImage("res_uranium"), counter, 360, this);
+                            counter += 50;
+                        }break;
+                        case "Carbon":
+                        {
+                            g.drawImage(getImage("res_carbon"), counter, 360, this);
+                            counter += 50;
+                        }break;
+                    }
+                }
             }
         };
         CurrentPlayer = new javax.swing.JLabel();
@@ -126,10 +219,8 @@ public class GameWindow extends javax.swing.JFrame {
             HollowLabel.setText("Hollow: True");
         else
             HollowLabel.setText("Hollow: False");
+
         Inventory inv = Game.getActiveSettler().getItsInventory();
-
-
-
 
         if(inv.getStoredGates().size() != 0) {
 
@@ -200,7 +291,7 @@ public class GameWindow extends javax.swing.JFrame {
         if((asteroid.getDepth() == 0) && !asteroid.getHollow())
             MiningStatusLabel.setText("Mineable: Yes");
         else
-            MiningStatusLabel.setText("Mineable:No"+asteroid.getDepth());
+            MiningStatusLabel.setText("Mineable:No "+ "Depth: " + asteroid.getDepth());
 
         GateLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         GateLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -501,8 +592,6 @@ public class GameWindow extends javax.swing.JFrame {
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
 
-        labelPic.setIcon(imageAsteroid);
-       
        
     }
 
