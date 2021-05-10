@@ -244,7 +244,7 @@ public class StartWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void helpMenuActionPerformed(ActionEvent evt) {
-        StartWindow.infobox("nobody can hear you scream in space","You are on your own");
+        StartWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
 
     private void exitActionPerformed(ActionEvent evt) {
@@ -281,11 +281,8 @@ public class StartWindow extends javax.swing.JFrame {
         dispose();
         GameWindow game = new GameWindow();
         game.initialize();
-
-
-
-
     }
+
     public static void infobox(String message,String title)
     {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);

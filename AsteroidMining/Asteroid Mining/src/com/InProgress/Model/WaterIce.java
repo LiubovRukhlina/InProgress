@@ -6,6 +6,7 @@ public class WaterIce extends ResourceBase{
 
     /**
      * Constructor of WaterIce class.
+     *
      * @param resourceType Name of the resource.
      */
     public WaterIce(String resourceType) {
@@ -20,6 +21,7 @@ public class WaterIce extends ResourceBase{
     /**
      * Removes the WaterIce from the Asteroid when it is
      * drilled through at perihelion.
+     *
      * @param A Asteroid of this WaterIce Resource
      */
     @Override

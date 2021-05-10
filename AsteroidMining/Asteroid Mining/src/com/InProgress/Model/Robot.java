@@ -33,6 +33,7 @@ public class Robot extends TravellerBase {
      * Moves this Robot to a neighbouring Asteroid.
      * It checks if the Asteroid is not exploded and if it is in the neighbourhood.
      * After a successful travel the Robot tries to hide inside the Asteroid.
+     *
      * @param Destination destination Asteroid
      */
     public void travel(Asteroid Destination) {
@@ -51,6 +52,7 @@ public class Robot extends TravellerBase {
     /**
      * This method is used for travel by using a transport gate.
      * It first checks if there is a gate available and if it is active.
+     *
      * @param A Asteroid to which the gate belongs
      */
     public void fastTravel(Asteroid A) {
@@ -97,6 +99,12 @@ public class Robot extends TravellerBase {
         }
     }
 
+    /**
+     * Picks a random neighboring Asteroid for the Robot to travel to.
+     * It checks if the coordinates are valid and fixes them if they are out of bound.
+     *
+     * @param A the current Asteroid of the Robot.
+     */
     public void randomTravel(Asteroid A) {
         int rndX = A.getX() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current X coordinate
         int rndY = A.getY() + new Random().nextInt(5)-2; // adds random number between -2 and 2 to the current Y coordinate
@@ -106,19 +114,21 @@ public class Robot extends TravellerBase {
         if(rndX < 0 ) {
             rndX = Game.getMaxX() + rndX;
         } else if( rndX > Game.getMaxX()) {
-            rndX = rndX - A.getX();
+            rndX = rndX - A.getX()+1;
         }
+
         // checks if rndY is out of bound and adjusts it
         if(rndY < 0 ) {
             rndY = 0;
         } else if( rndY > Game.getMaxY()) {
-            rndX = Game.getMaxY();
+            rndX = Game.getMaxY()+1;
         }
+
         // checks if rndZ is out of bound and adjusts it
         if(rndZ < 0 ) {
             rndZ = 0;
         } else if( rndZ > Game.getMaxZ()) {
-            rndZ = Game.getMaxZ();
+            rndZ = Game.getMaxZ()+1;
         }
 
         travel(Game.getAsteroid(rndX, rndY, rndZ));

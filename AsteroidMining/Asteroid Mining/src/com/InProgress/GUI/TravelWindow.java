@@ -11,7 +11,8 @@ public class TravelWindow extends javax.swing.JFrame {
     GameWindow game;
     /**
      * Creates new form TravelMessage
-     * @param game
+     *
+     * @param game Game window from which this window was called
      */
     public TravelWindow(GameWindow game) {
         initComponents();
@@ -202,8 +203,6 @@ public class TravelWindow extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
         dispose();
-
-        // TODO add your handling code here:
     }
 
 

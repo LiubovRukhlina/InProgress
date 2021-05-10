@@ -33,22 +33,28 @@ public class Game implements Serializable {
     //<editor-fold desc="Methods">
 
     /**
-     *  Instantiates all the main parts of the skeleton
+     *  Instantiates all the main parts of the game.
+     *  It sets up the asteroid belt and creates a sun object.
+     *  Instantiates the lists and sets the first player and settler as the current ones.
+     *
+     * @param numberOfPlayers Number of players that play the game
+     * @param x size of the x dimension of the asteroid belt
+     * @param y size of the x dimension of the asteroid belt
+     * @param z size of the z dimension of the asteroid belt
      */
     public static void startGame(int numberOfPlayers, int x, int y, int z) {
-
-
         asteroids = new ArrayList<ArrayList<ArrayList<Asteroid>>>();
         setAsteroidBelt(x,y,z);//needs to be called before sun
 
         sun = new Sun();
         robots = new ArrayList<>();
 
-
         players = new ArrayList<>();
-        for(int i = 0; i < numberOfPlayers; i++) { players.add(new Player(i)); }//Loop changed starts with 1
-        currentPlayer = players.get(0);
-        activeSettler = currentPlayer.getSettlers().get(0);
+        for(int i = 0; i < numberOfPlayers; i++) { // creates the players
+            players.add(new Player(i));
+        }
+        currentPlayer = players.get(0);                     // first player is starts
+        activeSettler = currentPlayer.getSettlers().get(0); // with its first Settler
     }
 
 
@@ -108,7 +114,13 @@ public class Game implements Serializable {
         }
     }
 
-    public static int getNumberofSettlers()
+    /**
+     * Checks how many Settlers are still active.
+     *
+     * @return number of settlers remaining active Settlers
+     */
+
+    public static int getNumberOfSettlers()
     {
         int sum = 0;
         for(Player i:players)
@@ -120,14 +132,18 @@ public class Game implements Serializable {
         return sum;
     }
 
-    public static  void Controller(){
+    /**
+     * Ends the turn of the currentPlayer if he has no moves left.
+     */
+    public static void Controller(){
         if(currentPlayer.getNumberOfMoves() == 0)
         {
             Game.currentPlayer.endMyTurn();
         }
     }
     /**
-     * describes the end of the game
+     * Ends the game.
+     * Decides whether it was successful or not
      */
     public static void endGame(int num) {
         if(num == 1)
@@ -138,7 +154,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * places asteroids in the 3D-list
+     * Places the asteroids in the 3D-list
      *
      * @param x x dimension of the asteroid belt
      * @param y y dimension of the asteroid belt

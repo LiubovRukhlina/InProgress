@@ -6,7 +6,8 @@ public class Uranium extends ResourceBase{
 
     /**
      * radioactive resource
-     * @param resourceType Nma eof the resource.
+     *
+     * @param resourceType Name of the resource.
      */
     public Uranium(String resourceType) {
         super(resourceType);

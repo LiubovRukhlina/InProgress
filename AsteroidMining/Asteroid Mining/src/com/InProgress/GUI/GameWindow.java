@@ -25,6 +25,11 @@ public class GameWindow extends javax.swing.JFrame {
         labelPic.setText("");
     }
 
+    /**
+     * Loads and returns an Image file
+     * @param name name of the Image file
+     * @return Image file
+     */
     private Image getImage (String name) {
         String fileName = "symbols/" + name.toLowerCase() + ".png";
         ClassLoader classLoader = this.getClass().getClassLoader();

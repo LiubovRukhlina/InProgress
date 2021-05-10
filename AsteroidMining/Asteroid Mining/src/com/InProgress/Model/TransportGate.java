@@ -48,6 +48,7 @@ public class TransportGate {
     /**
      * Assigns the Transport Gate with a pair
      * which is necessary for activation
+     *
      * @param tg2 the second Transport gate
      */
     public void makePair(TransportGate tg2) {
