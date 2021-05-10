@@ -104,8 +104,7 @@ public class Inventory{
             }
             return uCount == 1 && iCount == 1 && cCount == 1; // returns true if enough resources are available
         }
-        else if (type == 2) { // checks if Transport Gates should be build
-
+        else if (type == 2) { // checks if  Gates should be build
             for (ResourceBase resource : storedResources) {
                 if (resource instanceof Uranium && uCount == 0) { // checks if there is 1 unit of Uranium
                     uCount++;
@@ -119,6 +118,7 @@ public class Inventory{
 
             }
             return uCount == 1 && iCount == 2 && wCount == 1; // returns true if enough resources are available
+
         }
 
         return false; // default return

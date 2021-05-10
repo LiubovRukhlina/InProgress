@@ -81,12 +81,11 @@ public class ErrorMessage extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        setVisible(false);
+        dispose();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

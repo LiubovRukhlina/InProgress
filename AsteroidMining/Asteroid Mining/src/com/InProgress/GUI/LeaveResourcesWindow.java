@@ -1,11 +1,18 @@
 package com.InProgress.GUI;
 
-public class LeaveResourcesWindow extends javax.swing.JFrame {
+import com.InProgress.Model.Game;
+import com.InProgress.Model.Inventory;
+import com.InProgress.Model.ResourceBase;
 
+import java.util.List;
+
+public class LeaveResourcesWindow extends javax.swing.JFrame {
+    GameWindow previous;
     /**
      * Creates new form LeaveResourceMessage
      */
-    public LeaveResourcesWindow() {
+    public LeaveResourcesWindow(GameWindow game) {
+        this.previous = game;
         initComponents();
     }
 
@@ -39,11 +46,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(51, 204, 0));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Iron");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+
 
         cancelButton.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         cancelButton.setText("Cancel");
@@ -109,22 +112,43 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+       setVisible(false);
+       dispose();
     }
 
     private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+       List<ResourceBase> inv=  Game.getActiveSettler().getItsInventory().getStoredResources();
+       Boolean flag = false;
+       for(int i = 0;i<inv.size();i++)
+        {
+            if(inv.get(i).getResourceType().equals(jTextField1.getText()) )
+            {
+
+                Game.getActiveSettler().leaveResource(i);
+                flag = true;
+            }
+        }
+       setVisible(false);
+       if(flag == false)
+       {
+            GameWindow.infobox("You Resource is not in he Inventory","Error");
+       }
+       else
+       {
+           dispose();
+           GameWindow gameWindow = new GameWindow();
+           gameWindow.initialize();
+           previous.setVisible(false);
+           previous.dispose();
+
+       }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public void initialize() {
+
+    public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -152,7 +176,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LeaveResourcesWindow().setVisible(true);
+                new LeaveResourcesWindow(game).setVisible(true);
             }
         });
     }

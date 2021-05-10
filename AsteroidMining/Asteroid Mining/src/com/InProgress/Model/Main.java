@@ -19,8 +19,8 @@ public class Main {
                 break;
 
             case 1:
-                BuildWindow buildWindow = new BuildWindow();
-                buildWindow.initialize();
+              // BuildWindow buildWindow = new BuildWindow();
+                //buildWindow.initialize();
                 break;
 
             case 2:
@@ -29,8 +29,8 @@ public class Main {
                 break;
 
             case 3:
-                LeaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
-                leaveResourcesWindow.initialize();
+                //eaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
+                //leaveResourcesWindow.initialize();
                 break;
 
             case 4:
@@ -39,8 +39,8 @@ public class Main {
                 break;
 
             case 5:
-                PickUpMessage pickUpMessage = new PickUpMessage();
-                pickUpMessage.initialize();
+                //PickUpMessage pickUpMessage = new PickUpMessage();
+                //pickUpMessage.initialize();
                 break;
 
             case 6:
@@ -49,8 +49,8 @@ public class Main {
                 break;
 
             case 7:
-                TravelWindow travelWindow = new TravelWindow();
-                travelWindow.initialize();
+               //TravelWindow travelWindow = new TravelWindow(game);
+                //travelWindow.initialize();
                 break;
         }
 

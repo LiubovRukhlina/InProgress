@@ -1,5 +1,9 @@
 package com.InProgress.GUI;
 
+import com.InProgress.Model.Game;
+
+import java.awt.event.ActionEvent;
+
 public class MineMessage extends javax.swing.JFrame {
 
     /**
@@ -37,10 +41,15 @@ public class MineMessage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 204, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Resource");
+        jLabel2.setText(GameWindow.resource);
 
         okButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               okActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,9 +88,14 @@ public class MineMessage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    /**
-     * @param args the command line arguments
-     */
+    private void okActionPerformed(ActionEvent evt) {
+        setVisible(false);
+        dispose();
+        GameWindow game = new GameWindow();
+        game.initialize();
+    }
+
+
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

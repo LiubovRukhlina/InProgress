@@ -1,12 +1,19 @@
 package com.InProgress.GUI;
 
+import com.InProgress.Model.Game;
+
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class PickUpMessage extends javax.swing.JFrame {
+    //String resource;
 
     /**
      * Creates new form PickUpMessage
      */
-    public PickUpMessage() {
-        initComponents();
+    public PickUpMessage(String resource,GameWindow game) {
+        initComponents(resource,game);
     }
 
     /**
@@ -16,13 +23,23 @@ public class PickUpMessage extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents( String resource,GameWindow game) {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                GameWindow gamewindow = new GameWindow();
+                gamewindow.initialize();
+                game.setVisible(false);
+                game.dispose();
+            }
+        });
         setTitle("Pick Up Message");
         setResizable(false);
 
@@ -34,7 +51,7 @@ public class PickUpMessage extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel2.setText("Resource");
+        jLabel2.setText(resource);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,10 +91,8 @@ public class PickUpMessage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    /**
-     * @param args the command line arguments
-     */
-    public void initialize() {
+
+    public void initialize(String resource,GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -104,7 +119,7 @@ public class PickUpMessage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PickUpMessage().setVisible(true);
+                new PickUpMessage(resource,game).setVisible(true);
             }
         });
     }

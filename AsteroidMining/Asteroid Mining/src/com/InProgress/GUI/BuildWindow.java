@@ -1,11 +1,17 @@
 package com.InProgress.GUI;
 
+import com.InProgress.Model.Game;
+
+import java.awt.event.ActionEvent;
+
 public class BuildWindow extends javax.swing.JFrame {
 
+    GameWindow previous;
     /**
      * Creates new form BuildingMessage
      */
-    public BuildWindow() {
+    public BuildWindow(GameWindow game) {
+        this.previous = game;
         initComponents();
     }
 
@@ -38,15 +44,35 @@ public class BuildWindow extends javax.swing.JFrame {
 
         robotButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         robotButton.setText("Robot");
+        robotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                robotButtonActionPerformed(evt);
+            }
+        });
 
         gatesButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         gatesButton.setText("Gates");
+        gatesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gatesButtonActionPerformed(evt);
+            }
+        });
 
         spaceStationButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         spaceStationButton.setText("SpaceStation");
+        spaceStationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    spaceStationButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               cancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,10 +118,38 @@ public class BuildWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    /**
-     * @param args the command line arguments
-     */
-    public void initialize() {
+    private void spaceStationButtonActionPerformed(ActionEvent evt) {
+        Game.getActiveSettler().buildSpaceStation(Game.getActiveSettler().getCurrentPosition());
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+    }
+
+    private void robotButtonActionPerformed(ActionEvent evt) {
+        Game.getActiveSettler().buildRobot();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+    }
+
+    private void cancelButtonActionPerformed(ActionEvent evt) {
+        setVisible(false);
+        dispose();
+
+    }
+
+    private void gatesButtonActionPerformed(ActionEvent evt) {
+        Game.getActiveSettler().buildTransportGate();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+    }
+
+
+    public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -123,7 +177,7 @@ public class BuildWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuildWindow().setVisible(true);
+                new BuildWindow(game).setVisible(true);
             }
         });
     }
