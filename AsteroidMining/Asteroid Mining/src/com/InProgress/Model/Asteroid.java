@@ -100,6 +100,7 @@ public class Asteroid {
      * Decreases the rockCover of this Asteroid by 1 unit.
      */
     public void decreaseRockCover() {
+
         this.rockCover--;
     }
 
@@ -116,6 +117,7 @@ public class Asteroid {
      * Adds a new settler to the settler list of the asteroid.
      * This asteroid only accepts the settler if there are less then 3 settlers on it
      * and at most 1 of them is from the same Player.
+     *
      * @param settler new settler arriving at the asteroid
      */
     public boolean acceptTraveller(Settler settler) {
@@ -206,9 +208,8 @@ public class Asteroid {
 
 
     public Boolean getHollow() { return isHollow; }
-    public void setHollow(Boolean hollow) {
-        isHollow = hollow;
-    }
+    public void setHollow(Boolean hollow) {isHollow = hollow;}
+
 
     public Boolean getRadioactive() { return isRadioactive; }
     public void setRadioactive(Boolean radioactive) { isRadioactive = radioactive; }

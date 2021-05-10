@@ -17,6 +17,11 @@ public class Sun {
 
     //<editor-fold desc="Constructor">
 
+    /**
+     * Constructor of the Sun class.
+     * It sets a random value for the sunX value between 0 and the maximum x-dimension of the asteroid belt.
+     * It sets the countdown to a random value between 5 and 9.
+     */
     public Sun() {
         sunX = new Random().nextInt(Game.getMaxX());
 

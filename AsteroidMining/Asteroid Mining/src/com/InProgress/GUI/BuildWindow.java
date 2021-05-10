@@ -2,6 +2,7 @@ package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class BuildWindow extends javax.swing.JFrame {
@@ -31,7 +32,7 @@ public class BuildWindow extends javax.swing.JFrame {
         spaceStationButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Building Message");
         setResizable(false);
 

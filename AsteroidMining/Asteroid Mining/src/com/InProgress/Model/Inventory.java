@@ -30,7 +30,8 @@ public class Inventory{
     //<editor-fold desc="Methods">
 
     /**
-     *Adds the Resource to the Settler's Inventory
+     * Adds the Resource to the Settler's Inventory
+     *
      * @param R Type of the Resource to be added
      */
     public void addResource(ResourceBase R) {
@@ -43,8 +44,8 @@ public class Inventory{
     }
 
     /**
-     * Removes the specific resource from the
-     * Settler's Inventory
+     * Removes the specific resource from the Settler's Inventory
+     *
      * @param R Type of the Resource to be added
      */
     public void removeResources(ResourceBase R) {
@@ -53,6 +54,7 @@ public class Inventory{
 
     /**
      * Adds the Transport Gates created by the Settler to this Inventory
+     *
      * @param tg1 First Transport Gate
      * @param tg2 Second Transport Gate
      */
@@ -63,6 +65,7 @@ public class Inventory{
         }
         else
         {
+            // TODO What happens here?
         }
     }
 
@@ -78,6 +81,7 @@ public class Inventory{
     /**
      * Determines whether we have sufficient resources to build an object
      * of different types
+     *
      * @param type Integer that determines what should be build
      * @return True if we have enough resources
      *         False if we do not have enough resources
@@ -127,6 +131,7 @@ public class Inventory{
 
     /**
      * Function checks whether we have enough resources to build a space station
+     *
      * @param A Asteroid where some of the resources are stored
      * @return True if we have enough resources
      *         False if we do not have enough resources

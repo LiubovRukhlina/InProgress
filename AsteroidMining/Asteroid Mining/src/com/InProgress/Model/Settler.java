@@ -75,7 +75,7 @@ public class Settler extends TravellerBase {
      * This method is used for travel by using a transport gate.
      * It first checks if there is a gate available and if it is active.
      *
-     * @param a asteroid that the Traveller is travelling through
+     * @param a asteroid that the Traveller is travelling to.
      */
     @Override
     public void fastTravel(Asteroid a) {
@@ -104,9 +104,9 @@ public class Settler extends TravellerBase {
     }
 
     /**
-     * The Robot drills the Asteroid and the rockCover is reduced.
+     * The Settler drills the Asteroid and the rockCover is reduced.
      * When the Asteroid is drilled through after the current drilling,
-     * if checks whether is explodes or the WaterIce sublimes
+     * it is checked whether is explodes or the WaterIce sublimes.
      *
      * @param A Asteroid which is drilled
      */
@@ -139,21 +139,19 @@ public class Settler extends TravellerBase {
      * @param A Asteroid that is mined.
      */
     public void mine(Asteroid A) {
-        if(A.getDepth() == 0 && !A.getHollow()) {
+        if(A.getDepth() == 0 && !A.getHollow()) { // checks if the Asteroid is mineable
 
             GameWindow.resource = A.getResourceOfAsteroid().get(0).resourceType;
             this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
             A.emptyAsteroid(); // removes the Resource from the Asteroid
+            A.hideMyTravellers(); // the Asteroid is hollow now. Travellers can hide.
 
             Game.getCurrentPlayer().decreaseNumberOfMoves();
 
-            //return A.getResourceOfAsteroid().get(0);// action was successful, decrease the number of moves
         } else {
 
-            ErrorMessage err = new ErrorMessage();
+            ErrorMessage err = new ErrorMessage(); // error message in case the Asteroid is not mineable
             err.initialize();
-
-
         }
     }
 
@@ -254,7 +252,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            GameWindow.infobox("Failed Checj","Error");
+            GameWindow.infobox("Failed Check","Error");
         }
     }
 
