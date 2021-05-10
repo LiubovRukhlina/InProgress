@@ -1,21 +1,26 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-import com.InProgress.Model.Player;
-import com.InProgress.Model.Settler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class TravelWindow extends javax.swing.JFrame {
 
+
+    GameWindow game;
     /**
      * Creates new form TravelMessage
+     * @param game
      */
-    public TravelWindow() {
+    public TravelWindow(GameWindow game) {
         initComponents();
+        this.game = game;
     }
-
+    public GameWindow hutWindow(GameWindow gameWindow)
+    {
+        return gameWindow;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,8 +182,13 @@ public class TravelWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
+
+
         GameWindow gameWindowe = new GameWindow();
         gameWindowe.initialize();
+        game.setVisible(false);
+        game.dispose();
+
     }
 
     public static void infobox(String message,String title)
@@ -186,12 +196,14 @@ public class TravelWindow extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        setVisible(false);
+        dispose();
 
         // TODO add your handling code here:
     }
 
 
-    public void initialize() {
+    public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -219,10 +231,12 @@ public class TravelWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TravelWindow().setVisible(true);
+                new TravelWindow(game).setVisible(true);
             }
         });
     }
+
+
 
     // Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
