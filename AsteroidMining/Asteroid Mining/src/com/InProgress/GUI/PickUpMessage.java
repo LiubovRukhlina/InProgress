@@ -39,6 +39,8 @@ public class PickUpMessage extends javax.swing.JFrame {
                 gamewindow.initialize();
                 game.setVisible(false);
                 game.dispose();
+                setVisible(false);
+                dispose();
             }
         });
         setTitle("Pick Up Message");

@@ -124,12 +124,7 @@ public class GameWindow extends javax.swing.JFrame {
         Inventory inv = Game.getActiveSettler().getItsInventory();
 
 
-        inv.addResource(new Iron("Iron"));
-        inv.addResource(new Iron("Iron"));
-        inv.addResource(new WaterIce("WaterIce"));
-        inv.addResource(new Uranium("Uranium"));
-        inv.addResource(new Carbon("Carbon"));
-        Game.getActiveSettler().setItsInventory(inv);
+
 
         if(inv.getStoredGates().size() != 0) {
 

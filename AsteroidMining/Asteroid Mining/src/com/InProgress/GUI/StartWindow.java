@@ -3,6 +3,7 @@ package com.InProgress.GUI;
 import com.InProgress.Model.Game;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class StartWindow extends javax.swing.JFrame {
 
@@ -21,7 +22,7 @@ public class StartWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
+        this.setLocationRelativeTo(null);
         numberOfPlayersButtonGroup = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         readyButton = new javax.swing.JButton();
@@ -40,7 +41,8 @@ public class StartWindow extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMenu = new javax.swing.JMenu();
-        helpMenu = new javax.swing.JMenu();
+        helpMenu = new javax.swing.JMenuItem();
+        exit = new javax.swing.JMenuItem("Exit");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Start Menu");
@@ -68,40 +70,25 @@ public class StartWindow extends javax.swing.JFrame {
         jRadioButton3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jRadioButton3.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton3.setText("3");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
+
 
         jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Reay to explore the Asteroid Belt?");
+        jLabel1.setText("Ready to explore the Asteroid Belt?");
 
         jRadioButton2.setBackground(new java.awt.Color(102, 102, 102));
         numberOfPlayersButtonGroup.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton2.setText("2");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
         xTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         xTextField.setText("10");
-        /*
-        xTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xTextFieldActionPerformed(evt);
-            }
-        });
-        */
+
 
 
         jLabel5.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
@@ -111,11 +98,6 @@ public class StartWindow extends javax.swing.JFrame {
         yTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         yTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         yTextField.setText("10");
-        yTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yTextFieldActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 204, 0));
@@ -124,11 +106,7 @@ public class StartWindow extends javax.swing.JFrame {
         zTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         zTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         zTextField.setText("10");
-        zTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zTextFieldActionPerformed(evt);
-            }
-        });
+
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 204, 0));
@@ -178,11 +156,6 @@ public class StartWindow extends javax.swing.JFrame {
         jRadioButton1.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton1.setText("1");
         jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -237,10 +210,22 @@ public class StartWindow extends javax.swing.JFrame {
         menuMenu.setText("Menu");
         menuMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jMenuBar1.add(menuMenu);
+        menuMenu.add(exit);
+
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
         helpMenu.setText("Help");
         helpMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jMenuBar1.add(helpMenu);
+        helpMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               helpMenuActionPerformed(evt);
+            }
+        });
 
         setJMenuBar(jMenuBar1);
 
@@ -257,38 +242,27 @@ public class StartWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-/*
-    private void xTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-    */
 
-
-    private void yTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void helpMenuActionPerformed(ActionEvent evt) {
+        StartWindow.infobox("nobody can hear you scream in space","You are on your own");
     }
 
-    private void zTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void exitActionPerformed(ActionEvent evt) {
+        System.exit(0);
     }
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
         int x = Integer.parseInt(xTextField.getText());
         int y = Integer.parseInt(yTextField.getText());
         int z = Integer.parseInt(zTextField.getText());
+        if((x<5 || x>10) || (y<5 || y>10) || (z<5 || z>10))
+        {
+            StartWindow.infobox("Asteroid belt too large/small","Invalid input");
+            return;
+        }
+
         if(jRadioButton1.isSelected()) {
             Game.startGame(1, x, y, z);
             System.out.println("Game created");
@@ -310,7 +284,6 @@ public class StartWindow extends javax.swing.JFrame {
 
 
 
-        // TODO add your handling code here:
 
     }
     public static void infobox(String message,String title)
@@ -353,7 +326,7 @@ public class StartWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem helpMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -372,5 +345,6 @@ public class StartWindow extends javax.swing.JFrame {
     private javax.swing.JTextField xTextField;
     private javax.swing.JTextField yTextField;
     private javax.swing.JTextField zTextField;
+    private javax.swing.JMenuItem exit;
     // End of variables declaration
 }

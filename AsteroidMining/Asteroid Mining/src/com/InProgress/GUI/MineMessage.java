@@ -2,6 +2,7 @@ package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class MineMessage extends javax.swing.JFrame {
@@ -21,13 +22,13 @@ public class MineMessage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
+        this.setLocationRelativeTo(null);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mine Message");
         setResizable(false);
 

@@ -17,10 +17,7 @@ public class TravelWindow extends javax.swing.JFrame {
         initComponents();
         this.game = game;
     }
-    public GameWindow hutWindow(GameWindow gameWindow)
-    {
-        return gameWindow;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +26,7 @@ public class TravelWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
+        this.setLocationRelativeTo(null);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         xTextField = new javax.swing.JTextField();
@@ -41,7 +38,7 @@ public class TravelWindow extends javax.swing.JFrame {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Travel Message");
         setResizable(false);
 
@@ -170,6 +167,13 @@ public class TravelWindow extends javax.swing.JFrame {
         int x = Integer.parseInt(xTextField.getText());
         int y = Integer.parseInt(yTextField.getText());
         int z = Integer.parseInt(zTextField.getText());
+        if(x<0 ||y<0||z<0)
+        {
+            TravelWindow.infobox("Invalid input","Error");
+            setVisible(false);
+            dispose();
+            return;
+        }
         if(x> Game.getMaxX() || y>Game.getMaxY() || z > Game.getMaxZ())
         {
             infobox("Location out of  Asteroid Belt","Incorrect Input");
