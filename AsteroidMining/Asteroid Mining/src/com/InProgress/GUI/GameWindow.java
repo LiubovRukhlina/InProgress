@@ -15,7 +15,7 @@ public class GameWindow extends javax.swing.JFrame {
     ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
     ImageIcon imageGateActive = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Gate_Active.png");
     //ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
-
+    /**
      * Creates new form MainWindow
      */
     public GameWindow() {
@@ -41,7 +41,7 @@ public class GameWindow extends javax.swing.JFrame {
                 g.drawImage((Image) imageGateActive.getImage(), 5 * 50, 5 * 50, this);
             }
         };
-        CurrentPlayer = new javax.swing.JLabel();
+        CurrentPlayerLabel = new javax.swing.JLabel();
         TravelButton = new javax.swing.JButton();
         CurrentAsteroidLabel = new javax.swing.JLabel();
         HollowLabel = new javax.swing.JLabel();
@@ -332,7 +332,7 @@ public class GameWindow extends javax.swing.JFrame {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(FastTravelButton))
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(CurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(CurrentPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(ActiveSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -396,7 +396,7 @@ public class GameWindow extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(CurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CurrentPlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(CurrentAsteroidLabel)
                                         .addComponent(StatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ActiveSettlerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -586,7 +586,7 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JLabel AsteroidBeltLabel;
     private javax.swing.JButton BuildButton;
     private javax.swing.JLabel CurrentAsteroidLabel;
-    private javax.swing.JLabel CurrentPlayer;
+    private javax.swing.JLabel CurrentPlayerLabel;
     private javax.swing.JLabel DeathLabel;
     private javax.swing.JLabel DestinationLabel;
     private javax.swing.JButton DrillButton;
