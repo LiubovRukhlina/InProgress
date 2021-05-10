@@ -184,7 +184,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Build Window (Controller)
+            GameWindow.infobox("Cannot Build Robot","Insufficeient Resources");
         }
     }
 
@@ -197,7 +197,7 @@ public class Settler extends TravellerBase {
     public void buildSpaceStation(Asteroid A) {
 
         if (itsInventory.checkResources(A)) { // checks if there are enough resources
-            Game.endGame();
+            Game.endGame(1);
         } else {
             // TODO Cannot Build Window (Controller)
         }
@@ -297,7 +297,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Leave Window (Controller)
+            GameWindow.infobox("The Asteroid is not Hollow","Error");
         }
     }
 
@@ -315,7 +315,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot PickUp Window (Controller)
+            /GameWindow.infobox("The Asteroid is full","Error");
         }
     }
 

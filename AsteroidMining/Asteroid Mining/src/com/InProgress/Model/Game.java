@@ -1,5 +1,7 @@
 package com.InProgress.Model;
 
+import com.InProgress.GUI.GameWindow;
+
 import java.io.*;
 import java.util.*;
 
@@ -44,7 +46,7 @@ public class Game implements Serializable {
 
 
         players = new ArrayList<>();
-        for(int i = 1; i <= numberOfPlayers; i++) { players.add(new Player(i)); }//Loop changed starts with 1
+        for(int i = 0; i < numberOfPlayers; i++) { players.add(new Player(i)); }//Loop changed starts with 1
         currentPlayer = players.get(0);
         activeSettler = currentPlayer.getSettlers().get(0);
     }
@@ -77,13 +79,14 @@ public class Game implements Serializable {
         // the previous 3 checks could kill all remaining settlers.
         // It must be checked if the Players still can play, before the Game can proceed
         boolean isThereStillSomeone = false;
-        for (Player p : players ) { // restore number of moves of all Players
+        for (Player p : players ) {
+            p.setNumberOfMoves(5);// restore number of moves of all Players
             if(p.checkSettlers()) {
                 isThereStillSomeone = true; // if at least one Player remains in the Game
             }
         }
         if(!isThereStillSomeone) {
-            Game.endGame();
+            Game.endGame(0);
         }
         if(!currentPlayer.getPlaying()) { // if the currentPlayer died during the previous actions we assign a new one
             currentPlayer = currentPlayer.getNextPlayer();
@@ -109,11 +112,21 @@ public class Game implements Serializable {
         return sum;
     }
 
+    public static  void Controller(){
+        if(currentPlayer.getNumberOfMoves() == 0)
+        {
+            Game.currentPlayer.endMyTurn();
+        }
+    }
     /**
      * describes the end of the game
      */
-    public static void endGame() {
-        // TODO Winning Window (Controller)
+    public static void endGame(int num) {
+        if(num == 1)
+            GameWindow.infobox("You have won the Game","Duh");
+
+        else
+            GameWindow.infobox("Loser","HEHEHE");
     }
 
     /**

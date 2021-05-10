@@ -26,7 +26,7 @@ public class Player {
         this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler2", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler3", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
-        //this.isPlaying = true; makes all the players as true, only 1 can be playing at a time
+        this.isPlaying = true;// makes all the players as true, only 1 can be playing at a time
     }
 
     //</editor-fold>
@@ -40,6 +40,7 @@ public class Player {
     public void decreaseNumberOfMoves(){
 
         numberOfMoves--;
+        System.out.println(numberOfMoves);
     }
 
     /**
@@ -82,28 +83,48 @@ public class Player {
     public Player getNextPlayer() {
         Player pNext = this;
 
-        if(this.getPlayerID() == 0) {
+        if(Game.getPlayers().size()== 1) {
+            return pNext;
+        }
+        else if (Game.getPlayers().size()== 2) {
 
-            if(Game.getPlayers().get(1).getPlaying()) {
-                pNext = Game.getPlayers().get(1);
-            }
-            else if(Game.getPlayers().get(2).getPlaying()) {
-                pNext = Game.getPlayers().get(2);
-            }
-        } else if(this.getPlayerID() == 1) {
+            if (this.getPlayerID() == 0) {
 
-            if(Game.getPlayers().get(2).getPlaying()) {
-                pNext = Game.getPlayers().get(2);
-            }
-            else if(Game.getPlayers().get(0).getPlaying()) {
-                pNext = Game.getPlayers().get(0);
-            }
-        } else if(this.getPlayerID() == 2) {
+                if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                } else if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                }
+            } else if (this.getPlayerID() == 1) {
 
-            if (Game.getPlayers().get(0).getPlaying()) {
-                pNext = Game.getPlayers().get(0);
-            } else if (Game.getPlayers().get(1).getPlaying()) {
-                pNext = Game.getPlayers().get(1);
+                if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                } else if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                }
+            }
+        } else {
+            if (this.getPlayerID() == 0) {
+
+                if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                } else if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(2);
+                }
+            } else if (this.getPlayerID() == 1) {
+
+                if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(2);
+                } else if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                }
+            } else if (this.getPlayerID() == 2) {
+
+                if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                } else if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                }
             }
         }
         return pNext;

@@ -1,5 +1,7 @@
 package com.InProgress.Model;
 
+import com.InProgress.GUI.GameWindow;
+
 public abstract class TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -102,7 +104,23 @@ public abstract class TravellerBase {
     public void die() {
         this.isAlive = false;
 
-        // TODO Die Window (Controller)
+        GameWindow.infobox("Settler is dead","DEAD");
+        if(Game.getCurrentPlayer().checkSettlers())
+        {
+            for(Settler i : Game.getCurrentPlayer().getSettlers())
+            {
+                if(i.isAlive) {
+                    Game.setActiveSettler(i);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            Game.getCurrentPlayer().setPlaying(false);
+            Game.getCurrentPlayer().endMyTurn();
+        }
+
     }
 
 
