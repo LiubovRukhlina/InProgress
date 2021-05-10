@@ -90,6 +90,14 @@ public class Game implements Serializable {
         }
         if(!currentPlayer.getPlaying()) { // if the currentPlayer died during the previous actions we assign a new one
             currentPlayer = currentPlayer.getNextPlayer();
+            for(Settler i: Game.getCurrentPlayer().getSettlers())
+            {
+                if(i.isAlive)
+                {
+                    Game.setActiveSettler(i);
+                }
+            }
+
         }
         //-----------------------------------------------------------------------------------
 

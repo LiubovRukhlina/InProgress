@@ -122,7 +122,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-                GameWindow.infobox("Asteroid is completly drill","Drill Error");
+                GameWindow.infobox("Asteroid is completely drilled","Drill Error");
         }
     }
 
@@ -146,6 +146,7 @@ public class Settler extends TravellerBase {
 
             ErrorMessage err = new ErrorMessage();
             err.initialize();
+
 
         }
     }
@@ -199,7 +200,8 @@ public class Settler extends TravellerBase {
         if (itsInventory.checkResources(A)) { // checks if there are enough resources
             Game.endGame(1);
         } else {
-            // TODO Cannot Build Window (Controller)
+            GameWindow.infobox("Cannot build Space Station","Insufficient resources");
+
         }
     }
 
@@ -315,7 +317,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            /GameWindow.infobox("The Asteroid is full","Error");
+            GameWindow.infobox("The Asteroid is full","Error");
         }
     }
 

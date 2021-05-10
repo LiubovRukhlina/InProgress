@@ -70,7 +70,15 @@ public class Player {
      * when no more moves are left or when all the Settlers are dead.
      */
     public void endMyTurn() {
-        Game.setCurrentPlayer(getNextPlayer()); // assigns the next Player
+        Game.setCurrentPlayer(getNextPlayer());
+        for(Settler i: Game.getCurrentPlayer().getSettlers())
+        {
+            if(i.isAlive)
+            {
+                Game.setActiveSettler(i);
+            }
+        }
+       // assigns the next Player
         if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID < Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
             Game.nextRound();
         }
