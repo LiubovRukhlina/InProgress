@@ -10,6 +10,8 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
     GameWindow previous;
     /**
      * Creates new form LeaveResourceMessage
+     *
+     * @param game Game window from which this window was called
      */
     public LeaveResourcesWindow(GameWindow game) {
         this.previous = game;
@@ -139,6 +141,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
        else
        {
            dispose();
+           Game.Controller();
            GameWindow gameWindow = new GameWindow();
            gameWindow.initialize();
            previous.setVisible(false);

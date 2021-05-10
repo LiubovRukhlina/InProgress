@@ -20,6 +20,11 @@ public class GameWindow extends javax.swing.JFrame {
         labelPic.setText("");
     }
 
+    /**
+     * Loads and returns an Image file
+     * @param name name of the Image file
+     * @return Image file
+     */
     private Image getImage (String name) {
         String fileName = "symbols/" + name.toLowerCase() + ".png";
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -216,10 +221,6 @@ public class GameWindow extends javax.swing.JFrame {
             HollowLabel.setText("Hollow: False");
 
         Inventory inv = Game.getActiveSettler().getItsInventory();
-        /*inv.addResource(new Iron("Iron"));
-        inv.addResource(new Uranium("Uranium"));
-        inv.addResource(new Carbon("Carbon"));
-        Game.getActiveSettler().setItsInventory(inv);*/
 
         if(inv.getStoredGates().size() != 0) {
 
@@ -602,6 +603,7 @@ public class GameWindow extends javax.swing.JFrame {
         Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
         setVisible(false);
         dispose();
+        Game.Controller();
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
 

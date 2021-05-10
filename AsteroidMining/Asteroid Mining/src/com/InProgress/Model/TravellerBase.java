@@ -1,5 +1,7 @@
 package com.InProgress.Model;
 
+import com.InProgress.GUI.GameWindow;
+
 public abstract class TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -13,8 +15,11 @@ public abstract class TravellerBase {
 
     //<editor-fold desc="Constructor">
 
-    public TravellerBase() { }
-
+    /**
+     * Constructor of the TravellerBase
+     *
+     * @param currentPosition Starting Asteroid of the Traveller.
+     */
     public TravellerBase(Asteroid currentPosition) {
         this.currentPosition = currentPosition;
     }
@@ -26,13 +31,15 @@ public abstract class TravellerBase {
 
     /**
      * Abstract method for travelling
+     *
      * @param A destination Asteroid
      */
     public abstract void travel(Asteroid A);
 
 
     /**
-     * Abstract method for fast Travel
+     * Abstract method for fast travel using a gate
+     *
      * @param A Asteroid to which the gate belongs
      */
     public abstract void fastTravel(Asteroid A);
@@ -67,15 +74,24 @@ public abstract class TravellerBase {
 
     /**
      * Abstract method for drilling
+     *
      * @param A Asteroid that is being drilled
      */
     public abstract void drill(Asteroid A);
 
+    /**
+     * Checks if the Destination of this Traveller is valid,
+     * s. t. it is not exploded and in the neighborhood.
+     *
+     * @param Destination Travel destination of this Traveller
+     * @return True if the Destination is valid. False if not.
+     */
     public boolean checkDestination(Asteroid Destination) {
         if (Destination.getExploded()) {
             return false;
         }
 
+        // Flags to check if the coordinate value is valid for travel
         boolean xFlag = false;
         boolean yFlag = false;
         boolean zFlag = false;
@@ -102,10 +118,24 @@ public abstract class TravellerBase {
     public void die() {
         this.isAlive = false;
 
-        // TODO Die Window (Controller)
+        GameWindow.infobox("Settler is dead","DEAD");
+        if(Game.getCurrentPlayer().checkSettlers())
+        {
+            for(Settler i : Game.getCurrentPlayer().getSettlers())
+            {
+                if(i.isAlive) {
+                    Game.setActiveSettler(i);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            Game.getCurrentPlayer().setPlaying(false);
+            Game.getCurrentPlayer().endMyTurn();
+        }
+
     }
-
-
 
     //</editor-fold>
 
@@ -122,8 +152,6 @@ public abstract class TravellerBase {
 
     public boolean getAlive() { return isAlive; }
     public void setAlive(boolean alive) { isAlive = alive; }
-
-
 
     //</editor-fold>
 }

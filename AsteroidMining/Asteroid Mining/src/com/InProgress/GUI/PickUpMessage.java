@@ -11,6 +11,8 @@ public class PickUpMessage extends javax.swing.JFrame {
 
     /**
      * Creates new form PickUpMessage
+     * @param game Game window from which this window was called
+     * @param resource Type of the Resource which was picked up
      */
     public PickUpMessage(String resource,GameWindow game) {
         initComponents(resource,game);
@@ -34,10 +36,13 @@ public class PickUpMessage extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                Game.Controller();
                 GameWindow gamewindow = new GameWindow();
                 gamewindow.initialize();
                 game.setVisible(false);
                 game.dispose();
+                setVisible(false);
+                dispose();
             }
         });
         setTitle("Pick Up Message");

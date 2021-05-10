@@ -16,6 +16,7 @@ public class ResourceBase {
 
     /**
      * constructor for ResourceBase
+     *
      * @param resourceType Name of the resource
      */
     public ResourceBase(String resourceType) { this.resourceType = resourceType; }
@@ -26,12 +27,14 @@ public class ResourceBase {
 
     /**
      * Virtual method. Implementation is in Uranium class.
+     *
      * @param A Asteroid that has this Resource
      */
     protected void explode(Asteroid A)  { }
 
     /**
      * Virtual method. Implementation is in WaterIce class.
+     *
      * @param A Asteroid that has this Resource
      */
     protected void sublime(Asteroid A) { }

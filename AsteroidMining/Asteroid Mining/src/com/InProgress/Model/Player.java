@@ -8,8 +8,8 @@ public class Player {
     //<editor-fold desc="Attributes">
     private int playerID;
     private int numberOfMoves;
-    private ArrayList<Settler> settlers = new ArrayList<Settler>();//added
-    private Boolean isPlaying;
+    private ArrayList<Settler> settlers = new ArrayList<Settler>();
+    private Boolean isPlaying; // determines whether a Player still has active Settlers, he can play with.
 
     //<editor-fold desc="Constructor"
 
@@ -22,11 +22,11 @@ public class Player {
         this.playerID = playerID;
         this.numberOfMoves = 5;
 
-
+        // A Player gets 3 Settlers to play with
         this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler2", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
         this.settlers.add( new Settler("Settler3", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
-        //this.isPlaying = true; makes all the players as true, only 1 can be playing at a time
+        this.isPlaying = true;
     }
 
     //</editor-fold>
@@ -40,12 +40,14 @@ public class Player {
     public void decreaseNumberOfMoves(){
 
         numberOfMoves--;
+        System.out.println(numberOfMoves);
     }
 
     /**
      * Checks if the Settlers of this Player are alive.
+     *
      * @return true if the player has alive settlers
-     * @return false if all the settlers of the player are dead
+     *         false if all the settlers of the player are dead
      */
     public boolean checkSettlers() {
         int cnt = settlers.size(); //counter to keep track of living Settlers
@@ -69,7 +71,15 @@ public class Player {
      * when no more moves are left or when all the Settlers are dead.
      */
     public void endMyTurn() {
-        Game.setCurrentPlayer(getNextPlayer()); // assigns the next Player
+        Game.setCurrentPlayer(getNextPlayer());
+        for(Settler i: Game.getCurrentPlayer().getSettlers())
+        {
+            if(i.isAlive)
+            {
+                Game.setActiveSettler(i);
+            }
+        }
+       // assigns the next Player
         if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID < Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
             Game.nextRound();
         }
@@ -77,33 +87,54 @@ public class Player {
 
     /**
      * Checks which Player is the next one.
+     *
      * @return pNext the next Player.
      */
     public Player getNextPlayer() {
         Player pNext = this;
 
-        if(this.getPlayerID() == 0) {
+        if(Game.getPlayers().size()== 1) { // check for a single player game
+            return pNext; // if there is only one Player, he is always the next one.
+        }
+        else if (Game.getPlayers().size()== 2) { // check for a game with 2 players
 
-            if(Game.getPlayers().get(1).getPlaying()) {
-                pNext = Game.getPlayers().get(1);
-            }
-            else if(Game.getPlayers().get(2).getPlaying()) {
-                pNext = Game.getPlayers().get(2);
-            }
-        } else if(this.getPlayerID() == 1) {
+            if (this.getPlayerID() == 0) {
 
-            if(Game.getPlayers().get(2).getPlaying()) {
-                pNext = Game.getPlayers().get(2);
-            }
-            else if(Game.getPlayers().get(0).getPlaying()) {
-                pNext = Game.getPlayers().get(0);
-            }
-        } else if(this.getPlayerID() == 2) {
+                if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                } else if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                }
+            } else if (this.getPlayerID() == 1) {
 
-            if (Game.getPlayers().get(0).getPlaying()) {
-                pNext = Game.getPlayers().get(0);
-            } else if (Game.getPlayers().get(1).getPlaying()) {
-                pNext = Game.getPlayers().get(1);
+                if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                } else if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                }
+            }
+        } else { // check for a game with 3 players
+            if (this.getPlayerID() == 0) {
+
+                if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                } else if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(2);
+                }
+            } else if (this.getPlayerID() == 1) {
+
+                if (Game.getPlayers().get(2).getPlaying()) {
+                    pNext = Game.getPlayers().get(2);
+                } else if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                }
+            } else if (this.getPlayerID() == 2) {
+
+                if (Game.getPlayers().get(0).getPlaying()) {
+                    pNext = Game.getPlayers().get(0);
+                } else if (Game.getPlayers().get(1).getPlaying()) {
+                    pNext = Game.getPlayers().get(1);
+                }
             }
         }
         return pNext;

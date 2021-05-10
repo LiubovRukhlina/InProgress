@@ -19,7 +19,7 @@ public class Main {
                 break;
 
             case 1:
-              // BuildWindow buildWindow = new BuildWindow();
+                //BuildWindow buildWindow = new BuildWindow();
                 //buildWindow.initialize();
                 break;
 
@@ -29,7 +29,7 @@ public class Main {
                 break;
 
             case 3:
-                //eaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
+                //LeaveResourcesWindow leaveResourcesWindow = new LeaveResourcesWindow();
                 //leaveResourcesWindow.initialize();
                 break;
 
