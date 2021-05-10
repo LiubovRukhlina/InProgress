@@ -1,19 +1,21 @@
 package com.InProgress.GUI;
 
-import com.InProgress.Model.Asteroid;
-import com.InProgress.Model.Game;
-import com.InProgress.Model.ResourceBase;
-import com.InProgress.Model.Settler;
+import com.InProgress.Model.*;
+
+import javax.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow extends javax.swing.JFrame {
 
+    public static  String resource;
+
+
     ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
     ImageIcon imageGateActive = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Gate_Active.png");
     //ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
-    /**
+
      * Creates new form MainWindow
      */
     public GameWindow() {
@@ -44,9 +46,9 @@ public class GameWindow extends javax.swing.JFrame {
         CurrentAsteroidLabel = new javax.swing.JLabel();
         HollowLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        GatesList = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        InventoryList = new javax.swing.JList<>();
         StatusLabel = new javax.swing.JLabel();
         ActiveSettlerLabel = new javax.swing.JLabel();
         DeathLabel = new javax.swing.JLabel();
@@ -82,14 +84,17 @@ public class GameWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setResizable(false);
+        setResizable(true);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
-        CurrentPlayer.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        CurrentPlayer.setForeground(new java.awt.Color(51, 204, 0));
-        CurrentPlayer.setText("Player 1:");
+
+        CurrentPlayerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        CurrentPlayerLabel.setForeground(new java.awt.Color(51, 204, 0));
+        CurrentPlayerLabel.setText("Player:" + Game.getCurrentPlayer().getPlayerID());
+
+
 
         TravelButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         TravelButton.setText("Travel");
@@ -101,28 +106,61 @@ public class GameWindow extends javax.swing.JFrame {
 
         CurrentAsteroidLabel.setFont(new java.awt.Font("Consolas", 1, 28)); // NOI18N
         CurrentAsteroidLabel.setForeground(new java.awt.Color(51, 204, 0));
-        CurrentAsteroidLabel.setText("Asteroid: "+asteroid.toString());
+        CurrentAsteroidLabel.setText("Asteroid: " + asteroid.toString());
 
         HollowLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         HollowLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getHollow())
+        if (asteroid.getHollow())
             HollowLabel.setText("Hollow: True");
         else
             HollowLabel.setText("Hollow: False");
+        Inventory inv = Game.getActiveSettler().getItsInventory();
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        inv.addResource(new Iron("Iron"));
+        inv.addResource(new Iron("Iron"));
+        inv.addResource(new WaterIce("WaterIce"));
+        inv.addResource(new Uranium("Uranium"));
+        inv.addResource(new Carbon("Carbon"));
+        Game.getActiveSettler().setItsInventory(inv);
+
+        if(inv.getStoredGates().size() != 0) {
+
+            GatesList.setModel(new javax.swing.AbstractListModel<String>() {
+
+
+                public int getSize() {
+                    return 2;
+                }
+
+                public String getElementAt(int i) {
+                    return "Gate"+i+1;
+                }
+            });
+
+        }
+        else
+        {
+            GatesList.setModel(new javax.swing.AbstractListModel<String>() {
+
+
+                public int getSize() {
+                    return 2;
+                }
+
+                public String getElementAt(int i) {
+                    return " ";
+                }
+            });
+
+        }
+        jScrollPane1.setViewportView(GatesList);
+
+        InventoryList.setModel(new javax.swing.AbstractListModel<String>() {
+            public int getSize() { return inv.getStoredResources().size(); }
+            public String getElementAt(int i) { return inv.getStoredResources().get(i).getResourceType(); }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(InventoryList);
 
         StatusLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         StatusLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -152,10 +190,10 @@ public class GameWindow extends javax.swing.JFrame {
 
         MiningStatusLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         MiningStatusLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getHollow())
-            MiningStatusLabel.setText("Mineable: NO");
+        if((asteroid.getDepth() == 0) && !asteroid.getHollow())
+            MiningStatusLabel.setText("Mineable: Yes");
         else
-            MiningStatusLabel.setText("Mineable:Yes");
+            MiningStatusLabel.setText("Mineable:No"+asteroid.getDepth());
 
         GateLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         GateLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -180,13 +218,13 @@ public class GameWindow extends javax.swing.JFrame {
         ResourceLabel.setForeground(new java.awt.Color(51, 204, 0));
         try
         {
-            ResourceBase resource = Game.getActiveSettler().getCurrentPosition().getStoredResourceOfAsteroid().get(0);
+            ResourceBase resource = asteroid.getStoredResourceOfAsteroid().get(0);
             String res = resource.getResourceType();
-            ResourceLabel.setText("Resource on Surface:" +res);
+            ResourceLabel.setText(res);
         }
         catch (IndexOutOfBoundsException ex)
         {
-            ResourceLabel.setText("Resource on Surface: None");
+            ResourceLabel.setText("None");
         }
 
         NumSettlerLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
@@ -225,7 +263,7 @@ public class GameWindow extends javax.swing.JFrame {
             }
         });
 
-        DrillButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        DrillButton.setFont(new java.awt.Font("Consolas", 0, 18)); //NOI18N
         DrillButton.setText("Drill");
         DrillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,40 +492,11 @@ public class GameWindow extends javax.swing.JFrame {
 
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
+        TravelWindow travelWindow = new TravelWindow(this);
+        travelWindow.initialize(this);
+
         labelPic.setIcon(imageAsteroid);
-        /*TravelWindow travelWindow = new TravelWindow();
-        travelWindow.initialize();*/
-
-        /*
-        Asteroid asteroid = settler.getCurrentPosition();
-        CurrentAsteroidLabel.setText(settler.getCurrentPosition().toString());
-        if(asteroid.getHollow())
-            MiningStatusLabel.setText("Mineable: NO");
-        else
-            MiningStatusLabel.setText("Mineable: Yes");
-
-        if(asteroid.getHasGate())
-            GateLabel.setText("Gate: True");
-        else
-            GateLabel.setText("Gate: False ");
-        if(asteroid.getAtPerihelion())
-            PerihelionLabel.setText("Perihelion: True");
-        else
-            PerihelionLabel.setText("Perihelion: False");
-        if(asteroid.getHasGate())
-            DestinationLabel.setText("Destination:" + Game.getActiveSettler().getCurrentPosition().getGate().getPair().getCurrentPosition().toString());
-        try
-        {
-            ResourceBase resource = Game.getActiveSettler().getCurrentPosition().getStoredResourceOfAsteroid().get(0);
-            String res = resource.getResourceType();
-            ResourceLabel.setText("Resource on Surface:" +res);
-        }
-        catch (IndexOutOfBoundsException ex)
-        {
-            ResourceLabel.setText("Resource on Surface: None");
-        }
-        travelWindow.setVisible(false);
-        */
+       
     }
 
     private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -495,23 +504,40 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
     private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
+        Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
+        setVisible(false);
+        dispose();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
 
     }
 
     private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        Game.getActiveSettler().mine(Game.getActiveSettler().getCurrentPosition());
+        MineMessage message = new MineMessage();
+        setVisible(false);
+        dispose();
+        message.initialize();
+
+
     }
 
     private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        LeaveResourcesWindow leave = new LeaveResourcesWindow(this);
+        leave.initialize(this);
+
     }
 
     private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        Game.getActiveSettler().pickUpResources();
+        PickUpMessage message = new PickUpMessage(resource,this);
+        message.initialize(resource,this);
     }
 
     private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        BuildWindow build = new BuildWindow(this);
+        build.initialize(this);//2
         // TODO add your handling code here:
     }
 
@@ -551,7 +577,10 @@ public class GameWindow extends javax.swing.JFrame {
             }
         });
     }
-
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
+    }
     // Variables declaration - do not modify
     private javax.swing.JLabel ActiveSettlerLabel;
     private javax.swing.JLabel AsteroidBeltLabel;
@@ -571,6 +600,10 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JButton LeaveButton;
     private javax.swing.JButton MineButton;
     private javax.swing.JLabel MiningStatusLabel;
+
+    private javax.swing.JList<String> GatesList;
+    private javax.swing.JList<String> InventoryList;
+
     private javax.swing.JLabel NumAsteroidsLabel;
     private javax.swing.JLabel NumGatesLabel;
     private javax.swing.JLabel NumRobotLabel;
@@ -586,6 +619,7 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JButton TravelButton;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
+
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

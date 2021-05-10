@@ -1,5 +1,7 @@
 package com.InProgress.Model;
 
+import com.InProgress.GUI.ErrorMessage;
+import com.InProgress.GUI.GameWindow;
 import com.InProgress.GUI.TravelWindow;
 
 public class Settler extends TravellerBase {
@@ -120,7 +122,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Drill Window (Controller)
+                GameWindow.infobox("Asteroid is completly drill","Drill Error");
         }
     }
 
@@ -132,12 +134,19 @@ public class Settler extends TravellerBase {
      */
     public void mine(Asteroid A) {
         if(A.getDepth() == 0 && !A.getHollow()) {
+
+            GameWindow.resource = A.getResourceOfAsteroid().get(0).resourceType;
             this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
             A.emptyAsteroid(); // removes the Resource from the Asteroid
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            Game.getCurrentPlayer().decreaseNumberOfMoves();
+
+            //return A.getResourceOfAsteroid().get(0);// action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Mine Window (Controller)
+
+            ErrorMessage err = new ErrorMessage();
+            err.initialize();
+
         }
     }
 
@@ -235,7 +244,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Build Window (Controller)
+            GameWindow.infobox("Failed Checj","Error");
         }
     }
 
