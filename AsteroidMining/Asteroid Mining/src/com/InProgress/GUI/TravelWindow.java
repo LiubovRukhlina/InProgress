@@ -183,7 +183,7 @@ public class TravelWindow extends javax.swing.JFrame {
         dispose();
 
 
-
+        Game.Controller();
         GameWindow gameWindowe = new GameWindow();
         gameWindowe.initialize();
         game.setVisible(false);

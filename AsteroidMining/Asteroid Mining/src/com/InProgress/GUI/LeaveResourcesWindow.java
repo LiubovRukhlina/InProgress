@@ -139,6 +139,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
        else
        {
            dispose();
+           Game.Controller();
            GameWindow gameWindow = new GameWindow();
            gameWindow.initialize();
            previous.setVisible(false);

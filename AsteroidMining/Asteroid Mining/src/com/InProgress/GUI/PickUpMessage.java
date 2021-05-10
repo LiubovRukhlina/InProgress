@@ -34,6 +34,7 @@ public class PickUpMessage extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                Game.Controller();
                 GameWindow gamewindow = new GameWindow();
                 gamewindow.initialize();
                 game.setVisible(false);

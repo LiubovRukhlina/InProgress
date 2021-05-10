@@ -120,6 +120,7 @@ public class BuildWindow extends javax.swing.JFrame {
 
     private void spaceStationButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildSpaceStation(Game.getActiveSettler().getCurrentPosition());
+        Game.Controller();
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
         previous.setVisible(false);
@@ -128,6 +129,7 @@ public class BuildWindow extends javax.swing.JFrame {
 
     private void robotButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildRobot();
+        Game.Controller();
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
         previous.setVisible(false);
@@ -142,6 +144,7 @@ public class BuildWindow extends javax.swing.JFrame {
 
     private void gatesButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildTransportGate();
+        Game.Controller();
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
         previous.setVisible(false);

@@ -97,9 +97,9 @@ public class GameWindow extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
 
-        CurrentPlayerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        CurrentPlayerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        CurrentPlayerLabel.setText("Player:" + Game.getCurrentPlayer().getPlayerID());
+        CurrentPlayer.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        CurrentPlayer.setForeground(new java.awt.Color(51, 204, 0));
+        CurrentPlayer.setText("Player:" + Game.getCurrentPlayer().getPlayerID());
 
 
 
@@ -514,6 +514,7 @@ public class GameWindow extends javax.swing.JFrame {
         Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
         setVisible(false);
         dispose();
+        Game.Controller();
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
 
