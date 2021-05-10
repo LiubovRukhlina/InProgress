@@ -1,6 +1,0 @@
-set asteroidbelt 3 3 3
-create object SETTLER 0 0 0
-modify 0 0 0 ISATPERIHELION TRUE
-modify 0 0 0 ROCKCOVER 1
-add WATERICE 0 0 0 RESOURCEOFASTEROID
-drill S 1 0 0 0

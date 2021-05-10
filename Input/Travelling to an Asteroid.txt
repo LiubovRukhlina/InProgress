@@ -1,3 +1,0 @@
-set asteroidbelt 3 3 3
-create object SETTLER 0 0 0
-travel S 1 1 1 1
