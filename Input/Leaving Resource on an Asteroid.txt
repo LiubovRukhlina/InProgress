@@ -1,5 +1,0 @@
-set asteroidbelt 3 3 3
-create object SETTLER 0 0 0
-modify 0 0 0 ISHOLLOW TRUE
-add CARBON S 1 STOREDRESOURCES
-leave S 1 CARBON 0 0 0

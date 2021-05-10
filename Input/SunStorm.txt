@@ -1,6 +1,0 @@
-set asteroidbelt 3 3 3
-create object SETTLER 0 0 0
-modify S 1 ISHIDDEN TRUE
-create object SETTLER 1 1 1
-modify S 2 ISHIDDEN FALSE
-sunstorm

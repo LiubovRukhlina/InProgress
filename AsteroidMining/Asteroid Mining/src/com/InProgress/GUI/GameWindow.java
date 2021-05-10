@@ -6,9 +6,9 @@ import javax.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class GameWindow extends javax.swing.JFrame {
-
     public static  String resource;
 
 
@@ -16,12 +16,20 @@ public class GameWindow extends javax.swing.JFrame {
     ImageIcon imageGateActive = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Gate_Active.png");
     //ImageIcon imageAsteroid = new ImageIcon("InProgress\\AsteroidMining\\Asteroid Mining\\Symbols\\Settler.png");
 
+    /**
      * Creates new form MainWindow
      */
     public GameWindow() {
         initComponents();
         this.setLocationRelativeTo(null);
         labelPic.setText("");
+    }
+
+    private Image getImage (String name) {
+        String fileName = "symbols/" + name.toLowerCase() + ".png";
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        ImageIcon icon = new ImageIcon(classLoader.getResource(fileName));
+        return icon.getImage();
     }
 
     /**
@@ -37,8 +45,7 @@ public class GameWindow extends javax.swing.JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage((Image) imageAsteroid.getImage(), 1 * 50, 1 * 50, this);
-                g.drawImage((Image) imageGateActive.getImage(), 5 * 50, 5 * 50, this);
+                g.drawImage(getImage("Asteroid"), 1 * 50, 1 * 50, this);
             }
         };
         CurrentPlayer = new javax.swing.JLabel();
@@ -491,11 +498,11 @@ public class GameWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
 
         labelPic.setIcon(imageAsteroid);
+       
        
     }
 
