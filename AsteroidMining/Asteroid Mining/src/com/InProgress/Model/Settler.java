@@ -29,6 +29,12 @@ public class Settler extends TravellerBase {
         this.name = name;
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
+        /*this.itsInventory = new Inventory();
+        this.itsInventory.addResource(new Iron("Iron"));
+        this.itsInventory.addResource(new Iron("Iron"));
+        this.itsInventory.addResource(new Uranium("Uranium"));
+        this.itsInventory.addResource(new Iron("WaterIce"));
+        this.itsInventory.addResource(new Carbon("Carbon"));*/
     }
 
     //</editor-fold>
@@ -182,6 +188,8 @@ public class Settler extends TravellerBase {
             Robot newRobot = new Robot(currentPosition); // create new Robot
             Game.getRobots().add(newRobot); // adds the Robot to the list of Robots
             newRobot.randomTravel(this.getCurrentPosition()); // robot immediately travels to a different Asteroid
+
+            currentPosition.getRobotsOnAsteroid().add(newRobot); //TODO added but might be wrong
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
