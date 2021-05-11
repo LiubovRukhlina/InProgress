@@ -48,7 +48,7 @@ public class Sun {
         }
 
         // change sunX value
-        if(this.sunX == 9) {
+        if(this.sunX == Game.getMaxX()-1) {
             this.sunX = 0;
         } else {
             this.sunX++;
