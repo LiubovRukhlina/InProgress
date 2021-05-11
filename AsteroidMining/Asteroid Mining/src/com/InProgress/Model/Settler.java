@@ -29,13 +29,13 @@ public class Settler extends TravellerBase {
         this.name = name;
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
-        /*this.itsInventory = new Inventory();
+        this.itsInventory = new Inventory();
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new Iron("WaterIce"));
+        this.itsInventory.addResource(new WaterIce("WaterIce"));
         this.itsInventory.addResource(new Carbon("Carbon"));
-        */
+
 
     }
 
