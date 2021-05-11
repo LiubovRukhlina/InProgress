@@ -29,12 +29,14 @@ public class Settler extends TravellerBase {
         this.name = name;
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
-        /*this.itsInventory = new Inventory();
+        this.itsInventory = new Inventory();
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new Iron("WaterIce"));
-        this.itsInventory.addResource(new Carbon("Carbon"));*/
+        this.itsInventory.addResource(new WaterIce("WaterIce"));
+        this.itsInventory.addResource(new Carbon("Carbon"));
+
+
     }
 
     //</editor-fold>
@@ -138,7 +140,7 @@ public class Settler extends TravellerBase {
      *
      * @param A Asteroid that is mined.
      */
-    public void mine(Asteroid A) {
+    public int mine(Asteroid A) {
         if(A.getDepth() == 0 && !A.getHollow()) { // checks if the Asteroid is mineable
 
             GameWindow.resource = A.getResourceOfAsteroid().get(0).resourceType;
@@ -147,11 +149,14 @@ public class Settler extends TravellerBase {
             A.hideMyTravellers(); // the Asteroid is hollow now. Travellers can hide.
 
             Game.getCurrentPlayer().decreaseNumberOfMoves();
+            System.out.println("Reached here");
+            return 1;
 
         } else {
 
             ErrorMessage err = new ErrorMessage(); // error message in case the Asteroid is not mineable
             err.initialize();
+            return 0;
         }
     }
 
@@ -315,16 +320,18 @@ public class Settler extends TravellerBase {
      * Since only Resources of the same type are stored on the Asteroid the last Element of the
      * StoredResourcesOfAsteroid list is picked up.
      */
-    public void pickUpResources() {
+    public int pickUpResources() {
         if(!currentPosition.getStoredResourceOfAsteroid().isEmpty()) { // check if there are Resources stored on the Asteroid
             int index = currentPosition.getStoredResourceOfAsteroid().size()-1;
 
             itsInventory.addResource(currentPosition.getStoredResourceOfAsteroid().get(index));
             currentPosition.getStoredResourceOfAsteroid().remove(index);
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            Game.getCurrentPlayer().decreaseNumberOfMoves();
+            return 1;// action was successful, decrease the number of moves
         } else {
-            GameWindow.infobox("The Asteroid is full","Error");
+            GameWindow.infobox("The Asteroid has no Resources","Error");
+            return 0;
         }
     }
 

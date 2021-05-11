@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class GameWindow extends javax.swing.JFrame {
     public static String resource;
@@ -185,7 +186,7 @@ public class GameWindow extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         Start = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -303,6 +304,10 @@ public class GameWindow extends javax.swing.JFrame {
 
         PerihelionLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         PerihelionLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(asteroid.getX() == Game.getSun().getSunX())
+        {
+            asteroid.setAtPerihelion(true);
+        }
         if(asteroid.getAtPerihelion())
             PerihelionLabel.setText("Perihelion: True");
         else
@@ -414,8 +419,13 @@ public class GameWindow extends javax.swing.JFrame {
         labelPic.setMaximumSize(new java.awt.Dimension(46, 46));
         labelPic.setMinimumSize(new java.awt.Dimension(46, 46));
         labelPic.setName("labelPic"); // NOI18N
-
-        SettlersListLabel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ArrayList<String>  Settlers = new ArrayList<String>();
+        //ArrayList<Settler> Settlers= Game.getCurrentPlayer().getSettlers();
+        for(Settler i :Game.getCurrentPlayer().getSettlers() )
+        {
+            Settlers.add(i.getName());
+        }
+        SettlersListLabel.setModel(new javax.swing.DefaultComboBoxModel(Settlers.toArray()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -555,6 +565,13 @@ public class GameWindow extends javax.swing.JFrame {
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
 
         jMenu1.setText("Menu");
+        jMenu1.add(Exit);
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+
 
         Start.setText("Start New Game");
         jMenu1.add(Start);
@@ -594,6 +611,10 @@ public class GameWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    private void exitActionPerformed(ActionEvent evt) {
+        System.exit(0);
+    }
+
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
@@ -623,14 +644,12 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
     private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Game.getActiveSettler().mine(Game.getActiveSettler().getCurrentPosition());
-        MineMessage message = new MineMessage();
-        setVisible(false);
-        dispose();
-        Game.Controller();
-        message.initialize();
-
-
+        int r = Game.getActiveSettler().mine(Game.getActiveSettler().getCurrentPosition());
+        if(r == 1);
+        {
+            MineMessage message = new MineMessage(this);
+            message.initialize(this);
+        }
     }
 
     private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -640,16 +659,18 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
     private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Game.getActiveSettler().pickUpResources();
-        PickUpMessage message = new PickUpMessage(resource,this);
-        message.initialize(resource,this);
+        int r = Game.getActiveSettler().pickUpResources();
+        if(r == 1) {
+            PickUpMessage message = new PickUpMessage(resource, this);
+            message.initialize(resource, this);
+        }
     }
 
     private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
         BuildWindow build = new BuildWindow(this);
         build.initialize(this);//2
-        // TODO add your handling code here:
+
     }
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -739,7 +760,7 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JList<String> jList2;
 
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

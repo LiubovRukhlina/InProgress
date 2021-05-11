@@ -121,6 +121,9 @@ public class Inventory{
                 }
 
             }
+            System.out.println(uCount);
+            System.out.println(iCount);
+            System.out.println(wCount);
             return uCount == 1 && iCount == 2 && wCount == 1; // returns true if enough resources are available
 
         }

@@ -74,6 +74,7 @@ public class Game implements Serializable {
     public static void nextRound() {
 
         roundCounter++;
+        System.out.println("roundcounter:"+ roundCounter);
         sun.decreaseCountdown();
 
         if(sun.getCountdownOfSunStorm() == 0) { // checks if sunstorm occurs in this round

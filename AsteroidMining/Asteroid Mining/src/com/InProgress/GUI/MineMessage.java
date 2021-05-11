@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 
 public class MineMessage extends javax.swing.JFrame {
 
+    GameWindow previous;
     /**
      * Creates new form MineMessage
      */
-    public MineMessage() {
+    public MineMessage(GameWindow game) {
+        this.previous = game;
         initComponents();
     }
 
@@ -92,13 +94,16 @@ public class MineMessage extends javax.swing.JFrame {
     private void okActionPerformed(ActionEvent evt) {
         setVisible(false);
         Game.Controller();
+
         GameWindow game = new GameWindow();
         game.initialize();
+        this.previous.setVisible(false);
+        this.previous.dispose();
         dispose();
     }
 
 
-    public void initialize() {
+    public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -125,7 +130,7 @@ public class MineMessage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MineMessage().setVisible(true);
+                new MineMessage(game).setVisible(true);
             }
         });
     }
