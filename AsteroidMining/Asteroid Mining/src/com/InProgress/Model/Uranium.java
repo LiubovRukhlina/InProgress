@@ -29,6 +29,7 @@ public class Uranium extends ResourceBase{
     public void explode(Asteroid A)  {
 
         A.setExploded(true); // change isExploded attribute of Asteroid to true.
+        Game.setNumberOfAsteroids(Game.getNumberOfAsteroids()-1);
 
         if(A.getHasGate() == true) // check for gates of the Asteroid
         {

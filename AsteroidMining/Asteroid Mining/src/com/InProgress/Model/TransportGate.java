@@ -43,6 +43,7 @@ public class TransportGate {
     public void deactivateTransportGate() {
         this.isActive = Boolean.FALSE;
         this.getPair().setActive(false);
+        Game.setNumberOfGates(Game.getNumberOfGates()-2);
     }
 
     /**

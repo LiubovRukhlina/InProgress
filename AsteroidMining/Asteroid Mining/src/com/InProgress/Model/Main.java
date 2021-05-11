@@ -34,8 +34,8 @@ public class Main {
                 break;
 
             case 4:
-                MineMessage mineMessage = new MineMessage();
-                mineMessage.initialize();
+                //MineMessage mineMessage = new MineMessage();
+                //mineMessage.initialize();
                 break;
 
             case 5:

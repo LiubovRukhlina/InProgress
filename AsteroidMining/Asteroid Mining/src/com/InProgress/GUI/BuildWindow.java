@@ -126,6 +126,7 @@ public class BuildWindow extends javax.swing.JFrame {
         gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
+        dispose();
     }
 
     private void robotButtonActionPerformed(ActionEvent evt) {
@@ -135,6 +136,7 @@ public class BuildWindow extends javax.swing.JFrame {
         gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
+        dispose();
     }
 
     private void cancelButtonActionPerformed(ActionEvent evt) {
@@ -150,6 +152,7 @@ public class BuildWindow extends javax.swing.JFrame {
         gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
+        dispose();
     }
 
 
