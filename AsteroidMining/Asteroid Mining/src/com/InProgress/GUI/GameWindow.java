@@ -186,7 +186,7 @@ public class GameWindow extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         Start = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -304,6 +304,10 @@ public class GameWindow extends javax.swing.JFrame {
 
         PerihelionLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         PerihelionLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(asteroid.getX() == Game.getSun().getSunX())
+        {
+            asteroid.setAtPerihelion(true);
+        }
         if(asteroid.getAtPerihelion())
             PerihelionLabel.setText("Perihelion: True");
         else
@@ -756,7 +760,7 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JList<String> jList2;
 
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
