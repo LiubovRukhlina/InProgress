@@ -1,6 +1,7 @@
 package com.InProgress.GUI;
 
 
+import javax.swing.*;
 
 public class ErrorMessage extends javax.swing.JFrame {
 
@@ -24,7 +25,7 @@ public class ErrorMessage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("System Message");
         setResizable(false);
 
