@@ -4,6 +4,7 @@ import com.InProgress.Model.Game;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.time.Clock;
 
 public class BuildWindow extends javax.swing.JFrame {
 
@@ -172,8 +173,16 @@ public class BuildWindow extends javax.swing.JFrame {
         previous.dispose();
         dispose();
     }
-    private void deployGateButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void deployGateButtonActionPerformed(ActionEvent evt) {
+        Game.getActiveSettler().deployTransportGate(Game.getActiveSettler().getCurrentPosition());
+        Game.Controller();
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+
+
     }
 
 
