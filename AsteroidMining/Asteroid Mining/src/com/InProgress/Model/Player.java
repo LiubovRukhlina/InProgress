@@ -80,7 +80,7 @@ public class Player {
             }
         }
        // assigns the next Player
-        if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID < Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
+        if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID > Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
             Game.nextRound();
         }
     }

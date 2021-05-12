@@ -60,8 +60,6 @@ public class Game implements Serializable {
         }
         currentPlayer = players.get(0);                     // first player is starts
         activeSettler = currentPlayer.getSettlers().get(0); // with its first Settler
-
-        sun = new Sun();
     }
 
 

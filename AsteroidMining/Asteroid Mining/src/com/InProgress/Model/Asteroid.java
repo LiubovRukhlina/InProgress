@@ -69,6 +69,7 @@ public class Asteroid {
                 this.isRadioactive = false;
             }break;
             case 5: { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
+                this.resourceOfAsteroid.add(new ResourceBase(""));
                 this.isHollow = true;
                 this.isRadioactive = false;
             }break;
