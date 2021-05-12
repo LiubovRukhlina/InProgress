@@ -187,13 +187,8 @@ public class TravelWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-
-        Game.Controller();
-        GameWindow gameWindowe = new GameWindow();
-        gameWindowe.initialize();
-        game.setVisible(false);
-        game.dispose();
-
+        Game.game = new GameWindow();
+        Game.game.initialize();
     }
 
     public static void infobox(String message,String title)

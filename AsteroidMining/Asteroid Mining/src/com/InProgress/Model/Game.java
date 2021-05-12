@@ -21,6 +21,7 @@ public class Game implements Serializable {
     private static Settler activeSettler; // the Settler the currentPlayer is controlling
     public static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     private static  ArrayList<Robot> robots; //list of robots
+    public static GameWindow game;
 
     //</editor-fold>
 
@@ -61,7 +62,6 @@ public class Game implements Serializable {
         currentPlayer = players.get(0);                     // first player is starts
         activeSettler = currentPlayer.getSettlers().get(0); // with its first Settler
 
-        sun = new Sun();
     }
 
 
@@ -111,7 +111,6 @@ public class Game implements Serializable {
                     Game.setActiveSettler(i);
                 }
             }
-
         }
         //-----------------------------------------------------------------------------------
 
@@ -146,9 +145,207 @@ public class Game implements Serializable {
     public static void Controller(){
         if(currentPlayer.getNumberOfMoves() == 0)
         {
-            Game.currentPlayer.endMyTurn();
+            currentPlayer.endMyTurn();
         }
     }
+
+
+    public static void controller(int index, ArrayList<String> input) {
+
+        int returnValue;
+
+        switch(index) {
+            case 0: { // set up the game
+                int p = Integer.parseInt(input.get(0));
+                int x = Integer.parseInt(input.get(1));
+                int y = Integer.parseInt(input.get(2));
+                int z = Integer.parseInt(input.get(3));
+                startGame(p,x,y,z);
+
+                game = new GameWindow();
+                game.initialize();
+
+                return;
+            }
+
+            //-----------------------------------------------------------------------------------
+            // cases 1 to 11 are Settler actions started by the user
+            case 1: { // travel
+                int x = Integer.parseInt(input.get(0));
+                int y = Integer.parseInt(input.get(1));
+                int z = Integer.parseInt(input.get(2));
+
+                returnValue = activeSettler.travel(getAsteroid(x,y,z));
+
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else if(returnValue == 1) {
+                    // TODO no space
+                }
+                else if(returnValue == 2) {
+                    // TODO not neighborhood
+                }
+            }
+            break;
+
+            case 2: { // fastTravel
+                returnValue = activeSettler.fastTravel(activeSettler.getCurrentPosition());
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else if(returnValue == 1) {
+                    // TODO no space
+                }
+                else if(returnValue == 2) {
+                    // TODO not active gate
+                }
+                else if(returnValue == 3) {
+                    // TODO no gate
+                }
+            }
+            break;
+
+            case 3: { // drill
+                returnValue = activeSettler.drill(activeSettler.getCurrentPosition());
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else {
+                    // TODO already drilled through
+                }
+            }
+            break;
+
+            case 4: { // mine
+                returnValue = activeSettler.mine(activeSettler.getCurrentPosition());
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else if(returnValue == 1) {
+                    // TODO cannot mine
+                }
+                else if(returnValue == 2) {
+                    // TODO inventory is full
+                }
+            }
+            break;
+
+            case 5: { // leave resource
+                returnValue = 1; // default value if the Resource is not in the Inventory
+
+                for(int i = 0; i < activeSettler.getItsInventory().getStoredResources().size(); i++)
+                {
+                    if(activeSettler.getItsInventory().getStoredResources().get(i).getResourceType().equals(input.get(0)) )
+                    {
+                        returnValue = activeSettler.leaveResource(i);
+                    }
+                }
+
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else{
+                    // TODO not in the inventory
+                }
+            }
+            break;
+
+            case 6: { // pick up resource
+                returnValue = activeSettler.pickUpResources();
+
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else if(returnValue == 1) {
+                    // TODO nothing to pick up
+                }
+                else if(returnValue == 2) {
+                    // TODO nothing to pick up
+                }
+            }
+            case 7: { // build robot
+                returnValue = activeSettler.buildRobot();
+
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else {
+                    // TODO not enough resources
+                }
+            }
+            break;
+
+            case 8: { // build gates
+                returnValue = activeSettler.buildTransportGate();
+
+                if(returnValue == 0) {
+                    currentPlayer.decreaseNumberOfMoves();
+                }
+                else {
+                    // TODO not enough resources
+                }
+            }
+            break;
+
+            case 9: { // build robot
+                returnValue = activeSettler.buildSpaceStation(activeSettler.getCurrentPosition());
+
+                if(returnValue == 0) {
+                    // TODO end game
+                }
+                else {
+                    // TODO not enough resources
+                }
+            }
+            break;
+
+            case 10: { // deploy gate
+                returnValue = activeSettler.deployTransportGate(activeSettler.getCurrentPosition());
+
+                if(returnValue == 0) {
+                    // TODO end game
+                }
+                else {
+                    // TODO has no gate / there is already a gate?
+                }
+            }
+            break;
+
+            case 11: { // end turn
+                currentPlayer.endMyTurn();
+            }
+            break;
+            //-----------------------------------------------------------------------------------
+
+            //-----------------------------------------------------------------------------------
+            // cases 12 to 14 are started by the system
+            case 12: { // Asteroid explodes
+                // TODO output "Asteroid explodes"
+            }
+            break;
+
+            case 13: { // Sun storm occured
+                // TODO output "Sun strom explodes"
+            }
+            break;
+
+            case 14: { // Settler died
+                // TODO output "Settler died"
+            }
+            break;
+            //-----------------------------------------------------------------------------------
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + index);
+        }
+
+        if(currentPlayer.getNumberOfMoves() == 0) { // ends turn if user has no moves left
+            currentPlayer.endMyTurn();
+        }
+    }
+
+
     /**
      * Ends the game.
      * Decides whether it was successful or not

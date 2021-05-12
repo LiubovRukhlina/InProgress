@@ -34,7 +34,7 @@ public abstract class TravellerBase {
      *
      * @param A destination Asteroid
      */
-    public abstract void travel(Asteroid A);
+    public abstract int travel(Asteroid A);
 
 
     /**
@@ -42,7 +42,7 @@ public abstract class TravellerBase {
      *
      * @param A Asteroid to which the gate belongs
      */
-    public abstract void fastTravel(Asteroid A);
+    public abstract int fastTravel(Asteroid A);
 
 
 
@@ -77,7 +77,7 @@ public abstract class TravellerBase {
      *
      * @param A Asteroid that is being drilled
      */
-    public abstract void drill(Asteroid A);
+    public abstract int drill(Asteroid A);
 
     /**
      * Checks if the Destination of this Traveller is valid,

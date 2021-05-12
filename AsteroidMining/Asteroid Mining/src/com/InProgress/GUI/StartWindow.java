@@ -4,6 +4,7 @@ import com.InProgress.Model.Game;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class StartWindow extends javax.swing.JFrame {
 
@@ -257,6 +258,9 @@ public class StartWindow extends javax.swing.JFrame {
         int x = Integer.parseInt(xTextField.getText());
         int y = Integer.parseInt(yTextField.getText());
         int z = Integer.parseInt(zTextField.getText());
+
+        ArrayList<String> input = new ArrayList<>(4);
+
         if((x<5 || x>10) || (y<5 || y>10) || (z<5 || z>10))
         {
             StartWindow.infobox("Asteroid belt too large/small","Invalid input");
@@ -264,23 +268,48 @@ public class StartWindow extends javax.swing.JFrame {
         }
 
         if(jRadioButton1.isSelected()) {
-            Game.startGame(1, x, y, z);
+            setVisible(false);
+
+            input.add(0, Integer.toString(1));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controller(0, input);
+
+            //Game.startGame(1, x, y, z);
             System.out.println("Game created");
         }
 
-        else if(jRadioButton2.isSelected())
-            Game.startGame(2,x,y,z);
-        else if(jRadioButton3.isSelected())
-            Game.startGame(3,x,y,z);
+        else if(jRadioButton2.isSelected()) {
+            setVisible(false);
+
+            input.add(0, Integer.toString(2));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controller(0, input);
+            //Game.startGame(2,x,y,z);
+        }
+        else if(jRadioButton3.isSelected()) {
+            setVisible(false);
+
+            input.add(0, Integer.toString(3));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controller(0, input);
+            //Game.startGame(3,x,y,z);
+        }
         else {
             infobox("Please select number of players", "Insufficient Input");
             return;
         }
 
-        setVisible(false);
+        //setVisible(false);
         dispose();
-        GameWindow game = new GameWindow();
-        game.initialize();
+
+        //GameWindow game = new GameWindow();
+        //game.initialize();
     }
 
     public static void infobox(String message,String title)

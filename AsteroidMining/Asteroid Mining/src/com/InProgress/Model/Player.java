@@ -20,7 +20,7 @@ public class Player {
      */
     public Player(int playerID) {
         this.playerID = playerID;
-        this.numberOfMoves = 5;
+        this.numberOfMoves = 1;
 
         // A Player gets 3 Settlers to play with
         this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
@@ -80,7 +80,7 @@ public class Player {
             }
         }
        // assigns the next Player
-        if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID < Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
+        if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID > Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
             Game.nextRound();
         }
     }
@@ -93,10 +93,10 @@ public class Player {
     public Player getNextPlayer() {
         Player pNext = this;
 
-        if(Game.getPlayers().size()== 1) { // check for a single player game
+        if(Game.getPlayers().size() == 1) { // check for a single player game
             return pNext; // if there is only one Player, he is always the next one.
         }
-        else if (Game.getPlayers().size()== 2) { // check for a game with 2 players
+        else if (Game.getPlayers().size() == 2) { // check for a game with 2 players
 
             if (this.getPlayerID() == 0) {
 
