@@ -1,10 +1,8 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.time.Clock;
 import java.util.ArrayList;
 
 public class BuildWindow extends javax.swing.JFrame {
@@ -42,8 +40,6 @@ public class BuildWindow extends javax.swing.JFrame {
         setTitle("Building Message");
         setResizable(false);
 
-
-
         // set up labels
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
@@ -51,7 +47,6 @@ public class BuildWindow extends javax.swing.JFrame {
         jLabel1.setText("What should be built/deployed?");
 
         //  set up buttons
-
         robotButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         robotButton.setText("Build Robot");
         robotButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +86,6 @@ public class BuildWindow extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
-
 
         // <editor-fold desc="Grouping Components">
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
@@ -148,9 +142,95 @@ public class BuildWindow extends javax.swing.JFrame {
     }
 	// </editor-fold>
 
+    //<editor-fold desc="ActionListeners">
+
 	/**
-     * initializes BuildWindow and makes it visible
-     * @param game current Game
+     * Calls Game.controllerExternal() to build Robot when the button "Robot" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void robotButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(7, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+	/**
+     * Calls Game.controllerExternal() to build Gates when the button "Transport Gates" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void gatesButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(8, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+	/**
+     * Calls Game.controllerExternal() to deploy Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void deployGateButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(10, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+	/**
+     * Calls Game.controllerExternal() to build Space Station when the button "Space Station" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void spaceStationButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(9, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+    /**
+     * Closes the window when the "Cancel" is clicked.
+	 *
+     * @param evt click event
+     */
+    private void cancelButtonActionPerformed(ActionEvent evt) {
+        setVisible(false);
+        dispose();
+    }
+    //</editor-fold>
+
+    /**
+     * Initializes BuildWindow window and makes it visible.
+     *
+     * @param game current Game window
      */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
@@ -184,86 +264,6 @@ public class BuildWindow extends javax.swing.JFrame {
             }
         });
     }
-
-
-    //<editor-fold desc="ActionListeners">
-
-	/**
-     *
-     * builds Robot when the button "Robot" is clicked
-     * @param evt event
-     */
-    private void robotButtonActionPerformed(ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(7, defaultList);
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-    }
-
-	/**
-     * builds Gates when the button "Transport Gates" is clicked
-     * @param evt event
-     */
-    private void gatesButtonActionPerformed(ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(8, defaultList);
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-    }
-
-	/**
-     * add Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked
-     * @param evt event
-     */
-    private void deployGateButtonActionPerformed(ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(10, defaultList);
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-    }
-
-	/**
-     * builds Space Station when the button "Space Station" is clicked
-     * @param evt event
-     */
-    private void spaceStationButtonActionPerformed(ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(9, defaultList);
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-    }
-
-    /**
-     * closes the window when the "Cancel" is clicked
-	 *
-     * @param evt event
-     */
-    private void cancelButtonActionPerformed(ActionEvent evt) {
-        setVisible(false);
-        dispose();
-    }
-    //</editor-fold>
-
 
     //<editor-fold desc="Variables">
     // Variables declaration - do not modify

@@ -1,16 +1,21 @@
 package com.InProgress.Model;
 
-import com.InProgress.GUI.ErrorMessage;
 import com.InProgress.GUI.GameWindow;
-import com.InProgress.GUI.TravelWindow;
 
+/**
+ * The Settler class is derived from the Traveller base.
+ * Settlers are controlled by their Players. They travel through the asteroid belt and drill and mine Asteroids
+ * in order to collect Resource to build a Space Station. Besides Space Station they can build Robots and TransportGates.
+ * They are vulnerable to explosions and sun storms.
+ * @author InProgress
+ */
 public class Settler extends TravellerBase {
 
     //<editor-fold desc="Attributes">
 
     private int playerID;
     private String name;
-    private Inventory itsInventory = new Inventory();
+    private Inventory itsInventory;
 
     //</editor-fold>
 
@@ -30,18 +35,6 @@ public class Settler extends TravellerBase {
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
         this.itsInventory = new Inventory();
-        this.itsInventory.addResource(new Iron("Iron"));
-        this.itsInventory.addResource(new Iron("Iron"));
-        this.itsInventory.addResource(new Iron("Iron"));
-        this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new Iron("WaterIce"));
-        this.itsInventory.addResource(new Iron("WaterIce"));
-        this.itsInventory.addResource(new Iron("WaterIce"));
-        this.itsInventory.addResource(new Carbon("Carbon"));
-        this.itsInventory.addResource(new Carbon("Carbon"));
-        this.itsInventory.addResource(new Carbon("Carbon"));
     }
 
     //</editor-fold>

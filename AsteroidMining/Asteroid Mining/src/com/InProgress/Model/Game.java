@@ -3,11 +3,16 @@ package com.InProgress.Model;
 import com.InProgress.GUI.GameWindow;
 import com.InProgress.GUI.MineMessage;
 import com.InProgress.GUI.PickUpMessage;
-
+import com.InProgress.GUI.StartWindow;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Central class that contains the game logic.
+ * It is responsible for controlling the game flow.
+ * @author InProgress
+ */
 public class Game implements Serializable {
 
     //<editor-fold desc="Attributes">
@@ -28,13 +33,6 @@ public class Game implements Serializable {
     public static GameWindow gameWindow;
 
     //</editor-fold>
-
-
-    //<editor-fold desc="Constructor">
-
-    //public Game() { }
-
-    //</editor-fold">
 
 
     //<editor-fold desc="Methods">
@@ -67,8 +65,6 @@ public class Game implements Serializable {
         currentPlayer = players.get(0);                     // first player is starts
         activeSettler = currentPlayer.getSettlers().get(0); // with its first Settler
     }
-
-
 
     /**
      *  Before each round starts the system checks whether a sunstorm has to occur
@@ -132,8 +128,7 @@ public class Game implements Serializable {
      *
      * @return number of settlers remaining active Settlers
      */
-    public static int getNumberOfSettlers()
-    {
+    public static int getNumberOfSettlers() {
         int sum = 0;
         for(Player i:players)
         {
@@ -144,27 +139,14 @@ public class Game implements Serializable {
         return sum;
     }
 
+
     /**
-     * Ends the turn of the currentPlayer if he has no moves left.
+     * Whenever a internal action is performed which affects the user a
+     * infobox is created to inform the user.
+     *
+     * @param index Index to determine which infobox must be created
      */
-    public static void Controller(){
-        if(currentPlayer.getNumberOfMoves() == 0)
-        {
-            currentPlayer.endMyTurn();
-        }
-    }
-
-    /*  only used to check functionality
-        Replace infobox calls with ErrorMessage windows
-     */
-    public static void infobox(String message,String title)
-    {
-        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
-    }
-
     public static void controllerInternal(int index) {
-
-        int returnValue;
 
         switch(index) {
 
@@ -174,7 +156,7 @@ public class Game implements Serializable {
             break;
 
             case 2: { // Sun storm occured
-                infobox("A sun storm occured.", "Sun storm");
+                infobox("A sun storm occurred.", "Sun storm");
             }
             break;
 
@@ -189,8 +171,14 @@ public class Game implements Serializable {
         }
     }
 
-
-
+    /**
+     * Connection between the GUI and the Model.
+     * The controllerExternal is called whenever a user input is received.
+     * It starts the required action.
+     *
+     * @param index Index to determine which action must be performed
+     * @param input contains additional information required to perform certain action
+     */
     public static void controllerExternal(int index, ArrayList<String> input) {
 
         if(index != 0) {
@@ -378,6 +366,17 @@ public class Game implements Serializable {
             }
             break;
 
+            case 13: { // start new game
+                // clear all lists
+                asteroids.clear();
+                players.clear();
+                robots.clear();
+
+                StartWindow startWindow = new StartWindow();
+                startWindow.initialize();
+            }
+            break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + index);
         }
@@ -388,7 +387,6 @@ public class Game implements Serializable {
             currentPlayer.endMyTurn();
         }
     }
-
 
     /**
      * Ends the game.
@@ -427,6 +425,17 @@ public class Game implements Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Creates an infobox to display information to the user.
+     *
+     * @param message Text of the message to the user
+     * @param title Title of the window
+     */
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     //</editor-fold>

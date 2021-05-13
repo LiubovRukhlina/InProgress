@@ -1,5 +1,11 @@
 package com.InProgress.Model;
 
+/**
+ * Represents a Uranium Resource. It is derived from ResourceBase.
+ * Uranium is needed to build the SpaceStation, Robots or TransportGates.
+ * Uranium can explode when it is on an Asteroid at perihelion and destroy Asteroids and kill Travellers.
+ * @author InProgress
+ */
 public class Uranium extends ResourceBase{
 
     //<editor-fold desc="Constructor">
@@ -33,7 +39,7 @@ public class Uranium extends ResourceBase{
         A.setExploded(true); // change isExploded attribute of Asteroid to true.
         Game.setNumberOfAsteroids(Game.getNumberOfAsteroids()-1);
 
-        if(A.getHasGate() == true) // check for gates of the Asteroid
+        if(A.getHasGate()) // check for gates of the Asteroid
         {
             A.getGate().deactivateTransportGate(); // deactivates the TransportGate
         }

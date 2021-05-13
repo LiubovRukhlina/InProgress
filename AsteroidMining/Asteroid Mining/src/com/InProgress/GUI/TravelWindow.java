@@ -1,7 +1,6 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -165,9 +164,13 @@ public class TravelWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    //<editor-fold desc="ActionListeners">
+
     /**
-     * travels to another asteroid or tells if its impossible
-     * @param evt
+     * Game.controllerExternal() to travel to another asteroid. It notifies the user if the input is invalid.
+     * Updates the game window.
+     *
+     * @param evt click event
      */
     private void okButtonActionPerformed(ActionEvent evt) {
         int x = Integer.parseInt(xTextField.getText());
@@ -203,23 +206,22 @@ public class TravelWindow extends javax.swing.JFrame {
 
     }
 
-    public static void infobox(String message,String title)
-    {
-        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
-    }
-
     /**
-     * Closes the window
-     * @param evt
+     * Closes the window.
+     *
+     * @param evt click event
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
         dispose();
     }
+    //</editor-fold>
+
 
     /**
-     * initializes TravelWindow and makes it visible
-     * @param game current Game
+     * Initializes TravelWindow window and makes it visible-
+     *
+     * @param game current Game window
      */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
@@ -254,8 +256,19 @@ public class TravelWindow extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Creates an infobox to display information to the user.
+     *
+     * @param message Text of the message to the user
+     * @param title Title of the window
+     */
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
+    }
 
 
+    //<editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
@@ -267,5 +280,6 @@ public class TravelWindow extends javax.swing.JFrame {
     private javax.swing.JTextField xTextField;
     private javax.swing.JTextField yTextField;
     private javax.swing.JTextField zTextField;
-    // End of variables declaration
+    //<editor-fold>
+
 }

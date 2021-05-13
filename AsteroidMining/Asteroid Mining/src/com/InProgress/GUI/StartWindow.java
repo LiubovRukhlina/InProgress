@@ -1,7 +1,6 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -251,13 +250,19 @@ public class StartWindow extends javax.swing.JFrame {
     }
     // </editor-fold>
 
+    /**
+     * Creates an infobox to display information to the user.
+     *
+     * @param message Text of the message to the user
+     * @param title Title of the window
+     */
     public static void infobox(String message,String title)
     {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
-     * initializes StartWindow and makes it visible
+     * Initializes StartWindow window and makes it visible.
      */
     public void initialize() {
         /* Set the Nimbus look and feel */
@@ -296,25 +301,28 @@ public class StartWindow extends javax.swing.JFrame {
     //<editor-fold desc="ActionListeners">
 
      /**
-     * Cose the game
-     * @param evt
+     * Close the game application
+      *
+     * @param evt click event
      */
 	private void exitActionPerformed(ActionEvent evt) {
 
         System.exit(0);
     }
 
-	/**
-     * shows the infobox
-     * @param evt event
+    /**
+     * Creates infobox window to display a help message for the user when "Help" is clicked in the menubar.
+     *
+     * @param evt click event
      */
     private void helpMenuActionPerformed(ActionEvent evt) {
         StartWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
 
     /**
-     * Sets the asteroid belt and starts the game
-     * @param evt
+     * Calls Game.controllerExternal() method to set up the asteroid belt and starts the game.
+     *
+     * @param evt click event
      */
     private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
 

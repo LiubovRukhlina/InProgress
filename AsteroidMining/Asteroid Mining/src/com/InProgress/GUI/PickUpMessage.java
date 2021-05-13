@@ -1,7 +1,5 @@
 package com.InProgress.GUI;
 
-import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,6 +10,7 @@ public class PickUpMessage extends javax.swing.JFrame {
 
     /**
      * Creates new form PickUpMessage
+     *
      * @param game Game window from which this window was called
      * @param resource Type of the Resource which was picked up
      */
@@ -112,22 +111,22 @@ public class PickUpMessage extends javax.swing.JFrame {
 	// </editor-fold>
 
     /**
-     * Closes the window and refreshes the main GameWindow
-     * @param evt
+     * Closes the window and refreshes the main GameWindow.
+     *
+     * @param evt click event
      */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
-        Game.Controller();
 
-        GameWindow game = new GameWindow();
-        game.initialize();
         this.previous.setVisible(false);
         this.previous.dispose();
         dispose();
     }
+
     /**
-     * initializes PickUpMessage and makes it visible
-     * @param game current Game
+     * Initializes PickUpMessage and makes it visible.
+     *
+     * @param game current Game window
      */
     public void initialize(String resource,GameWindow game) {
         /* Set the Nimbus look and feel */

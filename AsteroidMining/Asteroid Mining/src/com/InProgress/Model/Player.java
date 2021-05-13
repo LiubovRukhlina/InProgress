@@ -3,12 +3,17 @@ package com.InProgress.Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Represents the different Players. There can be up to 3 Players in 1 Game. They are distinguished by their ID.
+ * Each Player has 3 Settlers. In each round the Player can perform up to 5 actions.
+ * @author InProgress
+ */
 public class Player {
 
     //<editor-fold desc="Attributes">
     private int playerID;
     private int numberOfMoves;
-    private ArrayList<Settler> settlers = new ArrayList<Settler>();
+    private ArrayList<Settler> settlers = new ArrayList<>();
     private Boolean isPlaying; // determines whether a Player still has active Settlers, he can play with.
 
     //<editor-fold desc="Constructor"
@@ -52,8 +57,8 @@ public class Player {
     public boolean checkSettlers() {
         int cnt = settlers.size(); //counter to keep track of living Settlers
 
-        for (int i = 0; i < settlers.size(); i++) {
-            if (!settlers.get(i).getAlive())
+        for (Settler settler : settlers) {
+            if (!settler.getAlive())
                 cnt--; //decrease counter if Settler is dead
         }
 

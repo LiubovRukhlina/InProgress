@@ -1,11 +1,11 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-
 import java.util.ArrayList;
 
 public class LeaveResourcesWindow extends javax.swing.JFrame {
     GameWindow previous;
+
     /**
      * Creates new form LeaveResourceMessage
      *
@@ -118,22 +118,44 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Action Listeners">
+    
+	/**
+     * Calls the Game.controllerExternal() to store a Resource from the Inventory on the Asteroid.
+     * Updates game window.
+     *
+     * @param evt click event
+     */
+	private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
+        ArrayList<String> input = new ArrayList<>();
+        input.add(0, resourceTextField.getText());
+        Game.controllerExternal(5, input);
+
+        setVisible(false);
+        dispose();
+
+        GameWindow game = new GameWindow();
+        game.initialize();
+        this.previous.setVisible(false);
+        this.previous.dispose();
+    }
 
     /**
+     * Closes the window when the "Cancel" is clicked.
      *
-     * closes the window when the "Cancel" is clicked
-     * @param evt event
+     * @param evt click event
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
        setVisible(false);
        dispose();
     }
+    // </editor-fold>
 
-	
     /**
-     * initializes LeaveResourceWindow and makes it visible
-     * @param game current Game
+     * Initializes LeaveResourceWindow window and makes it visible.
+     *
+     * @param game current Game window
      */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
@@ -168,32 +190,6 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         });
     }
 
-    // <editor-fold desc="Action Listeners">
-    
-	/**
-     * Places resource from inventory to the asteroid
-     * @param evt event
-     */
-	private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-
-        ArrayList<String> input = new ArrayList<>();
-        input.add(0, resourceTextField.getText());
-        Game.controllerExternal(5, input);
-
-        setVisible(false);
-        dispose();
-
-        GameWindow game = new GameWindow();
-        game.initialize();
-        this.previous.setVisible(false);
-        this.previous.dispose();
-    }
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-       setVisible(false);
-       dispose();
-    }
-    // </editor-fold>
 
     // <editor-fold desc="Variables">
     // Variables declaration - do not modify

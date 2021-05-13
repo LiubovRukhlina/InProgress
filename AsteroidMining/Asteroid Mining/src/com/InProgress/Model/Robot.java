@@ -2,6 +2,14 @@ package com.InProgress.Model;
 
 import java.util.Random;
 
+/**
+ * The Robot class is derived from the Traveller base.
+ * Represents an autonomously Robot that supports Settlers with drilling operation.
+ * They are build by Settlers using 1 unit of Iron, Carbon and Uranium.
+ * Robots travel randomly from Asteroid to Asteroid and drill them until they reach the core.
+ * They are vulnerable to explosions and sun storms.
+ * @author InProgress
+ */
 public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">

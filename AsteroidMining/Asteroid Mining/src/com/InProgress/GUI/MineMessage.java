@@ -1,7 +1,5 @@
 package com.InProgress.GUI;
 
-import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -98,12 +96,24 @@ public class MineMessage extends javax.swing.JFrame {
     }
     // </editor-fold>
 
-
-
+    //<editor-fold desc="Action Listeners">
 
     /**
-     * initializes MineMessage and makes it visible
-     * @param game current Game
+     * Closes the window and refreshes the main GameWindow.
+     *
+     * @param evt click event
+     */
+    private void okActionPerformed(ActionEvent evt) {
+        setVisible(false);
+        dispose();
+    }
+    //</editor-fold>
+
+    /**
+     * Initializes MineMessage window and makes it visible.
+     *
+     * @param game current Game window
+     */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -135,25 +145,6 @@ public class MineMessage extends javax.swing.JFrame {
             }
         });
     }
-
-    //<editor-fold desc="Action Listeners">
-	
-	/**
-    * Closes the window and refreshes the main GameWindow
-    * @param evt
-    */
-    private void okActionPerformed(ActionEvent evt) {
-        setVisible(false);
-        dispose();
-
-        GameWindow game = new GameWindow();
-        game.initialize();
-        this.previous.setVisible(false);
-        this.previous.dispose();
-    }
-    //</editor-fold>
-
-
 
     //<editor-fold desc="Variables">
     // Variables declaration - do not modify

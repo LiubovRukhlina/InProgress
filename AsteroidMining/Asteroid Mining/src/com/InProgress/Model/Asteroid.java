@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * Represents an Asteroid. Asteroid are the main object. They form the asteroid belt the Travellers are moving through.
+ * Asteroids can be drilled and the Resource in their cores can be mined.
+ * Asteroids with radioactive cores can explode. Hollow Asteroids offer protection from sunstrom.
+ * @author InProgress
+ */
 public class Asteroid {
 
     //<editor-fold desc="Attributes">

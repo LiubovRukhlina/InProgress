@@ -1,7 +1,10 @@
 package com.InProgress.Model;
 
-import com.InProgress.GUI.GameWindow;
-
+/**
+ * Base class of the Travellers.
+ * It contains the common methods of the Settler and Robot class.
+ * @author InProgress
+ */
 public abstract class TravellerBase {
 
     //<editor-fold desc="Attributes">

@@ -1,5 +1,11 @@
 package com.InProgress.Model;
 
+/**
+ * Represents a WaterIce Resource. It is derived from ResourceBase.
+ * WaterIce is needed to build the SpaceStation, Robots or TransportGates.
+ * WaterIce can sublime when it is on an Asteroid at perihelion
+ * @author InProgress
+ */
 public class WaterIce extends ResourceBase{
 
     //<editor-fold desc="Constructor">

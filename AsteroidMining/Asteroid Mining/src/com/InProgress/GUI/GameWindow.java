@@ -1,11 +1,9 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameWindow extends javax.swing.JFrame {
@@ -77,22 +75,6 @@ public class GameWindow extends javax.swing.JFrame {
                 if(asteroid.getRobotsOnAsteroid().size() != 0) {
                     g.drawImage(getImage("robot"), 150, 50, this);
                 }
-//                switch (asteroid.getRobotsOnAsteroid().size())
-//                {
-//                    case 1:  g.drawImage(getImage("robot"), 150, 50, this); break;
-//                    case 2:  {
-//                        g.drawImage(getImage("robot"), 150, 50, this);
-//                        g.drawImage(getImage("robot"), 100, 50, this);
-//                    } break;
-//                    case 3: {
-//                        g.drawImage(getImage("robot"), 200, 50, this);
-//                        g.drawImage(getImage("robot"), 150, 50, this);
-//                        g.drawImage(getImage("robot"), 100, 50, this);
-//
-//                    }break;
-//
-//                    default: break;
-//                }
 
                 if (asteroid.getHasGate() && asteroid.getGate().getActive()) {
                     g.drawImage(getImage("gate_active"), 500, 50, this);
@@ -128,7 +110,7 @@ public class GameWindow extends javax.swing.JFrame {
 
                 int counter = 100;
                 for (ResourceBase res : asteroid.getStoredResourceOfAsteroid()
-                     ) {
+                ) {
                     switch (res.getResourceType()) {
                         case "Iron":  {
                             g.drawImage(getImage("stored_iron"), counter, 500, this);
@@ -360,7 +342,7 @@ public class GameWindow extends javax.swing.JFrame {
         PickupButton.setText("PickUp");
         PickupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PickupButtonActionPerformed(evt, asteroid.getStoredResourceOfAsteroid().get(0).getResourceType());
+                PickupButtonActionPerformed(evt);
             }
         });
 
@@ -433,7 +415,7 @@ public class GameWindow extends javax.swing.JFrame {
             Settlers.add(i.getName());
         }
         SettlersListLabel.setModel(new javax.swing.DefaultComboBoxModel(Settlers.toArray()));
-        SettlersListLabel.addActionListener(new ActionListener() {
+        SettlersListLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectSettler(evt);
             }
@@ -452,6 +434,12 @@ public class GameWindow extends javax.swing.JFrame {
 
         Start.setText("Start New Game");
         jMenu1.add(Start);
+        Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+
 
         Exit.setText("Exit");
         jMenu1.add(Exit);
@@ -627,6 +615,177 @@ public class GameWindow extends javax.swing.JFrame {
 
     // </editor-fold>
 
+    //<editor-fold desc="ActionListeners">
+    /**
+     * Exits the game applicatin.
+     *
+     * @param evt click event
+     */
+    private void exitActionPerformed(ActionEvent evt) {
+        System.exit(0);
+    }
+
+    /**
+     * Ends the  current game and returns to the start window.
+     *
+     * @param evt click event
+     */
+    private void newGameActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(13, defaultList);
+
+        setVisible(false);
+        dispose();
+    }
+
+    /**
+     * Opens the dialogue window that allows to choose the travel destination.
+     *
+     * @param evt click event
+     */
+    private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        TravelWindow travelWindow = new TravelWindow(this);
+        travelWindow.initialize(this);
+    }
+
+    /**
+     * Calls the Game.controllerExternal() method to travel through the a TransportGate.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(2, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Calls the Game.controllerExternal() to drill an Asteroid when "Drill" button is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(3, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Calls the Game.controllerExternal() to mine a Resource when "mine" button is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(4, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Opens the dialogue window that allows to choose which Resource to leave on the Asteroid.
+     *
+     * @param evt click event
+     */
+    private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        LeaveResourcesWindow leave = new LeaveResourcesWindow(this);
+        leave.initialize(this);
+    }
+
+    /**
+     * Calls the Game.controllerExternal() to pick up a stored Resource on top of Asteroid.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(6, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Opens the dialogue window which allows the user to decide what to build and to deploy gates.
+     *
+     * @param evt click event
+     */
+    private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        BuildWindow build = new BuildWindow(this);
+        build.initialize(this);//2
+    }
+
+    /**
+     * Calls the Game.controllerExternal() to finish the current turn.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(11, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Calls the Game.controllerExternal() to switch the active Settler.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void selectSettler(ActionEvent evt) {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(0, SettlersListLabel.getSelectedItem().toString());
+
+        Game.controllerExternal(12, input);
+
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Creates infobox window to display a help message for the user when "Help" is clicked in the menubar.
+     *
+     * @param evt click event
+     */
+    private void helpActionPerformed(ActionEvent evt) {
+        GameWindow.infobox("Nobody can hear you scream in space","You are on your own!");
+    }
+    //</editor-fold">
+
+    /**
+     * Initializes BuildWindow window and makes it visible.
+     */
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -659,189 +818,15 @@ public class GameWindow extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Creates an infobox to display information to the user.
+     *
+     * @param message Text of the message to the user
+     * @param title Title of the window
+     */
     public static void infobox(String message,String title) {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
-
-
-    //<editor-fold desc="ActionListener">
-
-    private void exitActionPerformed(ActionEvent evt) {
-        System.exit(0);
-    }
-
-
-    /**
-     * Opens the dialogue that allows to choose the travel destination
-     * @param evt click event
-     */
-    private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        TravelWindow travelWindow = new TravelWindow(this);
-        travelWindow.initialize(this);
-    }
-
-
-    /**
-     * Travels through the Transport Gates
-     * @param evt click event
-     */
-    private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(2, defaultList);
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-    }
-
-
-
-    /**
-     * Decreases asteroid rock cover when "Drill" button is clicked
-     * @param evt click event
-     */
-    private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(3, defaultList);
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-
-    }
-
-
-
-
-    /**
-     * Adds asteroid's resource to the inventory when "mine" button is clicked
-     * @param evt click event
-     */
-    private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(4, defaultList);
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-    }
-
-
-    /**
-     * Opens the dialogue that allows to choose which resource to leave on the asteroid
-     * @param evt click event
-     */
-    private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        LeaveResourcesWindow leave = new LeaveResourcesWindow(this);
-        leave.initialize(this);
-    }
-
-
-    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(6, defaultList);
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-    }
-
-    /**
-     * Moves resource on top of asteroid to inventory
-     * @param evt click event
-     * @param resource on the Asteroid
-     */
-    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt, String resource) {
-        int r = Game.getActiveSettler().pickUpResources();
-        if(r == 1) {
-            PickUpMessage message = new PickUpMessage(resource, this);
-            message.initialize(resource, this);
-        }
-    }
-
-    /**
-     * Opens the dialogue where player chooses what he want to build
-     * @param evt click event
-     */
-    private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        BuildWindow build = new BuildWindow(this);
-        build.initialize(this);
-    }
-
-
-    /**
-     * Finishes the current turn
-     * @param evt click event
-     */
-    private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        ArrayList<String> defaultList = new ArrayList<>();
-
-        Game.controllerExternal(11, defaultList);
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-    }
-
-    private void selectSettler(ActionEvent evt) {
-        ArrayList<String> input = new ArrayList<>();
-        input.add(0, SettlersListLabel.getSelectedItem().toString());
-
-        Game.controllerExternal(12, input);
-
-    /**
-     * shows infobox
-     * @param evt click event
-     */
-    private void helpActionPerformed(ActionEvent evt) {
-        GameWindow.infobox("Nobody can hear you scream in space","You are on your own!");
-    }
-
-    /**
-     * initializes BuildWindow and makes it visible
-
-     */
-    public void initialize() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        setVisible(false);
-        dispose();
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-    }
-
-    // </editor-fold>
 
     //<editor-fold desc="Variables">
     // Variables declaration - do not modify
@@ -887,5 +872,5 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelPic;
-    // </editor-fold>
+    //</editor-fold>
 }

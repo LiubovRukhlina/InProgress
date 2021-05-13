@@ -1,5 +1,12 @@
 package com.InProgress.Model;
 
+/**
+ * Represents a TransportGate that allow Settlers to travel further distances at once.
+ * They are build by Settlers using 2 unit of Iron, 1 unit of WaterIce and Uranium.
+ * Robots travel randomly from Asteroid to Asteroid and drill them until they reach the core.
+ * They are vulnerable to explosions and sun storms.
+ * @author InProgress
+ */
 public class TransportGate {
 
     //<editor-fold desc="Attributes">

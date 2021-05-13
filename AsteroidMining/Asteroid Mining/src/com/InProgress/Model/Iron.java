@@ -1,5 +1,10 @@
 package com.InProgress.Model;
 
+/**
+ * Represents a Iron Resource. It is derived from ResourceBase.
+ * Iron is needed to build the SpaceStation, Robots or TransportGates.
+ * @author InProgress
+ */
 public class Iron extends ResourceBase {
 
     /**
