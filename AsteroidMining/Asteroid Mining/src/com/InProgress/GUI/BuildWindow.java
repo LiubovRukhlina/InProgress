@@ -146,8 +146,12 @@ public class BuildWindow extends javax.swing.JFrame {
 
         pack();
     }
-    // </editor-fold>
+	// </editor-fold>
 
+	/**
+     * initializes BuildWindow and makes it visible
+     * @param game current Game
+     */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -184,6 +188,11 @@ public class BuildWindow extends javax.swing.JFrame {
 
     //<editor-fold desc="ActionListeners">
 
+	/**
+     *
+     * builds Robot when the button "Robot" is clicked
+     * @param evt event
+     */
     private void robotButtonActionPerformed(ActionEvent evt) {
         ArrayList<String> defaultList = new ArrayList<>();
 
@@ -196,6 +205,10 @@ public class BuildWindow extends javax.swing.JFrame {
         dispose();
     }
 
+	/**
+     * builds Gates when the button "Transport Gates" is clicked
+     * @param evt event
+     */
     private void gatesButtonActionPerformed(ActionEvent evt) {
         ArrayList<String> defaultList = new ArrayList<>();
 
@@ -208,6 +221,10 @@ public class BuildWindow extends javax.swing.JFrame {
         dispose();
     }
 
+	/**
+     * add Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked
+     * @param evt event
+     */
     private void deployGateButtonActionPerformed(ActionEvent evt) {
         ArrayList<String> defaultList = new ArrayList<>();
 
@@ -220,6 +237,10 @@ public class BuildWindow extends javax.swing.JFrame {
         dispose();
     }
 
+	/**
+     * builds Space Station when the button "Space Station" is clicked
+     * @param evt event
+     */
     private void spaceStationButtonActionPerformed(ActionEvent evt) {
         ArrayList<String> defaultList = new ArrayList<>();
 
@@ -232,6 +253,11 @@ public class BuildWindow extends javax.swing.JFrame {
         dispose();
     }
 
+    /**
+     * closes the window when the "Cancel" is clicked
+	 *
+     * @param evt event
+     */
     private void cancelButtonActionPerformed(ActionEvent evt) {
         setVisible(false);
         dispose();

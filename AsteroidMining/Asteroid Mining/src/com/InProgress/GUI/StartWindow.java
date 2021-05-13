@@ -247,6 +247,7 @@ public class StartWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         pack();
+
     }
     // </editor-fold>
 
@@ -255,7 +256,9 @@ public class StartWindow extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
 
-
+    /**
+     * initializes StartWindow and makes it visible
+     */
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -292,15 +295,27 @@ public class StartWindow extends javax.swing.JFrame {
 
     //<editor-fold desc="ActionListeners">
 
-    private void exitActionPerformed(ActionEvent evt) {
+     /**
+     * Cose the game
+     * @param evt
+     */
+	private void exitActionPerformed(ActionEvent evt) {
 
         System.exit(0);
     }
 
+	/**
+     * shows the infobox
+     * @param evt event
+     */
     private void helpMenuActionPerformed(ActionEvent evt) {
         StartWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
 
+    /**
+     * Sets the asteroid belt and starts the game
+     * @param evt
+     */
     private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
         int x = Integer.parseInt(xTextField.getText());

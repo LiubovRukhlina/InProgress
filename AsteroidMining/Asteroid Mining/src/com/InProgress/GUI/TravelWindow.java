@@ -165,6 +165,10 @@ public class TravelWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    /**
+     * travels to another asteroid or tells if its impossible
+     * @param evt
+     */
     private void okButtonActionPerformed(ActionEvent evt) {
         int x = Integer.parseInt(xTextField.getText());
         int y = Integer.parseInt(yTextField.getText());
@@ -203,12 +207,20 @@ public class TravelWindow extends javax.swing.JFrame {
     {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
+
+    /**
+     * Closes the window
+     * @param evt
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
         dispose();
     }
 
-
+    /**
+     * initializes TravelWindow and makes it visible
+     * @param game current Game
+     */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
