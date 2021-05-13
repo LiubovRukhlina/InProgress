@@ -69,6 +69,7 @@ public class Asteroid {
                 this.isRadioactive = false;
             }break;
             case 5: { // Assigns no Resource to this Asteroid, s. t. this Asteroid is hollow
+                this.resourceOfAsteroid.add(new ResourceBase(""));
                 this.isHollow = true;
                 this.isRadioactive = false;
             }break;
@@ -194,7 +195,7 @@ public class Asteroid {
     public void setZ(int z) { this.z = z; }
 
     public TransportGate getGate() { return gate; }
-    public void setGate(TransportGate gate) { this.gate = gate; }
+    public void setGate(TransportGate gate) { this.gate = gate;  }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
