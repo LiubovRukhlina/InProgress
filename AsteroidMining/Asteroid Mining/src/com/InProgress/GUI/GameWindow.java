@@ -43,6 +43,7 @@ public class GameWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         Asteroid asteroid = Game.getActiveSettler().getCurrentPosition();
+
         jPanel1 = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -395,7 +396,7 @@ public class GameWindow extends javax.swing.JFrame {
         PickupButton.setText("PickUp");
         PickupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PickupButtonActionPerformed(evt);
+                PickupButtonActionPerformed(evt, asteroid.getStoredResourceOfAsteroid().get(0).getResourceType());
             }
         });
 
@@ -615,6 +616,10 @@ public class GameWindow extends javax.swing.JFrame {
         System.exit(0);
     }
 
+    /**
+     * Opens the dialogue that allows to choose the travel destination
+     * @param evt click event
+     */
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
@@ -623,6 +628,10 @@ public class GameWindow extends javax.swing.JFrame {
        
     }
 
+    /**
+     * Travels through the Transport Gates
+     * @param evt click event
+     */
     private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         Game.getActiveSettler().fastTravel(Game.getActiveSettler().getCurrentPosition());
@@ -633,6 +642,10 @@ public class GameWindow extends javax.swing.JFrame {
         gameWindow.initialize();
     }
 
+    /**
+     * Decreases asteroid rock cover when "Drill" button is clicked
+     * @param evt click event
+     */
     private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
         setVisible(false);
@@ -643,6 +656,10 @@ public class GameWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Adds asteroid's resource to the inventory when "mine" button is clicked
+     * @param evt click event
+     */
     private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
         int r = Game.getActiveSettler().mine(Game.getActiveSettler().getCurrentPosition());
         if(r == 1);
@@ -652,13 +669,22 @@ public class GameWindow extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Opens the dialogue that allows to choose which resource to leave on the asteroid
+     * @param evt click event
+     */
     private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
         LeaveResourcesWindow leave = new LeaveResourcesWindow(this);
         leave.initialize(this);
 
     }
 
-    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    /**
+     * Moves resource on top of asteroid to inventory
+     * @param evt click event
+     * @param resource on the Asteroid
+     */
+    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt, String resource) {
         int r = Game.getActiveSettler().pickUpResources();
         if(r == 1) {
             PickUpMessage message = new PickUpMessage(resource, this);
@@ -666,6 +692,10 @@ public class GameWindow extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Opens the dialogue where player chooses what he want to build
+     * @param evt click event
+     */
     private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
         BuildWindow build = new BuildWindow(this);
@@ -673,17 +703,28 @@ public class GameWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Finishes the current turn
+     * @param evt click event
+     */
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         Game.getCurrentPlayer().endMyTurn();
 
     }
 
+    /**
+     * shows infobox
+     * @param evt click event
+     */
     private void helpActionPerformed(ActionEvent evt) {
         GameWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
 
+    /**
+     * initializes BuildWindow and makes it visible
 
+     */
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

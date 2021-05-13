@@ -115,12 +115,19 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
 
-
+    /**
+     *
+     * closes the window when the "Cancel" is clicked
+     * @param evt event
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
        setVisible(false);
        dispose();
     }
-
+    /**
+     *Places resource from inventory to the asteroid
+     * @param evt event
+     */
     private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
        List<ResourceBase> inv=  Game.getActiveSettler().getItsInventory().getStoredResources();
        Boolean flag = false;
@@ -148,7 +155,10 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
            previous.dispose();
        }
     }
-
+    /**
+     * initializes LeaveResourceWindow and makes it visible
+     * @param game current Game
+     */
 
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
