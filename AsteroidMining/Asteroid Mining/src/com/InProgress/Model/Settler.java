@@ -29,12 +29,19 @@ public class Settler extends TravellerBase {
         this.name = name;
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
-        /*this.itsInventory = new Inventory();
+        this.itsInventory = new Inventory();
+        this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Iron("Iron"));
         this.itsInventory.addResource(new Uranium("Uranium"));
+        this.itsInventory.addResource(new Uranium("Uranium"));
+        this.itsInventory.addResource(new Uranium("Uranium"));
         this.itsInventory.addResource(new Iron("WaterIce"));
-        this.itsInventory.addResource(new Carbon("Carbon"));*/
+        this.itsInventory.addResource(new Iron("WaterIce"));
+        this.itsInventory.addResource(new Iron("WaterIce"));
+        this.itsInventory.addResource(new Carbon("Carbon"));
+        this.itsInventory.addResource(new Carbon("Carbon"));
+        this.itsInventory.addResource(new Carbon("Carbon"));
     }
 
     //</editor-fold>
@@ -145,7 +152,7 @@ public class Settler extends TravellerBase {
         if(A.getDepth() == 0 && !A.getHollow()) { // checks if the Asteroid is mineable
 
             GameWindow.resource = A.getResourceOfAsteroid().get(0).resourceType;
-            if(this.itsInventory.getStoredResources().size() < 11) { // cannot mine if the inventory is full
+            if(this.itsInventory.getStoredResources().size() > 10) { // cannot mine if the inventory is full
                 return 2; // inventory is full
             } else {
                 this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
@@ -194,8 +201,6 @@ public class Settler extends TravellerBase {
             Game.getRobots().add(newRobot); // adds the Robot to the list of Robots
             newRobot.randomTravel(this.getCurrentPosition()); // robot immediately travels to a different Asteroid
 
-            currentPosition.getRobotsOnAsteroid().add(newRobot); //TODO added but might be wrong
-
             return 0; // successful action
         } else {
             return 1; // not enough Resources
@@ -212,6 +217,7 @@ public class Settler extends TravellerBase {
     public int buildSpaceStation(Asteroid A) {
 
         if (itsInventory.checkResources(A)) { // checks if there are enough resources
+            Game.setWinLoose(true);
             return 0; // successful action
         } else {
             return 1; // not enough resources
@@ -223,46 +229,50 @@ public class Settler extends TravellerBase {
      *
      * @return 0: action was successful, 1: not enough Resources available
      */
-    public int buildTransportGate() { // TODO Check if removing is working
-        if (itsInventory.checkResources(2)) { // checks if there are enough resources
-            int uCount = 0; // counts the number of units of Uranium
-            int iCount = 0; // counts the number of units of Iron
-            int wCount = 0; // counts the number of units of WaterIce
+    public int buildTransportGate() {
+        if(itsInventory.getStoredGates().size() == 0) {
+            if (itsInventory.checkResources(2)) { // checks if there are enough resources
+                int uCount = 0; // counts the number of units of Uranium
+                int iCount = 0; // counts the number of units of Iron
+                int wCount = 0; // counts the number of units of WaterIce
 
-            for (ResourceBase resource : itsInventory.getStoredResources()) { // removes the Resources
-                if (resource instanceof Uranium && uCount == 0) { // removes 1 unit of Uranium
-                    uCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                for (ResourceBase resource : itsInventory.getStoredResources()) { // removes the Resources
+                    if (resource instanceof Uranium && uCount == 0) { // removes 1 unit of Uranium
+                        uCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
-                } else if (resource instanceof Iron && iCount < 2) { // removes 2 unit of Iron
-                    iCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                    } else if (resource instanceof Iron && iCount < 2) { // removes 2 unit of Iron
+                        iCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
-                } else if (resource instanceof WaterIce && wCount == 0) { // removes 1 unit of WaterIce
-                    wCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                    } else if (resource instanceof WaterIce && wCount == 0) { // removes 1 unit of WaterIce
+                        wCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
+                    }
                 }
+
+                while (itsInventory.getStoredResources().remove(null)) ; // remove the null elements
+
+                TransportGate tg1 = new TransportGate();
+                TransportGate tg2 = new TransportGate();
+
+                //Pair the gates together
+                tg1.makePair(tg2);
+                tg2.makePair(tg1);
+
+                this.itsInventory.addGates(tg1, tg2);
+
+                return 0; // action was successful
+
+            } else {
+                return 1; // not enough Resources available
             }
-
-            while (itsInventory.getStoredResources().remove(null)); // remove the null elements
-
-            TransportGate tg1 = new TransportGate();
-            TransportGate tg2 = new TransportGate();
-
-            //Pair the gates together
-            tg1.makePair(tg2);
-            tg2.makePair(tg1);
-
-            this.itsInventory.addGates(tg1, tg2);
-
-            return 0; // action was successful
-        } else {
-            return 1; // not enough Resources available
         }
+        return 2;
     }
 
     /**
@@ -295,16 +305,29 @@ public class Settler extends TravellerBase {
         }
     }
 
-
     /**
      * This method stores Resources on a hollow asteroid.
      * It checks if there are already Resources stored.
      * If there are already Resources it checks if they are of the same type as the Resources the Settler wants to store.
      *
-     * @param index Index of the Resource that is stored.
+     * @param resource Name of the Resource that is left on the Asteroid.
      * @return 0: action was successful, 1: steroid is not hollow or different Resource is stored
      */
-    public int leaveResource(int index) {
+    public int leaveResource(String resource) {
+        int index;
+        if(itsInventory.getStoredResources().size() == 0) {
+            return 2; // inventory is empty
+        }
+        for(index = 0; index < itsInventory.getStoredResources().size(); index++){
+            if(itsInventory.getStoredResources().get(index).getResourceType().equals(resource))
+            {
+                break; // break if the resource is found in the inventory
+            }
+            else{
+                return 2; // resource is not in the inventory
+            }
+        }
+
         if(currentPosition.getHollow()) { // checks if the Asteroid is hollow
 
             if (currentPosition.getStoredResourceOfAsteroid().isEmpty()) { // checks if there are already
@@ -333,7 +356,7 @@ public class Settler extends TravellerBase {
      */
     public int pickUpResources() {
         if(!currentPosition.getStoredResourceOfAsteroid().isEmpty() ) { // check if there are Resources stored on the Asteroid and the inventory is not full
-            if(this.itsInventory.getStoredResources().size() < 11 ) { // cannot pick up a Resource if the inventory is full
+            if(this.itsInventory.getStoredResources().size() > 10 ) { // cannot pick up a Resource if the inventory is full
                 return 2; // inventory is full
             } else {
                 int index = currentPosition.getStoredResourceOfAsteroid().size() - 1;

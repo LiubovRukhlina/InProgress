@@ -20,7 +20,7 @@ public class Player {
      */
     public Player(int playerID) {
         this.playerID = playerID;
-        this.numberOfMoves = 1;
+        this.numberOfMoves = 5;
 
         // A Player gets 3 Settlers to play with
         this.settlers.add( new Settler("Settler1", Game.getAsteroid(new Random().nextInt(Game.getMaxX()), new Random().nextInt(Game.getMaxY()), new Random().nextInt(Game.getMaxZ())), this.playerID));
@@ -79,7 +79,7 @@ public class Player {
                 Game.setActiveSettler(i);
             }
         }
-       // assigns the next Player
+        // assigns the next Player
         if(this.playerID == Game.getCurrentPlayer().getPlayerID() || this.playerID > Game.getCurrentPlayer().getPlayerID() ) { // checks if a complete round was played
             Game.nextRound();
         }
@@ -137,6 +137,8 @@ public class Player {
                 }
             }
         }
+
+        System.out.println("CurrentPlayer: Player " + pNext.getPlayerID() + " previous Player: Player " + this.getPlayerID());
         return pNext;
     }
 

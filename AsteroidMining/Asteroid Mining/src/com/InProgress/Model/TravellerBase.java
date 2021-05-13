@@ -118,7 +118,9 @@ public abstract class TravellerBase {
     public void die() {
         this.isAlive = false;
 
-        GameWindow.infobox("Settler is dead","DEAD");
+        if(this instanceof Settler) {
+            Game.controllerInternal(3);
+        }
         if(Game.getCurrentPlayer().checkSettlers())
         {
             for(Settler i : Game.getCurrentPlayer().getSettlers())
@@ -134,7 +136,6 @@ public abstract class TravellerBase {
             Game.getCurrentPlayer().setPlaying(false);
             Game.getCurrentPlayer().endMyTurn();
         }
-
     }
 
     //</editor-fold>

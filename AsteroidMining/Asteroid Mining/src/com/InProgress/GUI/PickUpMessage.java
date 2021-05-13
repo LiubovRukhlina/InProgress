@@ -7,7 +7,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class PickUpMessage extends javax.swing.JFrame {
-    //String resource;
 
     /**
      * Creates new form PickUpMessage
@@ -36,7 +35,6 @@ public class PickUpMessage extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                Game.Controller();
                 GameWindow gamewindow = new GameWindow();
                 gamewindow.initialize();
                 game.setVisible(false);

@@ -73,6 +73,7 @@ public class Sun {
      * launches the sun storm
      */
     public void startSunStorm() {
+        Game.controllerInternal(2);
         findTraveller();
         setCountDownOfSunStorm(new Random().nextInt(5) + 5); // new countdown between 5 and 9
     }

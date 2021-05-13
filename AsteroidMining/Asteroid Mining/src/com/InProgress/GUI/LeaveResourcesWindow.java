@@ -1,10 +1,8 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-import com.InProgress.Model.Inventory;
-import com.InProgress.Model.ResourceBase;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class LeaveResourcesWindow extends javax.swing.JFrame {
     GameWindow previous;
@@ -27,28 +25,38 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        // instantiate the components
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        resourceTextField = new javax.swing.JTextField();
         cancelButton = new javax.swing.JButton();
         okButton1 = new javax.swing.JButton();
 
+        // window settings
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Leave a Resource Message");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-
+        // set up labels
         jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Which Resource should be left on the Asteroid?");
 
-        jTextField1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(51, 204, 0));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Iron");
+        // set up text fields
+        resourceTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        resourceTextField.setForeground(new java.awt.Color(51, 204, 0));
+        resourceTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        resourceTextField.setText("Iron");
 
+        // set up the buttons
+        okButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        okButton1.setText("OK");
+        okButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButton1ActionPerformed(evt);
+            }
+        });
 
         cancelButton.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         cancelButton.setText("Cancel");
@@ -58,14 +66,8 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
             }
         });
 
-        okButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        okButton1.setText("OK");
-        okButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButton1ActionPerformed(evt);
-            }
-        });
-
+        // <editor-fold desc="Grouping the components">
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,7 +75,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(270, 270, 270)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(resourceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(118, 118, 118)
@@ -88,7 +90,7 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
                                 .addGap(57, 57, 57)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(resourceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(okButton1)
@@ -110,45 +112,11 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
+        // </editor-fold>
 
         pack();
-    }// </editor-fold>
-
-
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-       setVisible(false);
-       dispose();
     }
-
-    private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-       List<ResourceBase> inv=  Game.getActiveSettler().getItsInventory().getStoredResources();
-       Boolean flag = false;
-       for(int i = 0;i<inv.size();i++)
-        {
-            if(inv.get(i).getResourceType().equals(jTextField1.getText()) )
-            {
-
-                Game.getActiveSettler().leaveResource(i);
-                flag = true;
-            }
-        }
-       setVisible(false);
-       if(flag == false)
-       {
-            GameWindow.infobox("You Resource is not in he Inventory","Error");
-       }
-       else
-       {
-           dispose();
-           Game.Controller();
-           GameWindow gameWindow = new GameWindow();
-           gameWindow.initialize();
-           previous.setVisible(false);
-           previous.dispose();
-       }
-    }
-
+    // </editor-fold>
 
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
@@ -183,11 +151,34 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         });
     }
 
+    // <editor-fold desc="Action Listeners">
+    private void okButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        ArrayList<String> input = new ArrayList<>();
+        input.add(0, resourceTextField.getText());
+        Game.controllerExternal(5, input);
+
+        setVisible(false);
+        dispose();
+
+        GameWindow game = new GameWindow();
+        game.initialize();
+        this.previous.setVisible(false);
+        this.previous.dispose();
+    }
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+       setVisible(false);
+       dispose();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField resourceTextField;
     private javax.swing.JButton okButton1;
-    // End of variables declaration
+    // </editor-fold>
 }

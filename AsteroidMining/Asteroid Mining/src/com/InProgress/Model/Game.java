@@ -1,7 +1,10 @@
 package com.InProgress.Model;
 
 import com.InProgress.GUI.GameWindow;
+import com.InProgress.GUI.MineMessage;
+import com.InProgress.GUI.PickUpMessage;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -15,13 +18,14 @@ public class Game implements Serializable {
     private static int roundCounter;
     private static int numberOfAsteroids; // counts the number of active asteroids
     private static int numberOfGates;
+    private static boolean winLoose;
     private static  Sun sun; // in charge of sun storms
     private static ArrayList<Player> players; //list of players
     private static Player currentPlayer; // the Player who is currently playing
     private static Settler activeSettler; // the Settler the currentPlayer is controlling
     public static  ArrayList<ArrayList<ArrayList<Asteroid>>> asteroids; // 3D-list of all asteroids
     private static  ArrayList<Robot> robots; //list of robots
-    public static GameWindow game;
+    public static GameWindow gameWindow;
 
     //</editor-fold>
 
@@ -51,6 +55,7 @@ public class Game implements Serializable {
         roundCounter = 0;
         numberOfAsteroids = x*y*z;
         numberOfGates = 0;
+        winLoose = false; // no winner yet
 
         sun = new Sun();
         robots = new ArrayList<>();
@@ -85,7 +90,9 @@ public class Game implements Serializable {
         }
 
         for (Robot r : robots ) { // all robots drill on their current asteroid
-            r.drill(r.getCurrentPosition()); // drilling might cause an explosion that kills Settlers or Robots
+            if(r.isAlive) {
+                r.drill(r.getCurrentPosition()); // drilling might cause an explosion that kills Settlers or Robots
+            }
         }
 
         //-----------------------------------------------------------------------------------
@@ -99,7 +106,7 @@ public class Game implements Serializable {
             }
         }
         if(!isThereStillSomeone) {
-            Game.endGame(0);
+            Game.endGame(false);
         }
         if(!currentPlayer.getPlaying()) { // if the currentPlayer died during the previous actions we assign a new one
             currentPlayer = currentPlayer.getNextPlayer();
@@ -125,7 +132,6 @@ public class Game implements Serializable {
      *
      * @return number of settlers remaining active Settlers
      */
-
     public static int getNumberOfSettlers()
     {
         int sum = 0;
@@ -148,12 +154,54 @@ public class Game implements Serializable {
         }
     }
 
+    /*  only used to check functionality
+        Replace infobox calls with ErrorMessage windows
+     */
+    public static void infobox(String message,String title)
+    {
+        JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
+    }
 
-    public static void controller(int index, ArrayList<String> input) {
+    public static void controllerInternal(int index) {
 
         int returnValue;
 
         switch(index) {
+
+            case 1: { // Asteroid explodes
+                infobox("An Asteroid exploded.", "Explosion");
+            }
+            break;
+
+            case 2: { // Sun storm occured
+                infobox("A sun storm occured.", "Sun storm");
+            }
+            break;
+
+            case 3: { // Settler died
+                infobox("A Settler died", "Dead Settler");
+            }
+            break;
+            //-----------------------------------------------------------------------------------
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + index);
+        }
+    }
+
+
+
+    public static void controllerExternal(int index, ArrayList<String> input) {
+
+        if(index != 0) {
+            System.out.println("CurrentPlayer: Player " + currentPlayer.getPlayerID());
+            System.out.println("Player " + activeSettler.getPlayerID() + " is playing with " + activeSettler.getName());
+        }
+
+        int returnValue;
+
+        switch(index) {
+
             case 0: { // set up the game
                 int p = Integer.parseInt(input.get(0));
                 int x = Integer.parseInt(input.get(1));
@@ -161,14 +209,12 @@ public class Game implements Serializable {
                 int z = Integer.parseInt(input.get(3));
                 startGame(p,x,y,z);
 
-                game = new GameWindow();
-                game.initialize();
+                gameWindow = new GameWindow();
+                gameWindow.initialize();
 
                 return;
             }
 
-            //-----------------------------------------------------------------------------------
-            // cases 1 to 11 are Settler actions started by the user
             case 1: { // travel
                 int x = Integer.parseInt(input.get(0));
                 int y = Integer.parseInt(input.get(1));
@@ -180,10 +226,11 @@ public class Game implements Serializable {
                     currentPlayer.decreaseNumberOfMoves();
                 }
                 else if(returnValue == 1) {
-                    // TODO no space
+                    infobox("There is not enough space on the Asteroid.", "Travel Error");
                 }
                 else if(returnValue == 2) {
-                    // TODO not neighborhood
+                    infobox("Asteroid is not in the neighborhood or is exploded.", "Travel Error");
+
                 }
             }
             break;
@@ -194,13 +241,13 @@ public class Game implements Serializable {
                     currentPlayer.decreaseNumberOfMoves();
                 }
                 else if(returnValue == 1) {
-                    // TODO no space
+                    infobox("There is not enough space on the Asteroid.", "Travel Error");
                 }
                 else if(returnValue == 2) {
-                    // TODO not active gate
+                    infobox("The Gate is not activated.", "Travel Error");
                 }
                 else if(returnValue == 3) {
-                    // TODO no gate
+                    infobox("The Asteroid has no Gate.", "Travel Error");
                 }
             }
             break;
@@ -211,7 +258,7 @@ public class Game implements Serializable {
                     currentPlayer.decreaseNumberOfMoves();
                 }
                 else {
-                    // TODO already drilled through
+                    infobox("The Asteroid is already drilled.", "Drill Error");
                 }
             }
             break;
@@ -219,33 +266,31 @@ public class Game implements Serializable {
             case 4: { // mine
                 returnValue = activeSettler.mine(activeSettler.getCurrentPosition());
                 if(returnValue == 0) {
+                    MineMessage mineMessage = new MineMessage(gameWindow);
+                    mineMessage.initialize(gameWindow);
                     currentPlayer.decreaseNumberOfMoves();
+
                 }
                 else if(returnValue == 1) {
-                    // TODO cannot mine
+                    infobox("The Asteroid cannot be mined.", "Mine Error");
                 }
                 else if(returnValue == 2) {
-                    // TODO inventory is full
+                    infobox("You cannot mine.\nYour inventory is full", "Mine Error");
                 }
             }
             break;
 
             case 5: { // leave resource
-                returnValue = 1; // default value if the Resource is not in the Inventory
-
-                for(int i = 0; i < activeSettler.getItsInventory().getStoredResources().size(); i++)
-                {
-                    if(activeSettler.getItsInventory().getStoredResources().get(i).getResourceType().equals(input.get(0)) )
-                    {
-                        returnValue = activeSettler.leaveResource(i);
-                    }
-                }
+                returnValue = activeSettler.leaveResource(input.get(0));
 
                 if(returnValue == 0) {
                     currentPlayer.decreaseNumberOfMoves();
                 }
-                else{
-                    // TODO not in the inventory
+                else if (returnValue == 1){
+                    infobox("You cannot leave this Resource.", "Leave Resource Error");
+                }
+                else if (returnValue == 2){
+                    infobox("You do not have that Resource", "Leave Resource Error");
                 }
             }
             break;
@@ -254,15 +299,19 @@ public class Game implements Serializable {
                 returnValue = activeSettler.pickUpResources();
 
                 if(returnValue == 0) {
+                    PickUpMessage pickUpMessage = new PickUpMessage(GameWindow.resource, gameWindow);
+                    pickUpMessage.initialize(GameWindow.resource, gameWindow);
                     currentPlayer.decreaseNumberOfMoves();
                 }
                 else if(returnValue == 1) {
-                    // TODO nothing to pick up
+                    infobox("There is nothing to pick up.", "Pick Up Resource Error");
                 }
                 else if(returnValue == 2) {
-                    // TODO nothing to pick up
+                    infobox("Your inventory is full.", "Pick Up Resource Error");
                 }
             }
+            break;
+
             case 7: { // build robot
                 returnValue = activeSettler.buildRobot();
 
@@ -270,7 +319,7 @@ public class Game implements Serializable {
                     currentPlayer.decreaseNumberOfMoves();
                 }
                 else {
-                    // TODO not enough resources
+                    infobox("You do not have enough Resources.", "Build Error");
                 }
             }
             break;
@@ -281,20 +330,24 @@ public class Game implements Serializable {
                 if(returnValue == 0) {
                     currentPlayer.decreaseNumberOfMoves();
                 }
-                else {
-                    // TODO not enough resources
+                else if(returnValue == 1) {
+                    infobox("You do not have enough Resources.", "Build Error");
+                }
+                else if(returnValue == 2) {
+                    infobox("You cannot carry anymore Gates.", "Build Error");
                 }
             }
             break;
 
-            case 9: { // build robot
+            case 9: { // build space station
                 returnValue = activeSettler.buildSpaceStation(activeSettler.getCurrentPosition());
 
                 if(returnValue == 0) {
-                    // TODO end game
+                    activeSettler.buildSpaceStation(activeSettler.getCurrentPosition());
+                    endGame(winLoose);
                 }
                 else {
-                    // TODO not enough resources
+                    infobox("You do not have enough Resources.", "Build Error");
                 }
             }
             break;
@@ -303,10 +356,10 @@ public class Game implements Serializable {
                 returnValue = activeSettler.deployTransportGate(activeSettler.getCurrentPosition());
 
                 if(returnValue == 0) {
-                    // TODO end game
+                    currentPlayer.decreaseNumberOfMoves();
                 }
                 else {
-                    // TODO has no gate / there is already a gate?
+                    infobox("You cannot deploy a Gate.", "Deploy Error");
                 }
             }
             break;
@@ -315,31 +368,23 @@ public class Game implements Serializable {
                 currentPlayer.endMyTurn();
             }
             break;
-            //-----------------------------------------------------------------------------------
 
-            //-----------------------------------------------------------------------------------
-            // cases 12 to 14 are started by the system
-            case 12: { // Asteroid explodes
-                // TODO output "Asteroid explodes"
+            case 12: { // change settler
+                for (Settler s : currentPlayer.getSettlers() ) {
+                    if(s.getName().equals(input.get(0))) {
+                        activeSettler = s;
+                    }
+                }
             }
             break;
-
-            case 13: { // Sun storm occured
-                // TODO output "Sun strom explodes"
-            }
-            break;
-
-            case 14: { // Settler died
-                // TODO output "Settler died"
-            }
-            break;
-            //-----------------------------------------------------------------------------------
 
             default:
                 throw new IllegalStateException("Unexpected value: " + index);
         }
 
+        System.out.println("Player: " +currentPlayer.getPlayerID() + " Remaining Actions: " + currentPlayer.getNumberOfMoves());
         if(currentPlayer.getNumberOfMoves() == 0) { // ends turn if user has no moves left
+            System.out.println("Player: " +currentPlayer.getPlayerID() + "'s turn ended.");
             currentPlayer.endMyTurn();
         }
     }
@@ -349,10 +394,9 @@ public class Game implements Serializable {
      * Ends the game.
      * Decides whether it was successful or not
      */
-    public static void endGame(int num) {
-        if(num == 1)
+    public static void endGame(boolean flag) {
+        if(flag)
             GameWindow.infobox("Detim imim finyish du wa ting, im ye fo sémpere.","Beltalowda");
-
         else
             GameWindow.infobox("Setara imalowda mogut nawit milowda.","Inyalowda ");
     }
@@ -390,7 +434,6 @@ public class Game implements Serializable {
 
     //<editor-fold desc="Getters and Setters">
 
-
     public static ArrayList<Player> getPlayers() { return players; }
 
     public static int getMaxX() { return maxX; }
@@ -398,6 +441,9 @@ public class Game implements Serializable {
     public static int getMaxY() { return maxY; }
 
     public static int getMaxZ() { return maxZ; }
+
+    public static boolean isWinLoose() { return winLoose; }
+    public static void setWinLoose(boolean winLoose) { Game.winLoose = winLoose; }
 
     public static Sun getSun() { return sun; }
 

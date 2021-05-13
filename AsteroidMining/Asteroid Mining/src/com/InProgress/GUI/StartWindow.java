@@ -24,6 +24,8 @@ public class StartWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         this.setLocationRelativeTo(null);
+
+        // instantiate components
         numberOfPlayersButtonGroup = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         readyButton = new javax.swing.JButton();
@@ -45,6 +47,7 @@ public class StartWindow extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem("Exit");
 
+        // window settings
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Start Menu");
         setBackground(new java.awt.Color(102, 102, 102));
@@ -53,6 +56,48 @@ public class StartWindow extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
+        // set up labels
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Ready to explore the Asteroid Belt?");
+
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Enter the Dimensions of the Belt:");
+
+        jLabel3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel3.setText("X:");
+
+        jLabel4.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Y:");
+
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel5.setText("Z:");
+
+        jLabel6.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel6.setText("Choose number of Players:");
+
+        // set up Text fields
+        xTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        xTextField.setText("10");
+
+        yTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        yTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        yTextField.setText("10");
+
+        zTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        zTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        zTextField.setText("10");
+
+        // set up buttons
         readyButton.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         readyButton.setText("Ready to Play");
         readyButton.addActionListener(new java.awt.event.ActionListener() {
@@ -61,22 +106,13 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Enter the Dimensions of the Belt:");
-
-        jRadioButton3.setBackground(new java.awt.Color(102, 102, 102));
-        numberOfPlayersButtonGroup.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(51, 204, 0));
-        jRadioButton3.setText("3");
-
-
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ready to explore the Asteroid Belt?");
+        // set up radio buttons
+        jRadioButton1.setBackground(new java.awt.Color(102, 102, 102));
+        numberOfPlayersButtonGroup.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(51, 204, 0));
+        jRadioButton1.setText("1");
+        jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButton2.setBackground(new java.awt.Color(102, 102, 102));
         numberOfPlayersButtonGroup.add(jRadioButton2);
@@ -84,36 +120,39 @@ public class StartWindow extends javax.swing.JFrame {
         jRadioButton2.setForeground(new java.awt.Color(51, 204, 0));
         jRadioButton2.setText("2");
 
+        jRadioButton3.setBackground(new java.awt.Color(102, 102, 102));
+        numberOfPlayersButtonGroup.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(51, 204, 0));
+        jRadioButton3.setText("3");
+
+        // set up menu bar
+        jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
+
+        menuMenu.setText("Menu");
+        menuMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jMenuBar1.add(menuMenu);
+        menuMenu.add(exit);
+
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+
+        helpMenu.setText("Help");
+        helpMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jMenuBar1.add(helpMenu);
+        helpMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpMenuActionPerformed(evt);
+            }
+        });
+
+        setJMenuBar(jMenuBar1);
+
+        //<editor-fold desc="Placing components">
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-
-        xTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        xTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        xTextField.setText("10");
-
-
-
-        jLabel5.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel5.setText("Z:");
-
-        yTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        yTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        yTextField.setText("10");
-
-        jLabel3.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel3.setText("X:");
-
-        zTextField.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        zTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        zTextField.setText("10");
-
-
-        jLabel4.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Y:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,17 +185,6 @@ public class StartWindow extends javax.swing.JFrame {
                                         .addComponent(jLabel5))
                                 .addContainerGap())
         );
-
-        jLabel6.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel6.setText("Choose number of Players:");
-
-        jRadioButton1.setBackground(new java.awt.Color(102, 102, 102));
-        numberOfPlayersButtonGroup.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(51, 204, 0));
-        jRadioButton1.setText("1");
-        jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -206,30 +234,6 @@ public class StartWindow extends javax.swing.JFrame {
                                 .addGap(71, 71, 71))
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
-
-        menuMenu.setText("Menu");
-        menuMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jMenuBar1.add(menuMenu);
-        menuMenu.add(exit);
-
-        exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
-            }
-        });
-
-        helpMenu.setText("Help");
-        helpMenu.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jMenuBar1.add(helpMenu);
-        helpMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               helpMenuActionPerformed(evt);
-            }
-        });
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,77 +244,11 @@ public class StartWindow extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        //</editor-fold>
 
         pack();
-    }// </editor-fold>
-
-    private void helpMenuActionPerformed(ActionEvent evt) {
-        StartWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
-
-    private void exitActionPerformed(ActionEvent evt) {
-        System.exit(0);
-    }
-
-
-    private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-        int x = Integer.parseInt(xTextField.getText());
-        int y = Integer.parseInt(yTextField.getText());
-        int z = Integer.parseInt(zTextField.getText());
-
-        ArrayList<String> input = new ArrayList<>(4);
-
-        if((x<5 || x>10) || (y<5 || y>10) || (z<5 || z>10))
-        {
-            StartWindow.infobox("Asteroid belt too large/small","Invalid input");
-            return;
-        }
-
-        if(jRadioButton1.isSelected()) {
-            setVisible(false);
-
-            input.add(0, Integer.toString(1));
-            input.add(1, xTextField.getText());
-            input.add(2, yTextField.getText());
-            input.add(3, zTextField.getText());
-            Game.controller(0, input);
-
-            //Game.startGame(1, x, y, z);
-            System.out.println("Game created");
-        }
-
-        else if(jRadioButton2.isSelected()) {
-            setVisible(false);
-
-            input.add(0, Integer.toString(2));
-            input.add(1, xTextField.getText());
-            input.add(2, yTextField.getText());
-            input.add(3, zTextField.getText());
-            Game.controller(0, input);
-            //Game.startGame(2,x,y,z);
-        }
-        else if(jRadioButton3.isSelected()) {
-            setVisible(false);
-
-            input.add(0, Integer.toString(3));
-            input.add(1, xTextField.getText());
-            input.add(2, yTextField.getText());
-            input.add(3, zTextField.getText());
-            Game.controller(0, input);
-            //Game.startGame(3,x,y,z);
-        }
-        else {
-            infobox("Please select number of players", "Insufficient Input");
-            return;
-        }
-
-        //setVisible(false);
-        dispose();
-
-        //GameWindow game = new GameWindow();
-        //game.initialize();
-    }
+    // </editor-fold>
 
     public static void infobox(String message,String title)
     {
@@ -351,6 +289,77 @@ public class StartWindow extends javax.swing.JFrame {
         });
     }
 
+
+    //<editor-fold desc="ActionListeners">
+
+    private void exitActionPerformed(ActionEvent evt) {
+
+        System.exit(0);
+    }
+
+    private void helpMenuActionPerformed(ActionEvent evt) {
+        StartWindow.infobox("Nobody can hear you scream in space","You are on your own!");
+    }
+
+    private void readyButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        int x = Integer.parseInt(xTextField.getText());
+        int y = Integer.parseInt(yTextField.getText());
+        int z = Integer.parseInt(zTextField.getText());
+
+        ArrayList<String> input = new ArrayList<>(4);
+
+        if((x<5 || x>10) || (y<5 || y>10) || (z<5 || z>10))
+        {
+            StartWindow.infobox("Asteroid belt too large/small","Invalid input");
+            return;
+        }
+
+        if(jRadioButton1.isSelected()) {
+            setVisible(false);
+
+            input.add(0, Integer.toString(1));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controllerExternal(0, input);
+
+            System.out.println("Game created");
+        }
+
+        else if(jRadioButton2.isSelected()) {
+            setVisible(false);
+
+            input.add(0, Integer.toString(2));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controllerExternal(0, input);
+
+            System.out.println("Game created");
+        }
+        else if(jRadioButton3.isSelected()) {
+            setVisible(false);
+
+            input.add(0, Integer.toString(3));
+            input.add(1, xTextField.getText());
+            input.add(2, yTextField.getText());
+            input.add(3, zTextField.getText());
+            Game.controllerExternal(0, input);
+
+            System.out.println("Game created");
+        }
+        else {
+            infobox("Please select number of players", "Insufficient Input");
+            return;
+        }
+
+        dispose();
+    }
+    //</editor-fold>
+
+
+    //<editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JMenuItem helpMenu;
     private javax.swing.JLabel jLabel1;
@@ -372,5 +381,5 @@ public class StartWindow extends javax.swing.JFrame {
     private javax.swing.JTextField yTextField;
     private javax.swing.JTextField zTextField;
     private javax.swing.JMenuItem exit;
-    // End of variables declaration
+    //</editor-fold>
 }

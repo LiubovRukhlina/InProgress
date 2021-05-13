@@ -59,14 +59,8 @@ public class Inventory{
      * @param tg2 Second Transport Gate
      */
     public void addGates(TransportGate tg1, TransportGate tg2) {
-        if (storedGates.size() == 0) { // checks if this Inventory is full.
             storedGates.add(tg1);
             storedGates.add(tg2);
-        }
-        else
-        {
-            // TODO What happens here?
-        }
     }
 
     /**

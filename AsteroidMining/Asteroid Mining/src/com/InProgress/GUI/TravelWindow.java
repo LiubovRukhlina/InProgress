@@ -4,19 +4,20 @@ import com.InProgress.Model.Game;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class TravelWindow extends javax.swing.JFrame {
 
 
-    GameWindow game;
+    GameWindow previous;
     /**
      * Creates new form TravelMessage
      *
-     * @param game Game window from which this window was called
+     //* @param game Game window from which this window was called
      */
     public TravelWindow(GameWindow game) {
+        this.previous = game;
         initComponents();
-        this.game = game;
     }
 
     /**
@@ -170,7 +171,7 @@ public class TravelWindow extends javax.swing.JFrame {
         int z = Integer.parseInt(zTextField.getText());
         if(x<0 ||y<0||z<0)
         {
-            TravelWindow.infobox("Invalid input","Error");
+            infobox("Invalid input","Error");
             setVisible(false);
             dispose();
             return;
@@ -181,14 +182,21 @@ public class TravelWindow extends javax.swing.JFrame {
         }
         else
         {
-            Game.getActiveSettler().travel(Game.getAsteroid(x,y,z));
+            ArrayList<String> input = new ArrayList<>();
+            input.add(0,xTextField.getText());
+            input.add(1,yTextField.getText());
+            input.add(2,zTextField.getText());
+            Game.controllerExternal(1, input);
         }
 
         setVisible(false);
         dispose();
 
-        Game.game = new GameWindow();
-        Game.game.initialize();
+        GameWindow game = new GameWindow();
+        game.initialize();
+        this.previous.setVisible(false);
+        this.previous.dispose();
+
     }
 
     public static void infobox(String message,String title)
