@@ -274,6 +274,8 @@ public class Settler extends TravellerBase {
             tg.setCurrentPosition(A); // places the gate at the current Asteroid
             this.itsInventory.removeGate(tg);
             A.setGate(tg);
+            A.setHasGate(true);
+
             Game.setNumberOfGates(Game.getNumberOfGates()+1);
 
             if (tg.getPair().getCurrentPosition() != null) { // checks if the paired gate is already deployed
@@ -283,7 +285,7 @@ public class Settler extends TravellerBase {
 
             Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
         } else {
-            // TODO Cannot Deploy Window (Controller)
+            GameWindow.infobox("Cannot deploy Gate","Build gates first ot Asteroid has a gate already");
         }
     }
 

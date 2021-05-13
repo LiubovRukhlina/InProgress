@@ -195,7 +195,7 @@ public class Asteroid {
     public void setZ(int z) { this.z = z; }
 
     public TransportGate getGate() { return gate; }
-    public void setGate(TransportGate gate) { this.gate = gate; }
+    public void setGate(TransportGate gate) { this.gate = gate;  }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

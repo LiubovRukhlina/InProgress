@@ -59,11 +59,11 @@ public class GameWindow extends javax.swing.JFrame {
                     case 1:  g.drawImage(getImage("settler"), 300, 150, this); break;
                     case 2:  {
                         g.drawImage(getImage("settler"), 300, 150, this);
-                        g.drawImage(getImage("settler"), 350, 150, this);
+                        g.drawImage(getImage("settler"), 400, 150, this);
                     } break;
                     case 3: {
-                        g.drawImage(getImage("settler"), 350, 150, this);
-                        g.drawImage(getImage("settler"), 250, 150, this);
+                        g.drawImage(getImage("settler"), 400, 150, this);
+                        g.drawImage(getImage("settler"), 200, 150, this);
                         g.drawImage(getImage("settler"), 300, 150, this);
 
                     }break;
@@ -76,15 +76,15 @@ public class GameWindow extends javax.swing.JFrame {
                 //System.out.println(asteroid.getRobotsOnAsteroid().size());
                 switch (asteroid.getRobotsOnAsteroid().size())
                 {
-                    case 1:  g.drawImage(getImage("robot"), 150, 150, this); break;
+                    case 1:  g.drawImage(getImage("robot"), 150, 50, this); break;
                     case 2:  {
-                        g.drawImage(getImage("robot"), 150, 150, this);
-                        g.drawImage(getImage("robot"), 100, 150, this);
+                        g.drawImage(getImage("robot"), 150, 50, this);
+                        g.drawImage(getImage("robot"), 100, 50, this);
                     } break;
                     case 3: {
-                        g.drawImage(getImage("robot"), 200, 150, this);
-                        g.drawImage(getImage("robot"), 150, 150, this);
-                        g.drawImage(getImage("robot"), 100, 150, this);
+                        g.drawImage(getImage("robot"), 200, 50, this);
+                        g.drawImage(getImage("robot"), 150, 50, this);
+                        g.drawImage(getImage("robot"), 100, 50, this);
 
                     }break;
 
@@ -92,11 +92,11 @@ public class GameWindow extends javax.swing.JFrame {
                 }
 
                 if (asteroid.getHasGate() && asteroid.getGate().getActive()) {
-                    g.drawImage(getImage("gate_active"), 500, 150, this);
+                    g.drawImage(getImage("gate_active"), 500, 50, this);
                 }
 
                 if (asteroid.getHasGate() && !asteroid.getGate().getActive()) {
-                    g.drawImage(getImage("gate_inactive"), 500, 150, this);
+                    g.drawImage(getImage("gate_inactive"), 500, 50, this);
                 }
 
 
@@ -128,20 +128,20 @@ public class GameWindow extends javax.swing.JFrame {
                      ) {
                     switch (res.getResourceType()) {
                         case "Iron":  {
-                            g.drawImage(getImage("res_iron"), counter, 500, this);
+                            g.drawImage(getImage("stored_iron"), counter, 500, this);
                             counter += 50;
                         }break;
                         case "WaterIce": {
-                            g.drawImage(getImage("res_waterIce"), counter, 360, this);
+                            g.drawImage(getImage("stored_waterIce"), counter, 360, this);
                             counter += 50;
                         }break;
                         case "Uranium": {
-                            g.drawImage(getImage("res_uranium"), counter, 360, this);
+                            g.drawImage(getImage("stored_uranium"), counter, 360, this);
                             counter += 50;
                         }break;
                         case "Carbon":
                         {
-                            g.drawImage(getImage("res_carbon"), counter, 360, this);
+                            g.drawImage(getImage("stored_carbon"), counter, 360, this);
                             counter += 50;
                         }break;
                     }
@@ -268,7 +268,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         ActiveSettlerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         ActiveSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        ActiveSettlerLabel.setText("Settler1");
+        ActiveSettlerLabel.setText(Game.getActiveSettler().getName());
 
         DeathLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         DeathLabel.setForeground(new java.awt.Color(51, 204, 0));
@@ -315,7 +315,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         DestinationLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         DestinationLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getHasGate())
+        if(asteroid.getHasGate() && asteroid.getGate().getActive())
             DestinationLabel.setText("Destination:" + Game.getActiveSettler().getCurrentPosition().getGate().getPair().getCurrentPosition().toString());
 
         ResourceLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
@@ -400,7 +400,7 @@ public class GameWindow extends javax.swing.JFrame {
         });
 
         BuildButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        BuildButton.setText("Build");
+        BuildButton.setText("Build/Deploy gate");
         BuildButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuildButtonActionPerformed(evt);
