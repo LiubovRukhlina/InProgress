@@ -138,6 +138,10 @@ public class BuildWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    /**
+     * builds Space Station when the button "Space Station" is clicked
+     * @param evt event
+     */
     private void spaceStationButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildSpaceStation(Game.getActiveSettler().getCurrentPosition());
         Game.Controller();
@@ -148,6 +152,11 @@ public class BuildWindow extends javax.swing.JFrame {
         dispose();
     }
 
+    /**
+     *
+     * builds Robot when the button "Robot" is clicked
+     * @param evt event
+     */
     private void robotButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildRobot();
         Game.Controller();
@@ -157,13 +166,21 @@ public class BuildWindow extends javax.swing.JFrame {
         previous.dispose();
         dispose();
     }
-
+    /**
+     *
+     * closes the window when the "Cancel" is clicked
+     * @param evt event
+     */
     private void cancelButtonActionPerformed(ActionEvent evt) {
         setVisible(false);
         dispose();
 
     }
 
+    /**
+     * builds Gates when the button "Transport Gates" is clicked
+     * @param evt event
+     */
     private void gatesButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().buildTransportGate();
         Game.Controller();
@@ -173,6 +190,11 @@ public class BuildWindow extends javax.swing.JFrame {
         previous.dispose();
         dispose();
     }
+
+    /**
+     * add Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked
+     * @param evt event
+     */
     private void deployGateButtonActionPerformed(ActionEvent evt) {
         Game.getActiveSettler().deployTransportGate(Game.getActiveSettler().getCurrentPosition());
         Game.Controller();
@@ -185,6 +207,10 @@ public class BuildWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * initializes BuildWindow and makes it visible
+     * @param game current Game
+     */
 
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */

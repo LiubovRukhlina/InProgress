@@ -81,12 +81,20 @@ public class ErrorMessage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    /**
+     *
+     * closes the window when the "OK" is clicked
+     * @param evt event
+     */
+
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
         dispose();
     }
 
-
+    /**
+     * initializes ErrorMessage and makes it visible
+     */
     public void initialize() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
