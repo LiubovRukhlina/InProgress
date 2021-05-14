@@ -5,6 +5,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * GUI class. The window is created when the user clicks the "Travel" button in the game window.
+ * The user can enter the coordinates of the destination. The user input is forwarded to the
+ * controllerExternal method in the Game class to update the game.
+ * @author InProgress
+ */
 public class TravelWindow extends javax.swing.JFrame {
 
 
@@ -199,8 +205,8 @@ public class TravelWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow game = new GameWindow();
-        game.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
         this.previous.setVisible(false);
         this.previous.dispose();
 

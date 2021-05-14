@@ -5,6 +5,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * GUI class. The window is created when the user clicks the "Build/Deploy" button in the game window.
+ * The window shows option to build Robots, Gates or the Space Station. The user can also choose to deploy a TransportGate.
+ * The user input is forwarded to the controllerExternal method in the Game class to update the game.
+ * @author InProgress
+ */
 public class BuildWindow extends javax.swing.JFrame {
 
     GameWindow previous;
@@ -155,8 +161,8 @@ public class BuildWindow extends javax.swing.JFrame {
 
         Game.controllerExternal(7, defaultList);
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
         dispose();
@@ -173,8 +179,8 @@ public class BuildWindow extends javax.swing.JFrame {
 
         Game.controllerExternal(8, defaultList);
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
         dispose();
@@ -191,8 +197,8 @@ public class BuildWindow extends javax.swing.JFrame {
 
         Game.controllerExternal(10, defaultList);
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
         dispose();
@@ -209,8 +215,6 @@ public class BuildWindow extends javax.swing.JFrame {
 
         Game.controllerExternal(9, defaultList);
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
         dispose();

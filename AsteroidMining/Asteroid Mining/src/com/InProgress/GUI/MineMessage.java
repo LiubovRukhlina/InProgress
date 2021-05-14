@@ -3,6 +3,11 @@ package com.InProgress.GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * GUI class. The window is created when the user clicks the "Mine" button in the game window.
+ * The window informs the user about the mined Resource.
+ * @author InProgress
+ */
 public class MineMessage extends javax.swing.JFrame {
 
     GameWindow previous;
