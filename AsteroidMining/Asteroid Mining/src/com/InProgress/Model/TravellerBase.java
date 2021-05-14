@@ -1,7 +1,10 @@
 package com.InProgress.Model;
 
-import com.InProgress.GUI.GameWindow;
-
+/**
+ * Base class of the Travellers.
+ * It contains the common methods of the Settler and Robot class.
+ * @author InProgress
+ */
 public abstract class TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -34,7 +37,7 @@ public abstract class TravellerBase {
      *
      * @param A destination Asteroid
      */
-    public abstract void travel(Asteroid A);
+    public abstract int travel(Asteroid A);
 
 
     /**
@@ -42,7 +45,7 @@ public abstract class TravellerBase {
      *
      * @param A Asteroid to which the gate belongs
      */
-    public abstract void fastTravel(Asteroid A);
+    public abstract int fastTravel(Asteroid A);
 
 
 
@@ -77,7 +80,7 @@ public abstract class TravellerBase {
      *
      * @param A Asteroid that is being drilled
      */
-    public abstract void drill(Asteroid A);
+    public abstract int drill(Asteroid A);
 
     /**
      * Checks if the Destination of this Traveller is valid,
@@ -118,7 +121,9 @@ public abstract class TravellerBase {
     public void die() {
         this.isAlive = false;
 
-        GameWindow.infobox("Settler is dead","DEAD");
+        if(this instanceof Settler) {
+            Game.controllerInternal(3);
+        }
         if(Game.getCurrentPlayer().checkSettlers())
         {
             for(Settler i : Game.getCurrentPlayer().getSettlers())
@@ -134,7 +139,6 @@ public abstract class TravellerBase {
             Game.getCurrentPlayer().setPlaying(false);
             Game.getCurrentPlayer().endMyTurn();
         }
-
     }
 
     //</editor-fold>

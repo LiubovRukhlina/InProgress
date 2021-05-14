@@ -1,13 +1,9 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.*;
-
-import javax.swing.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class GameWindow extends javax.swing.JFrame {
@@ -45,7 +41,8 @@ public class GameWindow extends javax.swing.JFrame {
         Asteroid asteroid = Game.getActiveSettler().getCurrentPosition();
 
         jPanel1 = new javax.swing.JPanel() {
-            @Override
+
+            @Override // setting up images
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
@@ -75,21 +72,8 @@ public class GameWindow extends javax.swing.JFrame {
                 }
 
                 //System.out.println(asteroid.getRobotsOnAsteroid().size());
-                switch (asteroid.getRobotsOnAsteroid().size())
-                {
-                    case 1:  g.drawImage(getImage("robot"), 150, 50, this); break;
-                    case 2:  {
-                        g.drawImage(getImage("robot"), 150, 50, this);
-                        g.drawImage(getImage("robot"), 100, 50, this);
-                    } break;
-                    case 3: {
-                        g.drawImage(getImage("robot"), 200, 50, this);
-                        g.drawImage(getImage("robot"), 150, 50, this);
-                        g.drawImage(getImage("robot"), 100, 50, this);
-
-                    }break;
-
-                    default: break;
+                if(asteroid.getRobotsOnAsteroid().size() != 0) {
+                    g.drawImage(getImage("robot"), 150, 50, this);
                 }
 
                 if (asteroid.getHasGate() && asteroid.getGate().getActive()) {
@@ -126,7 +110,7 @@ public class GameWindow extends javax.swing.JFrame {
 
                 int counter = 100;
                 for (ResourceBase res : asteroid.getStoredResourceOfAsteroid()
-                     ) {
+                ) {
                     switch (res.getResourceType()) {
                         case "Iron":  {
                             g.drawImage(getImage("stored_iron"), counter, 500, this);
@@ -149,6 +133,8 @@ public class GameWindow extends javax.swing.JFrame {
                 }
             }
         };
+
+        // Instantiate components
         CurrentPlayer = new javax.swing.JLabel();
         TravelButton = new javax.swing.JButton();
         CurrentAsteroidLabel = new javax.swing.JLabel();
@@ -189,6 +175,7 @@ public class GameWindow extends javax.swing.JFrame {
         Exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenuItem();
 
+        // window settings
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -197,13 +184,120 @@ public class GameWindow extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
-
+        // set up labels
         CurrentPlayer.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
         CurrentPlayer.setForeground(new java.awt.Color(51, 204, 0));
         CurrentPlayer.setText("Player:" + Game.getCurrentPlayer().getPlayerID());
 
+        CurrentAsteroidLabel.setFont(new java.awt.Font("Consolas", 1, 28)); // NOI18N
+        CurrentAsteroidLabel.setForeground(new java.awt.Color(51, 204, 0));
+        CurrentAsteroidLabel.setText("Asteroid: " + asteroid.toString());
 
+        HollowLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        HollowLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if (asteroid.getHollow() && asteroid.getDepth() == 0)
+            HollowLabel.setText("Hollow: True");
+        else
+            HollowLabel.setText("Hollow: False");
 
+        StatusLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        StatusLabel.setForeground(new java.awt.Color(51, 204, 0));
+        StatusLabel.setText("Status");
+
+        ActiveSettlerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        ActiveSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
+        ActiveSettlerLabel.setText(Game.getActiveSettler().getName());
+
+        DeathLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        DeathLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(Game.getActiveSettler().getAlive())
+            DeathLabel.setText("Alive");
+        else
+            DeathLabel.setText("Dead");
+
+        HiddenLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
+        HiddenLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(Game.getActiveSettler().getHidden())
+            HiddenLabel.setText("Hidden");
+        else
+            HiddenLabel.setText("Unhidden");
+
+        AsteroidBeltLabel.setFont(new java.awt.Font("Consolas", 1, 28)); // NOI18N
+        AsteroidBeltLabel.setForeground(new java.awt.Color(51, 204, 0));
+        AsteroidBeltLabel.setText("Asteroid Belt ");
+
+        MiningStatusLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        MiningStatusLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if((asteroid.getDepth() == 0) && !asteroid.getHollow())
+            MiningStatusLabel.setText("Mineable: Yes");
+        else
+            MiningStatusLabel.setText("Mineable: No " /*+ "Depth: " + asteroid.getDepth()*/);
+
+        GateLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        GateLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(asteroid.getHasGate())
+            GateLabel.setText("Gate: True");
+        else
+            GateLabel.setText("Gate: False ");
+
+        PerihelionLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        PerihelionLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(asteroid.getX() == Game.getSun().getSunX())
+        {
+            asteroid.setAtPerihelion(true);
+        }
+        if(asteroid.getAtPerihelion())
+            PerihelionLabel.setText("Perihelion: True");
+        else
+            PerihelionLabel.setText("Perihelion: False");
+
+        DestinationLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        DestinationLabel.setForeground(new java.awt.Color(51, 204, 0));
+        if(asteroid.getHasGate() && asteroid.getGate().getActive())
+            DestinationLabel.setText("Destination:" + Game.getActiveSettler().getCurrentPosition().getGate().getPair().getCurrentPosition().toString());
+
+        ResourceLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        ResourceLabel.setForeground(new java.awt.Color(51, 204, 0));
+        try
+        {
+            ResourceBase resource = asteroid.getStoredResourceOfAsteroid().get(0);
+            String res = resource.getResourceType();
+            ResourceLabel.setText(res);
+        }
+        catch (IndexOutOfBoundsException ex)
+        {
+            ResourceLabel.setText("None");
+
+            NumSettlerLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            NumSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
+            NumSettlerLabel.setText("Settler: " + Game.getNumberOfSettlers());
+
+            NumRobotLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            NumRobotLabel.setForeground(new java.awt.Color(51, 204, 0));
+            NumRobotLabel.setText("Robot: " + Game.getRobots().size());
+
+            NumGatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            NumGatesLabel.setForeground(new java.awt.Color(51, 204, 0));
+            NumGatesLabel.setText("Gates: " + Game.getNumberOfGates());
+
+            NumAsteroidsLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            NumAsteroidsLabel.setForeground(new java.awt.Color(51, 204, 0));
+            NumAsteroidsLabel.setText("Asteroids: " + Game.getNumberOfAsteroids());
+
+            SunStormLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            SunStormLabel.setForeground(new java.awt.Color(51, 204, 0));
+            SunStormLabel.setText("SunStorm: " + Game.getSun().getCountdownOfSunStorm());
+
+            ResourcesListLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            ResourcesListLabel.setForeground(new java.awt.Color(51, 204, 0));
+            ResourcesListLabel.setText("Resources");
+
+            GatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+            GatesLabel.setForeground(new java.awt.Color(51, 204, 0));
+            GatesLabel.setText("Gates");
+        }
+
+        // set up buttons
         TravelButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         TravelButton.setText("Travel");
         TravelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -212,17 +306,63 @@ public class GameWindow extends javax.swing.JFrame {
             }
         });
 
-        CurrentAsteroidLabel.setFont(new java.awt.Font("Consolas", 1, 28)); // NOI18N
-        CurrentAsteroidLabel.setForeground(new java.awt.Color(51, 204, 0));
-        CurrentAsteroidLabel.setText("Asteroid: " + asteroid.toString());
+        FastTravelButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        FastTravelButton.setText("FastTravel");
+        FastTravelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FastTravelButtonActionPerformed(evt);
+            }
+        });
 
-        HollowLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        HollowLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if (asteroid.getHollow())
-            HollowLabel.setText("Hollow: True");
-        else
-            HollowLabel.setText("Hollow: False");
+        DrillButton.setFont(new java.awt.Font("Consolas", 0, 18)); //NOI18N
+        DrillButton.setText("Drill");
+        DrillButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DrillButtonActionPerformed(evt);
+            }
+        });
 
+        MineButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        MineButton.setText("Mine");
+        MineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MineButtonActionPerformed(evt);
+            }
+        });
+
+        LeaveButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        LeaveButton.setText("Leave");
+        LeaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LeaveButtonActionPerformed(evt);
+            }
+        });
+
+        PickupButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        PickupButton.setText("PickUp");
+        PickupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PickupButtonActionPerformed(evt);
+            }
+        });
+
+        BuildButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        BuildButton.setText("Build/Deploy gate");
+        BuildButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuildButtonActionPerformed(evt);
+            }
+        });
+
+        FinishButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        FinishButton.setText("Finish");
+        FinishButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinishButtonActionPerformed(evt);
+            }
+        });
+
+        // set up combo boxes
         Inventory inv = Game.getActiveSettler().getItsInventory();
 
         if(inv.getStoredGates().size() != 0) {
@@ -263,158 +403,6 @@ public class GameWindow extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(InventoryList);
 
-        StatusLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        StatusLabel.setForeground(new java.awt.Color(51, 204, 0));
-        StatusLabel.setText("Status");
-
-        ActiveSettlerLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        ActiveSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        ActiveSettlerLabel.setText(Game.getActiveSettler().getName());
-
-        DeathLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        DeathLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(Game.getActiveSettler().getAlive())
-            DeathLabel.setText("Alive");
-        else
-            DeathLabel.setText("Dead");
-
-        HiddenLabel.setFont(new java.awt.Font("Consolas", 1, 20)); // NOI18N
-        HiddenLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(Game.getActiveSettler().getHidden())
-            HiddenLabel.setText("Hidden");
-        else
-            HiddenLabel.setText("Unhidden");
-
-        AsteroidBeltLabel.setFont(new java.awt.Font("Consolas", 1, 28)); // NOI18N
-        AsteroidBeltLabel.setForeground(new java.awt.Color(51, 204, 0));
-        AsteroidBeltLabel.setText("Asteroid Belt ");
-
-        MiningStatusLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        MiningStatusLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if((asteroid.getDepth() == 0) && !asteroid.getHollow())
-            MiningStatusLabel.setText("Mineable: Yes");
-        else
-            MiningStatusLabel.setText("Mineable:No "+ "Depth: " + asteroid.getDepth());
-
-        GateLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        GateLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getHasGate())
-            GateLabel.setText("Gate: True");
-        else
-            GateLabel.setText("Gate: False ");
-
-        PerihelionLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        PerihelionLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getX() == Game.getSun().getSunX())
-        {
-            asteroid.setAtPerihelion(true);
-        }
-        if(asteroid.getAtPerihelion())
-            PerihelionLabel.setText("Perihelion: True");
-        else
-            PerihelionLabel.setText("Perihelion: False");
-
-        DestinationLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        DestinationLabel.setForeground(new java.awt.Color(51, 204, 0));
-        if(asteroid.getHasGate() && asteroid.getGate().getActive())
-            DestinationLabel.setText("Destination:" + Game.getActiveSettler().getCurrentPosition().getGate().getPair().getCurrentPosition().toString());
-
-        ResourceLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        ResourceLabel.setForeground(new java.awt.Color(51, 204, 0));
-        try
-        {
-            ResourceBase resource = asteroid.getStoredResourceOfAsteroid().get(0);
-            String res = resource.getResourceType();
-            ResourceLabel.setText(res);
-        }
-        catch (IndexOutOfBoundsException ex)
-        {
-            ResourceLabel.setText("None");
-        }
-
-        NumSettlerLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        NumSettlerLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumSettlerLabel.setText("Settler: " + Game.getNumberOfSettlers());
-
-        NumRobotLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        NumRobotLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumRobotLabel.setText("Robot: " + Game.getRobots().size());
-
-        NumGatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        NumGatesLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumGatesLabel.setText("Gates: " + Game.getNumberOfGates());
-
-        NumAsteroidsLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        NumAsteroidsLabel.setForeground(new java.awt.Color(51, 204, 0));
-        NumAsteroidsLabel.setText("Asteroids: " + Game.getNumberOfAsteroids());
-
-        SunStormLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        SunStormLabel.setForeground(new java.awt.Color(51, 204, 0));
-        SunStormLabel.setText("SunStorm: " + Game.getSun().getCountdownOfSunStorm());
-
-        ResourcesListLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        ResourcesListLabel.setForeground(new java.awt.Color(51, 204, 0));
-        ResourcesListLabel.setText("Resources");
-
-        GatesLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        GatesLabel.setForeground(new java.awt.Color(51, 204, 0));
-        GatesLabel.setText("Gates");
-
-        FastTravelButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        FastTravelButton.setText("FastTravel");
-        FastTravelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FastTravelButtonActionPerformed(evt);
-            }
-        });
-
-        DrillButton.setFont(new java.awt.Font("Consolas", 0, 18)); //NOI18N
-        DrillButton.setText("Drill");
-        DrillButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DrillButtonActionPerformed(evt);
-            }
-        });
-
-        MineButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        MineButton.setText("Mine");
-        MineButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MineButtonActionPerformed(evt);
-            }
-        });
-
-        LeaveButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        LeaveButton.setText("Leave");
-        LeaveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LeaveButtonActionPerformed(evt);
-            }
-        });
-
-        PickupButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        PickupButton.setText("PickUp");
-        PickupButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PickupButtonActionPerformed(evt, asteroid.getStoredResourceOfAsteroid().get(0).getResourceType());
-            }
-        });
-
-        BuildButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        BuildButton.setText("Build/Deploy gate");
-        BuildButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuildButtonActionPerformed(evt);
-            }
-        });
-
-        FinishButton.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        FinishButton.setText("Finish");
-        FinishButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FinishButtonActionPerformed(evt);
-            }
-        });
 
         labelPic.setText("Hello!");
         labelPic.setMaximumSize(new java.awt.Dimension(46, 46));
@@ -427,7 +415,48 @@ public class GameWindow extends javax.swing.JFrame {
             Settlers.add(i.getName());
         }
         SettlersListLabel.setModel(new javax.swing.DefaultComboBoxModel(Settlers.toArray()));
+        SettlersListLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectSettler(evt);
+            }
+        });
 
+        // Set up Menu bar
+        jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
+
+        jMenu1.setText("Menu");
+        jMenu1.add(Exit);
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+
+        Start.setText("Start New Game");
+        jMenu1.add(Start);
+        Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+
+
+        Exit.setText("Exit");
+        jMenu1.add(Exit);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Help");
+        jMenuBar1.add(jMenu2);
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
+
+        setJMenuBar(jMenuBar1);
+
+        //<editor-fold desc="Placing components">
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -563,35 +592,6 @@ public class GameWindow extends javax.swing.JFrame {
                                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
-
-        jMenu1.setText("Menu");
-        jMenu1.add(Exit);
-        Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
-            }
-        });
-
-
-        Start.setText("Start New Game");
-        jMenu1.add(Start);
-
-        Exit.setText("Exit");
-        jMenu1.add(Exit);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Help");
-        jMenuBar1.add(jMenu2);
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpActionPerformed(evt);
-            }
-        });
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -608,122 +608,183 @@ public class GameWindow extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(35, 35, 35))
         );
+        //</editor-fold">
 
         pack();
-    }// </editor-fold>
+    }
 
+    // </editor-fold>
+
+    //<editor-fold desc="ActionListeners">
+    /**
+     * Exits the game applicatin.
+     *
+     * @param evt click event
+     */
     private void exitActionPerformed(ActionEvent evt) {
         System.exit(0);
     }
 
     /**
-     * Opens the dialogue that allows to choose the travel destination
+     * Ends the  current game and returns to the start window.
+     *
+     * @param evt click event
+     */
+    private void newGameActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(13, defaultList);
+
+        setVisible(false);
+        dispose();
+    }
+
+    /**
+     * Opens the dialogue window that allows to choose the travel destination.
+     *
      * @param evt click event
      */
     private void TravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         TravelWindow travelWindow = new TravelWindow(this);
         travelWindow.initialize(this);
-        Game.Controller();
-
-       
     }
 
     /**
-     * Travels through the Transport Gates
+     * Calls the Game.controllerExternal() method to travel through the a TransportGate.
+     * Updates the game window.
+     *
      * @param evt click event
      */
     private void FastTravelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        Game.getActiveSettler().fastTravel(Game.getActiveSettler().getCurrentPosition());
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(2, defaultList);
         setVisible(false);
         dispose();
-        Game.Controller();
+
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
     }
 
     /**
-     * Decreases asteroid rock cover when "Drill" button is clicked
+     * Calls the Game.controllerExternal() to drill an Asteroid when "Drill" button is clicked.
+     * Updates the game window.
+     *
      * @param evt click event
      */
     private void DrillButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Game.getActiveSettler().drill(Game.getActiveSettler().getCurrentPosition());
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(3, defaultList);
         setVisible(false);
         dispose();
-        Game.Controller();
+
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
-
     }
 
     /**
-     * Adds asteroid's resource to the inventory when "mine" button is clicked
+     * Calls the Game.controllerExternal() to mine a Resource when "mine" button is clicked.
+     * Updates the game window.
+     *
      * @param evt click event
      */
     private void MineButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        int r = Game.getActiveSettler().mine(Game.getActiveSettler().getCurrentPosition());
-        if(r == 1);
-        {
-            MineMessage message = new MineMessage(this);
-            message.initialize(this);
-        }
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(4, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
     }
 
     /**
-     * Opens the dialogue that allows to choose which resource to leave on the asteroid
+     * Opens the dialogue window that allows to choose which Resource to leave on the Asteroid.
+     *
      * @param evt click event
      */
     private void LeaveButtonActionPerformed(java.awt.event.ActionEvent evt) {
         LeaveResourcesWindow leave = new LeaveResourcesWindow(this);
         leave.initialize(this);
-
     }
 
     /**
-     * Moves resource on top of asteroid to inventory
+     * Calls the Game.controllerExternal() to pick up a stored Resource on top of Asteroid.
+     * Updates the game window.
+     *
      * @param evt click event
-     * @param resource on the Asteroid
      */
-    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt, String resource) {
-        int r = Game.getActiveSettler().pickUpResources();
-        if(r == 1) {
-            PickUpMessage message = new PickUpMessage(resource, this);
-            message.initialize(resource, this);
-        }
+    private void PickupButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(6, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
     }
 
     /**
-     * Opens the dialogue where player chooses what he want to build
+     * Opens the dialogue window which allows the user to decide what to build and to deploy gates.
+     *
      * @param evt click event
      */
     private void BuildButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
         BuildWindow build = new BuildWindow(this);
         build.initialize(this);//2
-
     }
 
     /**
-     * Finishes the current turn
+     * Calls the Game.controllerExternal() to finish the current turn.
+     * Updates the game window.
+     *
      * @param evt click event
      */
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        Game.getCurrentPlayer().endMyTurn();
+        ArrayList<String> defaultList = new ArrayList<>();
 
+        Game.controllerExternal(11, defaultList);
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
     }
 
     /**
-     * shows infobox
+     * Calls the Game.controllerExternal() to switch the active Settler.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void selectSettler(ActionEvent evt) {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(0, SettlersListLabel.getSelectedItem().toString());
+
+        Game.controllerExternal(12, input);
+
+        setVisible(false);
+        dispose();
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+    }
+
+    /**
+     * Creates infobox window to display a help message for the user when "Help" is clicked in the menubar.
+     *
      * @param evt click event
      */
     private void helpActionPerformed(ActionEvent evt) {
         GameWindow.infobox("Nobody can hear you scream in space","You are on your own!");
     }
+    //</editor-fold">
 
     /**
-     * initializes BuildWindow and makes it visible
-
+     * Initializes BuildWindow window and makes it visible.
      */
     public void initialize() {
         /* Set the Nimbus look and feel */
@@ -756,11 +817,18 @@ public class GameWindow extends javax.swing.JFrame {
             }
         });
     }
-    public static void infobox(String message,String title)
-    {
+
+    /**
+     * Creates an infobox to display information to the user.
+     *
+     * @param message Text of the message to the user
+     * @param title Title of the window
+     */
+    public static void infobox(String message,String title) {
         JOptionPane.showMessageDialog(null,message,title, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    //<editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JLabel ActiveSettlerLabel;
     private javax.swing.JLabel AsteroidBeltLabel;
@@ -780,10 +848,8 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JButton LeaveButton;
     private javax.swing.JButton MineButton;
     private javax.swing.JLabel MiningStatusLabel;
-
     private javax.swing.JList<String> GatesList;
     private javax.swing.JList<String> InventoryList;
-
     private javax.swing.JLabel NumAsteroidsLabel;
     private javax.swing.JLabel NumGatesLabel;
     private javax.swing.JLabel NumRobotLabel;
@@ -799,7 +865,6 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JButton TravelButton;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -807,5 +872,5 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelPic;
-    // End of variables declaration
+    //</editor-fold>
 }

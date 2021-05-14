@@ -1,10 +1,9 @@
 package com.InProgress.GUI;
 
 import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.time.Clock;
+import java.util.ArrayList;
 
 public class BuildWindow extends javax.swing.JFrame {
 
@@ -27,6 +26,7 @@ public class BuildWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        // Instantiate components
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         robotButton = new javax.swing.JButton();
@@ -35,19 +35,20 @@ public class BuildWindow extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         deployGateButton = new javax.swing.JButton();
 
+        // window settings
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Building Message");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-
+        // set up labels
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("What should be built/deployed?");
 
+        //  set up buttons
         robotButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
-        robotButton.setText("Robot");
+        robotButton.setText("Build Robot");
         robotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 robotButtonActionPerformed(evt);
@@ -55,15 +56,23 @@ public class BuildWindow extends javax.swing.JFrame {
         });
 
         gatesButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
-        gatesButton.setText("Gates");
+        gatesButton.setText("Build Gates");
         gatesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gatesButtonActionPerformed(evt);
             }
         });
 
+        deployGateButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
+        deployGateButton.setText("Deploy Gate");
+        deployGateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deployGateButtonActionPerformed(evt);
+            }
+        });
+
         spaceStationButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
-        spaceStationButton.setText("SpaceStation");
+        spaceStationButton.setText("Build SpaceStation");
         spaceStationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spaceStationButtonActionPerformed(evt);
@@ -78,15 +87,8 @@ public class BuildWindow extends javax.swing.JFrame {
             }
         });
 
-        deployGateButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
-        deployGateButton.setText("Deploy Gate");
-        deployGateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deployGateButtonActionPerformed(evt);
-            }
-
-        });
-
+        // <editor-fold desc="Grouping Components">
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,84 +136,102 @@ public class BuildWindow extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        // </editor-fold>
 
         pack();
-    }// </editor-fold>
-
-    /**
-     * builds Space Station when the button "Space Station" is clicked
-     * @param evt event
-     */
-    private void spaceStationButtonActionPerformed(ActionEvent evt) {
-        Game.getActiveSettler().buildSpaceStation(Game.getActiveSettler().getCurrentPosition());
-        Game.Controller();
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
     }
+	// </editor-fold>
 
-    /**
+    //<editor-fold desc="ActionListeners">
+
+	/**
+     * Calls Game.controllerExternal() to build Robot when the button "Robot" is clicked.
+     * Updates the game window.
      *
-     * builds Robot when the button "Robot" is clicked
-     * @param evt event
+     * @param evt click event
      */
     private void robotButtonActionPerformed(ActionEvent evt) {
-        Game.getActiveSettler().buildRobot();
-        Game.Controller();
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(7, defaultList);
+
         GameWindow gameWindow = new GameWindow();
         gameWindow.initialize();
         previous.setVisible(false);
         previous.dispose();
         dispose();
     }
-    /**
+
+	/**
+     * Calls Game.controllerExternal() to build Gates when the button "Transport Gates" is clicked.
+     * Updates the game window.
      *
-     * closes the window when the "Cancel" is clicked
-     * @param evt event
+     * @param evt click event
+     */
+    private void gatesButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(8, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+	/**
+     * Calls Game.controllerExternal() to deploy Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void deployGateButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(10, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+	/**
+     * Calls Game.controllerExternal() to build Space Station when the button "Space Station" is clicked.
+     * Updates the game window.
+     *
+     * @param evt click event
+     */
+    private void spaceStationButtonActionPerformed(ActionEvent evt) {
+        ArrayList<String> defaultList = new ArrayList<>();
+
+        Game.controllerExternal(9, defaultList);
+
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.initialize();
+        previous.setVisible(false);
+        previous.dispose();
+        dispose();
+    }
+
+    /**
+     * Closes the window when the "Cancel" is clicked.
+	 *
+     * @param evt click event
      */
     private void cancelButtonActionPerformed(ActionEvent evt) {
         setVisible(false);
         dispose();
-
     }
+    //</editor-fold>
 
     /**
-     * builds Gates when the button "Transport Gates" is clicked
-     * @param evt event
+     * Initializes BuildWindow window and makes it visible.
+     *
+     * @param game current Game window
      */
-    private void gatesButtonActionPerformed(ActionEvent evt) {
-        Game.getActiveSettler().buildTransportGate();
-        Game.Controller();
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-    }
-
-    /**
-     * add Gate from the inventory to the asteroid  when the button "Deploy Gate" is clicked
-     * @param evt event
-     */
-    private void deployGateButtonActionPerformed(ActionEvent evt) {
-        Game.getActiveSettler().deployTransportGate(Game.getActiveSettler().getCurrentPosition());
-        Game.Controller();
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
-        previous.setVisible(false);
-        previous.dispose();
-        dispose();
-
-
-    }
-
-    /**
-     * initializes BuildWindow and makes it visible
-     * @param game current Game
-     */
-
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -245,6 +265,7 @@ public class BuildWindow extends javax.swing.JFrame {
         });
     }
 
+    //<editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton gatesButton;
@@ -253,5 +274,6 @@ public class BuildWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton robotButton;
     private javax.swing.JButton spaceStationButton;
-    // End of variables declaration
+    //</editor-fold>
+
 }

@@ -1,7 +1,5 @@
 package com.InProgress.GUI;
 
-import com.InProgress.Model.Game;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -25,17 +23,19 @@ public class MineMessage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         this.setLocationRelativeTo(null);
+
+        // Instantiate components
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
 
+        // window settings
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mine Message");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-
+        // set up labels
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -46,6 +46,7 @@ public class MineMessage extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText(GameWindow.resource);
 
+        // set up button
         okButton.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +55,8 @@ public class MineMessage extends javax.swing.JFrame {
             }
         });
 
+        // <editor-fold desc="Grouping components">
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,28 +90,29 @@ public class MineMessage extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+        // </editor-fold>
 
         pack();
-    }// </editor-fold>
+    }
+    // </editor-fold>
+
+    //<editor-fold desc="Action Listeners">
 
     /**
-     * Closes the window and refreshes the main GameWindow
-     * @param evt
+     * Closes the window and refreshes the main GameWindow.
+     *
+     * @param evt click event
      */
     private void okActionPerformed(ActionEvent evt) {
         setVisible(false);
-        Game.Controller();
-
-        GameWindow game = new GameWindow();
-        game.initialize();
-        this.previous.setVisible(false);
-        this.previous.dispose();
         dispose();
     }
+    //</editor-fold>
 
     /**
-     * initializes MineMessage and makes it visible
-     * @param game current Game
+     * Initializes MineMessage window and makes it visible.
+     *
+     * @param game current Game window
      */
     public void initialize(GameWindow game) {
         /* Set the Nimbus look and feel */
@@ -142,10 +146,11 @@ public class MineMessage extends javax.swing.JFrame {
         });
     }
 
+    //<editor-fold desc="Variables">
     // Variables declaration - do not modify
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton okButton;
-    // End of variables declaration
+    //</editor-fold>
 }

@@ -1,16 +1,21 @@
 package com.InProgress.Model;
 
-import com.InProgress.GUI.ErrorMessage;
 import com.InProgress.GUI.GameWindow;
-import com.InProgress.GUI.TravelWindow;
 
+/**
+ * The Settler class is derived from the Traveller base.
+ * Settlers are controlled by their Players. They travel through the asteroid belt and drill and mine Asteroids
+ * in order to collect Resource to build a Space Station. Besides Space Station they can build Robots and TransportGates.
+ * They are vulnerable to explosions and sun storms.
+ * @author InProgress
+ */
 public class Settler extends TravellerBase {
 
     //<editor-fold desc="Attributes">
 
     private int playerID;
     private String name;
-    private Inventory itsInventory = new Inventory();
+    private Inventory itsInventory;
 
     //</editor-fold>
 
@@ -30,13 +35,6 @@ public class Settler extends TravellerBase {
         this.playerID = playerID;
         currentPosition.setSettlersOnAsteroid(this);
         this.itsInventory = new Inventory();
-        this.itsInventory.addResource(new Iron("Iron"));
-        this.itsInventory.addResource(new Iron("Iron"));
-        this.itsInventory.addResource(new Uranium("Uranium"));
-        this.itsInventory.addResource(new WaterIce("WaterIce"));
-        this.itsInventory.addResource(new Carbon("Carbon"));
-
-
     }
 
     //</editor-fold>
@@ -51,9 +49,10 @@ public class Settler extends TravellerBase {
      * After a successful travel the Settler tries to hide inside the Asteroid.
      *
      * @param destination destination Asteroid
+     * @return 0: successful action, 1: Asteroid has not enough space, 2: Asteroid is not in the neighborhood or is exploded
      */
     @Override
-    public void travel(Asteroid destination) {
+    public int travel(Asteroid destination) {
         if (checkDestination(destination)) { // checks if destination is a valid.
             if (destination.acceptTraveller(this)) { // checks if there is enough space for the settler on the destination.
                 currentPosition.getSettlersOnAsteroid().remove(this);  // settler is removed from the list of the current asteroid
@@ -62,13 +61,12 @@ public class Settler extends TravellerBase {
                 currentPosition = destination;  // successful travel
                 hide(currentPosition); // settler tries to hide
 
-                Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+                return 0; // 0: successful action
             } else {
-
-                TravelWindow.infobox("There is not enough Space on the Asteroid","Error");
+                return 1; // 1: Asteroid has no space
             }
         } else {
-            TravelWindow.infobox("Asteroid not in Neighborhood or exploded","Error");
+            return 2; // 2: Asteroid is not in the neighborhood or exploded
         }
     }
 
@@ -78,9 +76,10 @@ public class Settler extends TravellerBase {
      * It first checks if there is a gate available and if it is active.
      *
      * @param a asteroid that the Traveller is travelling to.
+     * @return 0: successful action, 1: Asteroid has not enough space, 2: Gate is not active, 3: Asteroid has no gate
      */
     @Override
-    public void fastTravel(Asteroid a) {
+    public int fastTravel(Asteroid a) {
         if (a.getHasGate()) { // if the current asteroid has a transport gate
             TransportGate Gate1 = a.getGate();
 
@@ -93,15 +92,15 @@ public class Settler extends TravellerBase {
                     currentPosition = Gate2.getCurrentPosition();  // successful travel
                     hide(currentPosition); // hides when successfully travels
 
-                    Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+                    return 0; // successful action
                 } else {
-                    GameWindow.infobox("There is not enough Space on the Asteroid","Travel Error");
+                    return 1; // Asteroid has not enough space
                 }
             } else {
-                GameWindow.infobox("The Gate is not activated.","Travel Error");
+                return 2; // Gate is not active
             }
         } else {
-            GameWindow.infobox("There is no Gate at the Asteroid","Travel Error");
+            return 3; // Asteroid has no gate
         }
     }
 
@@ -111,9 +110,10 @@ public class Settler extends TravellerBase {
      * it is checked whether is explodes or the WaterIce sublimes.
      *
      * @param A Asteroid which is drilled
+     * @return 0: action was successful, 1: Asteroid is already drilled through
      */
     @Override
-    public void drill(Asteroid A) {
+    public int drill(Asteroid A) {
         if (A.getDepth() != 0) { // if it is not drilled through, then we drill
             A.decreaseRockCover(); //drilling
 
@@ -128,9 +128,9 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            return 0; // action was successful
         } else {
-                GameWindow.infobox("Asteroid is completely drilled","Drill Error");
+            return 1; // Asteroid is already drilled through
         }
     }
 
@@ -139,31 +139,33 @@ public class Settler extends TravellerBase {
      * It checks if the Asteroid is drilled through and if it hollow.
      *
      * @param A Asteroid that is mined.
+     * @return 0: action was successful, 1: Asteroid is hollow, 2: inventory is full
      */
     public int mine(Asteroid A) {
         if(A.getDepth() == 0 && !A.getHollow()) { // checks if the Asteroid is mineable
 
             GameWindow.resource = A.getResourceOfAsteroid().get(0).resourceType;
-            this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
-            A.emptyAsteroid(); // removes the Resource from the Asteroid
-            A.hideMyTravellers(); // the Asteroid is hollow now. Travellers can hide.
+            if(this.itsInventory.getStoredResources().size() > 10) { // cannot mine if the inventory is full
+                return 2; // inventory is full
+            } else {
+                this.itsInventory.addResource(A.getResourceOfAsteroid().get(0)); // adds the Resource of the Asteroid to the Inventory
+                A.emptyAsteroid(); // removes the Resource from the Asteroid
+                A.hideMyTravellers(); // the Asteroid is hollow now. Travellers can hide.
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves();
-            System.out.println("Reached here");
-            return 1;
+                return 0; // successful action
+            }
 
         } else {
-
-            ErrorMessage err = new ErrorMessage(); // error message in case the Asteroid is not mineable
-            err.initialize();
-            return 0;
+            return 1; // Asteroid is hollow
         }
     }
 
     /**
      * This method is used to build a robot.
+     *
+     * @return 0: action was successful, 1: not enough Resources available
      */
-    public void buildRobot() { // TODO Check if removing is working
+    public int buildRobot() {
         int uCount = 0; // counts the number of units of Uranium
         int iCount = 0; // counts the number of units of Iron
         int cCount = 0; // counts the number of units of Carbon
@@ -186,17 +188,15 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            while (itsInventory.getStoredResources().remove(null));
+            while (itsInventory.getStoredResources().remove(null)); // remove the null elements
 
             Robot newRobot = new Robot(currentPosition); // create new Robot
             Game.getRobots().add(newRobot); // adds the Robot to the list of Robots
             newRobot.randomTravel(this.getCurrentPosition()); // robot immediately travels to a different Asteroid
 
-            currentPosition.getRobotsOnAsteroid().add(newRobot); //TODO added but might be wrong
-
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            return 0; // successful action
         } else {
-            GameWindow.infobox("Cannot Build Robot","Insufficeient Resources");
+            return 1; // not enough Resources
         }
     }
 
@@ -205,68 +205,76 @@ public class Settler extends TravellerBase {
      * This method is used when the settler wants to build a SpaceStation.
      *
      * @param A Asteroid on which the SpaceStation is built.
+     * @return 0: action was successful, 1: not enough Resources available
      */
-    public void buildSpaceStation(Asteroid A) {
+    public int buildSpaceStation(Asteroid A) {
 
         if (itsInventory.checkResources(A)) { // checks if there are enough resources
-            Game.endGame(1);
+            Game.setWinLoose(true);
+            return 0; // successful action
         } else {
-            GameWindow.infobox("Cannot build Space Station","Insufficient resources");
-
+            return 1; // not enough resources
         }
     }
 
     /**
      * This method is used to build a transportation-gate and store it in the settler’s inventory.
+     *
+     * @return 0: action was successful, 1: not enough Resources available
      */
-    public void buildTransportGate() { // TODO Check if removing is working
-        if (itsInventory.checkResources(2)) { // checks if there are enough resources
-            int uCount = 0; // counts the number of units of Uranium
-            int iCount = 0; // counts the number of units of Iron
-            int wCount = 0; // counts the number of units of WaterIce
+    public int buildTransportGate() {
+        if(itsInventory.getStoredGates().size() == 0) {
+            if (itsInventory.checkResources(2)) { // checks if there are enough resources
+                int uCount = 0; // counts the number of units of Uranium
+                int iCount = 0; // counts the number of units of Iron
+                int wCount = 0; // counts the number of units of WaterIce
 
-            for (ResourceBase resource : itsInventory.getStoredResources()) { // removes the Resources
-                if (resource instanceof Uranium && uCount == 0) { // removes 1 unit of Uranium
-                    uCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                for (ResourceBase resource : itsInventory.getStoredResources()) { // removes the Resources
+                    if (resource instanceof Uranium && uCount == 0) { // removes 1 unit of Uranium
+                        uCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
-                } else if (resource instanceof Iron && iCount < 2) { // removes 2 unit of Iron
-                    iCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                    } else if (resource instanceof Iron && iCount < 2) { // removes 2 unit of Iron
+                        iCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
-                } else if (resource instanceof WaterIce && wCount == 0) { // removes 1 unit of WaterIce
-                    wCount++;
-                    int ind = itsInventory.getStoredResources().indexOf(resource);
-                    itsInventory.getStoredResources().set(ind, null);
+                    } else if (resource instanceof WaterIce && wCount == 0) { // removes 1 unit of WaterIce
+                        wCount++;
+                        int ind = itsInventory.getStoredResources().indexOf(resource);
+                        itsInventory.getStoredResources().set(ind, null);
 
+                    }
                 }
+
+                while (itsInventory.getStoredResources().remove(null)) ; // remove the null elements
+
+                TransportGate tg1 = new TransportGate();
+                TransportGate tg2 = new TransportGate();
+
+                //Pair the gates together
+                tg1.makePair(tg2);
+                tg2.makePair(tg1);
+
+                this.itsInventory.addGates(tg1, tg2);
+
+                return 0; // action was successful
+
+            } else {
+                return 1; // not enough Resources available
             }
-
-            while (itsInventory.getStoredResources().remove(null));
-
-            TransportGate tg1 = new TransportGate();
-            TransportGate tg2 = new TransportGate();
-
-            //Pair the gates together
-            tg1.makePair(tg2);
-            tg2.makePair(tg1);
-
-            this.itsInventory.addGates(tg1, tg2);
-
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
-        } else {
-            GameWindow.infobox("Failed Check","Error");
         }
+        return 2;
     }
 
     /**
      * This method deploys a transport gate on the asteroid the settler is currently on.
      *
      * @param A Asteroid that the TransportGate is deployed on
+     * @return 0: successful action, 1: no gate was deployed
      */
-    public void deployTransportGate(Asteroid A) {
+    public int deployTransportGate(Asteroid A) {
 
         if (!itsInventory.getStoredGates().isEmpty() && !A.getHasGate()) {
 
@@ -283,21 +291,36 @@ public class Settler extends TravellerBase {
                 tg.getPair().activateTransportGate();
             }
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            return 0; // action was successful
         } else {
-            GameWindow.infobox("Cannot deploy Gate","Build gates first ot Asteroid has a gate already");
+            return 1; // no gate was deployed
+
         }
     }
-
 
     /**
      * This method stores Resources on a hollow asteroid.
      * It checks if there are already Resources stored.
      * If there are already Resources it checks if they are of the same type as the Resources the Settler wants to store.
      *
-     * @param index Index of the Resource that is stored.
+     * @param resource Name of the Resource that is left on the Asteroid.
+     * @return 0: action was successful, 1: steroid is not hollow or different Resource is stored
      */
-    public void leaveResource(int index) {
+    public int leaveResource(String resource) {
+        int index;
+        if(itsInventory.getStoredResources().size() == 0) {
+            return 2; // inventory is empty
+        }
+        for(index = 0; index < itsInventory.getStoredResources().size(); index++){
+            if(itsInventory.getStoredResources().get(index).getResourceType().equals(resource))
+            {
+                break; // break if the resource is found in the inventory
+            }
+            else{
+                return 2; // resource is not in the inventory
+            }
+        }
+
         if(currentPosition.getHollow()) { // checks if the Asteroid is hollow
 
             if (currentPosition.getStoredResourceOfAsteroid().isEmpty()) { // checks if there are already
@@ -311,9 +334,9 @@ public class Settler extends TravellerBase {
                 }
             }
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves(); // action was successful, decrease the number of moves
+            return 0; // action was successful
         } else {
-            GameWindow.infobox("The Asteroid is not Hollow","Error");
+            return 1; // Asteroid is not hollow or different Resource is stored
         }
     }
 
@@ -321,19 +344,23 @@ public class Settler extends TravellerBase {
      * This method is used to pick up resources which are stored on asteroids by settlers.
      * Since only Resources of the same type are stored on the Asteroid the last Element of the
      * StoredResourcesOfAsteroid list is picked up.
+     *
+     * @return 0: successful action, 1: nothing to pick up, 2: inventory is full
      */
     public int pickUpResources() {
-        if(!currentPosition.getStoredResourceOfAsteroid().isEmpty()) { // check if there are Resources stored on the Asteroid
-            int index = currentPosition.getStoredResourceOfAsteroid().size()-1;
+        if(!currentPosition.getStoredResourceOfAsteroid().isEmpty() ) { // check if there are Resources stored on the Asteroid and the inventory is not full
+            if(this.itsInventory.getStoredResources().size() > 10 ) { // cannot pick up a Resource if the inventory is full
+                return 2; // inventory is full
+            } else {
+                int index = currentPosition.getStoredResourceOfAsteroid().size() - 1;
 
-            itsInventory.addResource(currentPosition.getStoredResourceOfAsteroid().get(index));
-            currentPosition.getStoredResourceOfAsteroid().remove(index);
+                itsInventory.addResource(currentPosition.getStoredResourceOfAsteroid().get(index));
+                currentPosition.getStoredResourceOfAsteroid().remove(index);
 
-            Game.getCurrentPlayer().decreaseNumberOfMoves();
-            return 1;// action was successful, decrease the number of moves
+                return 0; // successful action
+            }
         } else {
-            GameWindow.infobox("The Asteroid has no Resources","Error");
-            return 0;
+            return 1; // no Resource was picked up
         }
     }
 

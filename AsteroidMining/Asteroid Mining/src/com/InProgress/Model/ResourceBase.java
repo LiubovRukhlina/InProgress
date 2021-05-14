@@ -2,7 +2,12 @@ package com.InProgress.Model;
 
 import  java.lang.String;
 
-
+/**
+ * Base class of the Resources. Resources can be found in the core of Asteroids.
+ * They can be mined and transported by Settlers or be stored on Asteroids.
+ * Resources are used to build the Space Station, Robots and TransportGates.
+ * @author InProgress
+ */
 public class ResourceBase {
 
     //<editor-fold desc="Attributes">

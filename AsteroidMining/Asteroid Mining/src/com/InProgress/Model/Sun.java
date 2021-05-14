@@ -1,8 +1,12 @@
 package com.InProgress.Model;
 
-
 import java.util.Random;
 
+/**
+ * Represents the Sun. The Sun can start sun storms which kill unhidden Travellers.
+ * It also determines which Asteroids are at perihelion.
+ * @author InProgress
+ */
 public class Sun {
 
     //<editor-fold desc="Attributes">
@@ -73,6 +77,7 @@ public class Sun {
      * launches the sun storm
      */
     public void startSunStorm() {
+        Game.controllerInternal(2);
         findTraveller();
         setCountDownOfSunStorm(new Random().nextInt(5) + 5); // new countdown between 5 and 9
     }

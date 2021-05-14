@@ -2,6 +2,14 @@ package com.InProgress.Model;
 
 import java.util.Random;
 
+/**
+ * The Robot class is derived from the Traveller base.
+ * Represents an autonomously Robot that supports Settlers with drilling operation.
+ * They are build by Settlers using 1 unit of Iron, Carbon and Uranium.
+ * Robots travel randomly from Asteroid to Asteroid and drill them until they reach the core.
+ * They are vulnerable to explosions and sun storms.
+ * @author InProgress
+ */
 public class Robot extends TravellerBase {
 
     //<editor-fold desc="Attributes">
@@ -36,7 +44,7 @@ public class Robot extends TravellerBase {
      *
      * @param Destination destination Asteroid
      */
-    public void travel(Asteroid Destination) {
+    public int travel(Asteroid Destination) {
         if (checkDestination(Destination)) { // checks if the Asteroid is in the neighbourhood.
             currentPosition.getRobotsOnAsteroid().remove(this);  // Robot is removed from the list of the current Asteroid
             isHidden = false; // Robot is unhidden after travel
@@ -47,6 +55,7 @@ public class Robot extends TravellerBase {
         } else {
             randomTravel(this.getCurrentPosition());
         }
+        return 0; // default return
     }
 
     /**
@@ -54,8 +63,9 @@ public class Robot extends TravellerBase {
      * It first checks if there is a gate available and if it is active.
      *
      * @param A Asteroid to which the gate belongs
+     * @return default return (necessary because of the base class)
      */
-    public void fastTravel(Asteroid A) {
+    public int fastTravel(Asteroid A) {
         TransportGate destGate = A.getGate().getPair();
 
         A.getRobotsOnAsteroid().remove(this); // Robot is removed from the list of the current Asteroid
@@ -64,6 +74,8 @@ public class Robot extends TravellerBase {
         currentPosition = destGate.getCurrentPosition();// we travel to the location of the pair.
         currentPosition.getRobotsOnAsteroid().add(this); // robot is added to the list of the new Asteroid
         hide(currentPosition); // tires to hide
+
+        return 0; // default return
     }
 
 
@@ -77,7 +89,7 @@ public class Robot extends TravellerBase {
      *
      * @param A Asteroid which is drilled
      */
-    public void drill(Asteroid A) {
+    public int drill(Asteroid A) {
         if (A.getDepth() != 0) { // if the Asteroid is not drilled through, then the robot drills
             A.decreaseRockCover(); //drilling
 
@@ -97,6 +109,7 @@ public class Robot extends TravellerBase {
         } else {  // if it cannot drill and the Asteroid has no Gate, the Robots randomly travels
             randomTravel(A);
         }
+        return 0; // default return
     }
 
     /**

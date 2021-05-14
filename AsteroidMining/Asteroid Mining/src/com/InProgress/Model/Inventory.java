@@ -3,7 +3,12 @@ package com.InProgress.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Represents the Inventory of a Settler.
+ * It consists of two parts: a list of Resources and a list of TransportGates.
+ * The Inventory can contain 10 units of Resources and 2 TransportGates at most.
+ * @author InProgress
+ */
 public class Inventory{
 
     //<editor-fold desc="Attributes">
@@ -36,9 +41,7 @@ public class Inventory{
      */
     public void addResource(ResourceBase R) {
 
-        if (storedResources.size() == 10) { // checks if this Inventory is full
-
-        } else {
+        if (storedResources.size() < 10) { // checks if this Inventory is full
             storedResources.add(R);
         }
     }
@@ -59,14 +62,8 @@ public class Inventory{
      * @param tg2 Second Transport Gate
      */
     public void addGates(TransportGate tg1, TransportGate tg2) {
-        if (storedGates.size() == 0) { // checks if this Inventory is full.
             storedGates.add(tg1);
             storedGates.add(tg2);
-        }
-        else
-        {
-            // TODO What happens here?
-        }
     }
 
     /**
