@@ -3,6 +3,12 @@ package com.InProgress.GUI;
 import com.InProgress.Model.Game;
 import java.util.ArrayList;
 
+/**
+ * GUI class. The window is created when the user clicks the "Leave" button in the game window.
+ * The window allows the user to enter the type of the Resource which should be left on the Asteroid.
+ * The user input is forwarded to the controllerExternal method in the Game class to update the game.
+ * @author InProgress
+ */
 public class LeaveResourcesWindow extends javax.swing.JFrame {
     GameWindow previous;
 
@@ -135,8 +141,8 @@ public class LeaveResourcesWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow game = new GameWindow();
-        game.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
         this.previous.setVisible(false);
         this.previous.dispose();
     }

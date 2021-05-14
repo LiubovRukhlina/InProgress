@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * GUI class. The window is created when the user clicks the "Pick up" button in the game window.
+ * The window informs the user about the picked Resource.
+ * @author InProgress
+ */
 public class PickUpMessage extends javax.swing.JFrame {
 
     GameWindow previous;

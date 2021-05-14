@@ -5,6 +5,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * GUI class. This is the start window. It is the first window created when the application starts.
+ * The user can choose the settings for the next game, e. g. size of the asteroid belt.
+ * The user can enter the coordinates of the destination. The user input is forwarded to the
+ * controllerExternal method in the Game class to update the game.
+ * @author InProgress
+ */
 public class StartWindow extends javax.swing.JFrame {
 
     /**

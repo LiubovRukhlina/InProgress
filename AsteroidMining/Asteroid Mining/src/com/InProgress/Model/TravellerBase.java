@@ -137,7 +137,6 @@ public abstract class TravellerBase {
         else
         {
             Game.getCurrentPlayer().setPlaying(false);
-            Game.getCurrentPlayer().endMyTurn();
         }
     }
 

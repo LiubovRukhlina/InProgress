@@ -92,12 +92,12 @@ public class Sun {
             for (int j = 0; j < Game.getMaxY(); j++) {
                 for (int k = 0; k < Game.getMaxZ(); k++) {
                     for (int s = 0; s < Game.getAsteroid(i,j,k).getSettlersOnAsteroid().size(); s++) {
-                        if (!Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).getHidden()) {
+                        if (!Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).getHidden() && Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).getAlive()) {
                             Game.getAsteroid(i,j,k).getSettlersOnAsteroid().get(s).die();
                         }
                     }
                     for (int r = 0; r <Game.getAsteroid(i,j,k).getRobotsOnAsteroid().size(); r++) {
-                        if (!Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).getHidden()) {
+                        if (!Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).getHidden() && Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).getAlive()) {
                             Game.getAsteroid(i,j,k).getRobotsOnAsteroid().get(r).die();
                         }
                     }

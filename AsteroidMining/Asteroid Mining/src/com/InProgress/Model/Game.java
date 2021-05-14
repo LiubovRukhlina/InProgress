@@ -53,7 +53,6 @@ public class Game implements Serializable {
         roundCounter = 0;
         numberOfAsteroids = x*y*z;
         numberOfGates = 0;
-        winLoose = false; // no winner yet
 
         sun = new Sun();
         robots = new ArrayList<>();
@@ -74,7 +73,7 @@ public class Game implements Serializable {
     public static void nextRound() {
 
         roundCounter++;
-        System.out.println("roundcounter:"+ roundCounter);
+        System.out.println("roundcounter:"+ roundCounter); // Internal output to keep track of the game changes during development
         sun.decreaseCountdown();
 
         if(sun.getCountdownOfSunStorm() == 0) { // checks if sunstorm occurs in this round
@@ -101,8 +100,10 @@ public class Game implements Serializable {
                 isThereStillSomeone = true; // if at least one Player remains in the Game
             }
         }
-        if(!isThereStillSomeone) {
-            Game.endGame(false);
+        if(!isThereStillSomeone) { // no active Players. game ends unsuccessful
+            winLoose = false;
+            Game.endGame(winLoose);
+            return;
         }
         if(!currentPlayer.getPlaying()) { // if the currentPlayer died during the previous actions we assign a new one
             currentPlayer = currentPlayer.getNextPlayer();
@@ -181,9 +182,19 @@ public class Game implements Serializable {
      */
     public static void controllerExternal(int index, ArrayList<String> input) {
 
-        if(index != 0) {
+        if(index != 0) { // Internal output to keep track of the game changes during development
             System.out.println("CurrentPlayer: Player " + currentPlayer.getPlayerID());
             System.out.println("Player " + activeSettler.getPlayerID() + " is playing with " + activeSettler.getName());
+        }
+
+        if(index != 0) { // For the first set up this is skipped.
+            if( getNumberOfSettlers() == 0) { // Game over
+                infobox("The game is over.\nAll Settlers are dead!", "Game Over");
+                return;
+            } else if (!activeSettler.getAlive() && getNumberOfSettlers() != 0 && (index != 12 && index != 11)) { // A dead settler cannot perfom any action besides switching the settler or ending the turn.
+                infobox("This Settler is dead.\nChoose a different one!", "Dead Settler");
+                return;
+            }
         }
 
         int returnValue;
@@ -336,6 +347,8 @@ public class Game implements Serializable {
                 }
                 else {
                     infobox("You do not have enough Resources.", "Build Error");
+                    gameWindow = new GameWindow();
+                    gameWindow.initialize();
                 }
             }
             break;
@@ -360,7 +373,12 @@ public class Game implements Serializable {
             case 12: { // change settler
                 for (Settler s : currentPlayer.getSettlers() ) {
                     if(s.getName().equals(input.get(0))) {
-                        activeSettler = s;
+                        if(s.getAlive()) {
+                            activeSettler = s;
+                        }
+                        else {
+                            infobox("This Settler is dead.\nChoose a different one!", "Dead Settler");
+                        }
                     }
                 }
             }
@@ -381,6 +399,13 @@ public class Game implements Serializable {
                 throw new IllegalStateException("Unexpected value: " + index);
         }
 
+        if(!winLoose) { // In case the game was lost during the last action, the game window has to be disposed.
+            gameWindow.setVisible(false);
+            gameWindow.dispose();
+            return;
+        }
+
+        // Internal output to keep track of the game changes during development
         System.out.println("Player: " +currentPlayer.getPlayerID() + " Remaining Actions: " + currentPlayer.getNumberOfMoves());
         if(currentPlayer.getNumberOfMoves() == 0) { // ends turn if user has no moves left
             System.out.println("Player: " +currentPlayer.getPlayerID() + "'s turn ended.");
@@ -390,13 +415,19 @@ public class Game implements Serializable {
 
     /**
      * Ends the game.
-     * Decides whether it was successful or not
+     * Decides whether it was successful or not.
      */
     public static void endGame(boolean flag) {
-        if(flag)
-            GameWindow.infobox("Detim imim finyish du wa ting, im ye fo sémpere.","Beltalowda");
-        else
-            GameWindow.infobox("Setara imalowda mogut nawit milowda.","Inyalowda ");
+        if(flag) { // the game was successful
+            GameWindow.infobox("Detim imim finyish du wa ting, im ye fo sémpere.", "Beltalowda");
+        }
+        else { // game was not successful
+            gameWindow.setVisible(false);
+            gameWindow.dispose();
+            GameWindow.infobox("Setara imalowda mogut nawit milowda.", "Inyalowda ");
+            StartWindow startWindow = new StartWindow();
+            startWindow.initialize();
+        }
     }
 
     /**

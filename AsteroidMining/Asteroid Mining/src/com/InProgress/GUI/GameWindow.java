@@ -6,6 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * GUI class. This is the start window. It is the main window of the game.
+ * It displays the current Asteroid and shows informations about it and the asteroid belt.
+ * The user starts all of his actions from here by clicking the action buttons.
+ * The user input is forwarded to the controllerExternal method in the Game class to update the game.
+ * @author InProgress
+ */
 public class GameWindow extends javax.swing.JFrame {
     public static String resource;
 
@@ -662,8 +669,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
     }
 
     /**
@@ -679,8 +686,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
     }
 
     /**
@@ -696,8 +703,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+       Game.gameWindow.initialize();
     }
 
     /**
@@ -723,8 +730,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
     }
 
     /**
@@ -750,8 +757,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
     }
 
     /**
@@ -769,8 +776,8 @@ public class GameWindow extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        Game.gameWindow = new GameWindow();
+        Game.gameWindow.initialize();
     }
 
     /**
